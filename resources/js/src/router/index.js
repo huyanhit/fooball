@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAppStore } from '@/stores/index';
-import appSetting from '@/app-setting';
 
 import HomeView from '../views/index.vue';
 import Login from '../views/login.vue'
@@ -24,18 +23,13 @@ const router = createRouter({
         }
     },
 });
-
 router.beforeEach((to, from, next) => {
     const store = useAppStore();
-
     if (to?.meta?.layout - 'auth') {
         store.setMainLayout('auth');
     } else {
         store.setMainLayout('app');
     }
     next(true);
-});
-router.afterEach((to, from, next) => {
-    appSetting.changeAnimation();
 });
 export default router;

@@ -51,7 +51,7 @@
 </template>
 <script setup>
     import {reactive, ref} from 'vue';
-    import {callApi} from "@/composables/use-api";
+    import apiService from "@/composables/use-api";
     import router from "@/router";
     import { required, email } from '@vuelidate/validators'
     import useVuelidate from "@vuelidate/core";
@@ -77,7 +77,7 @@
     const v$ = useVuelidate(data.login_rules, data.login);
     const loginApp = async function(e){
         if(await v$.value.$validate()){
-            callApi('login', 'POST', JSON.stringify(data.login)).then(response=>{
+            apiService.callApi('login', 'POST', JSON.stringify(data.login)).then(response=>{
                 if(response.status === 1){
                     data.error = '';
                     localStorage.setItem('auth', JSON.stringify(response.data));

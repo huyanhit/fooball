@@ -49,5 +49,4 @@ import Popper from 'vue3-popper';
 
 app.component('Popper', Popper);
 
-
 app.mount('#app');

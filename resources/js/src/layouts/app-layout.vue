@@ -1,19 +1,11 @@
 <template>
     <!--  BEGIN MAIN CONTAINER  -->
-    <div class="main-content flex flex-col min-h-screen">
-        <!--  BEGIN TOP NAVBAR  -->
+    <div class="flex flex-col">
         <Header />
-        <!--  END TOP NAVBAR  -->
-
-        <!--  BEGIN CONTENT AREA  -->
         <div class="content">
             <router-view></router-view>
         </div>
-        <!--  END CONTENT AREA  -->
-
-        <!-- BEGIN FOOTER -->
         <Footer />
-        <!-- END FOOTER -->
     </div>
 </template>
 <script setup>

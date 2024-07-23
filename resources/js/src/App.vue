@@ -14,12 +14,10 @@
 
     import { useAppStore } from '@/stores/index';
     import { useMeta } from '@/composables/use-meta';
-
     const store = useAppStore();
 
     // meta
-    useMeta({ title: 'Sales Admin' });
-
+    useMeta({ title: 'Fooball' });
     const mainLayout = computed(() => {
         return store.mainLayout === 'auth' ? authLayout : appLayout;
     });

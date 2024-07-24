@@ -42,12 +42,12 @@ export default {
         return axios.get(URL + api, {
             headers: this.authHeader()
         })
-            .then(res => {
-                return res.data;
-            })
-            .catch(err => {
-                return {status: 0, message:err.message, data:null};
-            });
+        .then(res => {
+            return res.data;
+        })
+        .catch(err => {
+            return {status: 0, message:err.message, data:null};
+        });
     },
 
     delete(api, param) {
@@ -103,12 +103,14 @@ export default {
 
     joinParamToUrl(api, params) {
         let string = api;
+        let i = 0;
         if(params !== undefined){
             for(let index in params){
-                string += '/' + params[index];
+                string += (i > 0)?'&':'?' + index + '=' + params[index];
+
+                i++;
             }
         }
-
         return string;
     }
 }

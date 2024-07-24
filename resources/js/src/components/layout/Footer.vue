@@ -1,5 +1,16 @@
 <template>
-    <div class="dark:text-white-dark text-center ltr:sm:text-left rtl:sm:text-right p-6 mt-auto">
-        © {{ new Date().getFullYear() }}
-    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    2024 © Velzon.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Design &amp; Develop by Themesbrand
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </template>

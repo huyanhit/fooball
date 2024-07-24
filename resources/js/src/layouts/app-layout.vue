@@ -3,9 +3,11 @@
     <div class="flex flex-col">
         <Header />
         <div class="content">
-            <router-view></router-view>
+            <div class="main-content">
+                <router-view></router-view>
+                <Footer />
+            </div>
         </div>
-        <Footer />
     </div>
 </template>
 <script setup>

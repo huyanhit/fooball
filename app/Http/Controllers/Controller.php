@@ -22,8 +22,16 @@ class Controller extends BaseController {
     const API_CHANEL = 'sport/football/';
     const API_DOMAIN = 'http://api.isportsapi.com/';
 
-    public function getJsonAPI($path)
+    public function getJsonAPI($path, $params = [])
     {
-        return json_decode(file_get_contents(self::API_DOMAIN .self::API_CHANEL. $path . self::API_KEY), true);
+        $paramStr = '';
+
+        if(!empty($params)) {
+            foreach ($params as $key => $val) {
+                $paramStr .= '&' . $key . '=' . $val;
+            }
+        }
+
+        return json_decode(file_get_contents(self::API_DOMAIN .self::API_CHANEL. $path . self::API_KEY . $paramStr), true);
     }
 }

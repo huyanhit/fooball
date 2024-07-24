@@ -568,6 +568,6 @@
 import {onMounted} from "vue";
 import apiService from "@/composables/use-api";
 onMounted(async () => {
-    const response = await apiService.callApi({method:'get', url:'/sport/football/livescores?api_key=mVOt8RqlCmJiaHo7'} );
+    const response = await apiService.callApi({method:'get', url:'country'} );
 })
 </script>

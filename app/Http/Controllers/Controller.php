@@ -13,24 +13,17 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use function Laravel\Prompts\select;
 
-class Controller extends BaseController{
+class Controller extends BaseController {
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    const API_KEY = '?api_key=mVOt8RqlCmJiaHo7';
+    const API_CHANEL = 'sport/football/';
+    const API_DOMAIN = 'http://api.isportsapi.com/';
 
-    const RESPONSE_SUCCESS    = 1;
-    const RESPONSE_ERROR      = 0;
-    const PROCESS_ERROR_CODE  = 2;
-
-    const AUTH_ERROR_CODE     = 401;
-    const FORBIDDEN_CODE      = 403;
-
-    public function responseSuccess($data): JsonResponse{
-        return response()->json(['status'=> self::RESPONSE_SUCCESS, 'data' => $data]);
-    }
-    public function responseAuth($data): JsonResponse{
-        return response()->json(['status'=> self::RESPONSE_ERROR, 'data' => $data], self::AUTH_ERROR_CODE);
-    }
-    public function responseError($data, $code = self::PROCESS_ERROR_CODE): JsonResponse{
-        return response()->json(['status'=> self::RESPONSE_ERROR, 'data' => $data, 'code' => $code], self::FORBIDDEN_CODE);
+    public function getJsonAPI($path)
+    {
+        return json_decode(file_get_contents(self::API_DOMAIN .self::API_CHANEL. $path . self::API_KEY), true);
     }
 }

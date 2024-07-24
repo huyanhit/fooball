@@ -1,5 +1,5 @@
 import axios  from 'axios';
-const URL= "http://api.isportsapi.com";
+const URL= "http://tasks.local/api/";
 
 export default {
     authHeader() {

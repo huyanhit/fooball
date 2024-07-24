@@ -1,5 +1,5 @@
 <template>
-        <div class="page-content">
+   <div class="page-content">
             <b-overlay :show="data.overlay">
                 <table class="table table-striped text-center border border-1">
                     <thead>

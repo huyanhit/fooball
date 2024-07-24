@@ -13,13 +13,13 @@ class LeagueController extends Controller
      */
     public function index()
     {
-        $leaguesData = League::get();
+        $leaguesData = League::paginate();
         if($leaguesData->isEmpty()){
             $leagues = $this->getJsonAPI('league/basic');
             if(!empty($leagues['data'])){
                 League::upsert($leagues['data'], uniqueBy: ['leagueId'],
                     update: ['name', 'shortName', 'type', 'subLeagueName']);
-                    return League::get();
+                    return League::paginate();
             } else {
                 return $leagues;
             }

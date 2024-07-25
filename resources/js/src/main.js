@@ -8,10 +8,12 @@ import router from '@/router';
 import i18n from '@/i18n';
 
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
+import '@/assets/css/tailwind.css';
 import '@/assets/css/bootstrap.min.css';
 import '@/assets/css/app.min.css';
 import '@/assets/css/icons.min.css';
 import '@/assets/css/custom.min.css';
+import '@/assets/css/app.css';
 
 import '@/assets/libs/simplebar/simplebar.min.js';
 import '@/assets/libs/feather-icons/feather.min.js';

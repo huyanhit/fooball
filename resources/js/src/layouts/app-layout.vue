@@ -1,13 +1,11 @@
 <template>
     <!--  BEGIN MAIN CONTAINER  -->
-    <div class="flex flex-col">
+    <div class="container flex-col">
         <Header />
         <div class="content">
-            <div class="main-content">
-                <router-view></router-view>
-                <Footer />
-            </div>
+            <router-view></router-view>
         </div>
+        <Footer/>
     </div>
 </template>
 <script setup>

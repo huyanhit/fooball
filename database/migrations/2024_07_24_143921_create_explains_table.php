@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('explains', function (Blueprint $table) {
             $table->id();
-            $table->integer('explainId')->unique();
+            $table->string('matchId')->unique();
             $table->integer('kickOff')->nullable();
             $table->integer('minute')->nullable();
             $table->integer('homeScore')->nullable();

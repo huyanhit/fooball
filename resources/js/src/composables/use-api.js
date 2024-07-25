@@ -1,15 +1,16 @@
 import axios  from 'axios';
-const URL= "https://toyota-hanoi.net/api/";
-
+import { useCookies } from 'vue3-cookies';
+const URL= "http://tasks.local/api/";
+const cookie = useCookies({expire:'7d'}).cookies;
 export default {
     authHeader() {
-        //const token = useCookies({expire:'7d'}).cookies.get('access_token')
+        const token = cookie.get('access_token')
         const headers = {
             Accept: 'application/json'
         };
-        // if (token) {
-        //     headers.Authorization = 'Bearer ' + token;
-        // }
+        if (token) {
+            headers.Authorization = 'Bearer ' + token;
+        }
         return headers;
     },
     callApi(data){

@@ -1,16 +1,16 @@
 <template>
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    2024 © Velzon.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Design &amp; Develop by Themesbrand
-                    </div>
+    <footer class="bg-white p-3">
+        <div class="row">
+            <div class="col-sm-6">
+                2024 © Velzon.
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end d-none d-sm-block">
+                    Design &amp; Develop by Themesbrand
                 </div>
             </div>
         </div>
     </footer>
 </template>
+<script setup>
+</script>

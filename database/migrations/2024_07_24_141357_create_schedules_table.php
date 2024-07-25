@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->integer('matchId')->unique();
+            $table->string('matchId')->unique();
             $table->string('type')->nullable();
             $table->bigInteger('matchTime')->nullable();
             $table->bigInteger('modifyTime')->nullable();

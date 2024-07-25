@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bookmakers', function (Blueprint $table) {
             $table->id();
-            $table->integer('companyIdEu')->unique();
+            $table->string('companyIdEu')->unique();
             $table->string('companyName');
             $table->integer('companyIdMain')->nullable();
             $table->timestamps();

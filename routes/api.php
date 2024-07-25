@@ -29,7 +29,7 @@ Route::resource('/league', LeagueController::class);
 Route::resource('/bookmaker', BookmakerController::class);
 Route::resource('/schedule', ScheduleController::class);
 Route::resource('/result', ResultController::class);
-// Route::resource('/live-score', LiveScoreController::class);
+Route::resource('/livescore', LiveScoreController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');

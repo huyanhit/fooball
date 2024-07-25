@@ -1,29 +1,29 @@
 <template>
     <b-overlay :show="data.overlay">
         <b-card title="Lịch đấu hôm nay">
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between" v-for="item in store.livescore.data">
-                <span>
-                    {{  moment.unix(item.matchTime).format('h:mm:ss') }}
-                </span>
-                    <span class="d-flex justify-content-between">
-                    <span class="uppercase fs-12"> {{ item.homeName }} </span>
-                    <span>
-                        <span class="mx-1 bg-yellow-500 p-0.5 text-white">{{ item.homeYellow }}</span>
-                        <span class="mx-1 bg-red-500 p-0.5 text-white">{{ item.homeRed }}</span>
-                        <span class="mx-1 fw-bold fs-18">{{ item.homeScore }}</span>
-                            <span class="text-danger"> vs </span>
-                        <span class="mx-1 fw-bold fs-20">{{ item.awayScore }}</span>
-                        <span class="mx-1 bg-red-500 p-0.5 text-white">{{ item.awayRed }}</span>
-                        <span class="mx-1 bg-yellow-500 p-0.5 text-white">{{ item.awayYellow }}</span>
-                    </span>
-                    <span class="uppercase fs-12"> {{ item.awayName }} </span>
-                </span>
-                    <span>
-                    <span> vòng: {{ item.season}}</span>
-                </span>
-                </li>
-            </ul>
+            <table class="table table-nowrap">
+                <tr v-for="item in store.livescore.data" class="text-center">
+                    <td>
+                        {{  moment.unix(item.matchTime).format('h:mm:ss') }}
+                    </td>
+                    <td class="uppercase fs-13"> {{ item.homeName }} </td>
+                    <td class="d-flex justify-content-between">
+                        <span>
+                            <span class="mx-1 bg-yellow-500 px-0.5 fs-12 text-white">{{ item.homeYellow }}</span>
+                            <span class="mx-1 bg-red-500 px-0.5 fs-12 text-white">{{ item.homeRed }}</span>
+                            <span class="m-2 fw-bold">{{ item.homeScore }}</span>
+                                <span class="text-danger"> vs </span>
+                            <span class="m-2 fw-bold">{{ item.awayScore }}</span>
+                            <span class="mx-1 bg-red-500 px-0.5 fs-12 text-white">{{ item.awayRed }}</span>
+                            <span class="mx-1 bg-yellow-500 px-0.5 fs-12 text-white">{{ item.awayYellow }}</span>
+                        </span>
+                    </td>
+                    <td class="uppercase fs-13"> {{ item.awayName }} </td>
+                    <td>
+                        <span> vòng: {{ item.season}}</span>
+                    </td>
+                </tr>
+            </table>
             <b-pagination
                 :total-rows="store.schedule.total"
                 :per-page="store.schedule.per_page"

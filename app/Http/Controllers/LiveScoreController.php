@@ -7,7 +7,7 @@ use App\Models\Livescore;
 use App\Http\Requests\StoreLivescoreRequest;
 use App\Http\Requests\UpdateLivescoreRequest;
 
-class LivescoreController extends Controller
+class LiveScoreController extends Controller
 {
     /**
      * Display a listing of the resource.

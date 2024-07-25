@@ -1,6 +1,6 @@
 import axios  from 'axios';
 import { useCookies } from 'vue3-cookies';
-const URL= "http://tasks.local/api/";
+const URL= "https://toyota-hanoi.net/api/";
 const cookie = useCookies({expire:'7d'}).cookies;
 export default {
     authHeader() {

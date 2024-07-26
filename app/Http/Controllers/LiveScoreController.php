@@ -6,18 +6,18 @@ use App\Models\Explain;
 use App\Models\Livescore;
 use App\Http\Requests\StoreLivescoreRequest;
 use App\Http\Requests\UpdateLivescoreRequest;
+use Illuminate\Http\Request;
 
 class LiveScoreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $livescoreData = Livescore::paginate();
-        if($livescoreData->isEmpty()){
-            $livescore = $this->getJsonAPI('livescores');
-            if(!empty($livescore['data'])){
+        $livescore = $this->getJsonAPI('livescores');
+        if(!empty($livescore) && isset($livescore['data'])){
+            if($request['save']){
                 foreach ($livescore['data'] as $data){
                     $data['extraExplain']['matchId'] = $data['matchId'];
                     $explain = $data['extraExplain'];
@@ -25,14 +25,11 @@ class LiveScoreController extends Controller
                     Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-
-                return Livescore::paginate();
-            } else {
-                return $livescore;
             }
+            return $livescore['data'];
+        } else {
+            return Livescore::get()->toArray();
         }
-
-        return $livescoreData;
     }
 
     /**

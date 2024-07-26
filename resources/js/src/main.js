@@ -3,6 +3,7 @@ import {createPinia} from 'pinia';
 import {createHead} from '@vueuse/head';
 import {createBootstrap} from 'bootstrap-vue-next'
 
+import 'simplebar';
 import App from '@/App.vue';
 import router from '@/router';
 import i18n from '@/i18n';
@@ -14,8 +15,8 @@ import '@/assets/css/app.min.css';
 import '@/assets/css/icons.min.css';
 import '@/assets/css/custom.min.css';
 import '@/assets/css/app.css';
+import 'simplebar/dist/simplebar.css'
 
-import '@/assets/libs/simplebar/simplebar.min.js';
 import '@/assets/libs/feather-icons/feather.min.js';
 import '@/assets/js/pages/plugins/lord-icon-2.1.0.js';
 

@@ -26,7 +26,10 @@
                     </tr>
                     <tr class="text-center h-[40px]">
                         <td>
-                            <div class="small w-50px" v-if="item.matchTime">{{  moment.unix(item.matchTime).format('h:mm:ss') }}</div>
+                            <div class="d-flex flex-column small w-50px" v-if="item.matchTime">
+                                <span>{{moment.unix(item.matchTime).format('h:mm:ss')}}</span>
+                                <span v-html="statusParse(item.status)"></span>
+                            </div>
                         </td>
                         <td class="uppercase fs-12 max-w-[150px] text-truncate"> {{ item.homeName }} </td>
                         <td class="text-center">
@@ -73,11 +76,29 @@ onMounted(async () => {
     await loadPage();
 })
 
+const statusParse = function (status){
+    switch (status) {
+        case 0: return '<span class="text-black"> Not started </span>';
+        case 1: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> First half </span>';
+        case 2: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Half-time </span>';
+        case 3: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Second half </span>';
+        case 4: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Extra time </span>';
+        case 5: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Penalty </span>';
+        case -1: return '<span class="text-black"> Finished </span>';
+        case -10: return '<span class="text-black"> Cancelled </span>';
+        case -11: return '<span class="text-black"> TBD </span>';
+        case -12: return '<span class="text-black"> Terminated </span>';
+        case -13: return '<span class="text-black"> Interrupted </span>';
+        case -14: return '<span class="text-black"> Postponed </span>';
+    }
+}
+
 const loadPage = async function () {
     setInterval(async () => {
         await store.getLiveScore();
-    }, 30*60*1000); //30 phút lấy 1 lần
+    }, 30*1000); //30 giây lấy 1 lần
 }
+
 const liveScoreFilter = computed(()=>{
     return store.livescore.filter((item) => {
         return item.homeName.includes(data.keyword) || item.awayName.includes(data.keyword)

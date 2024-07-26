@@ -96,12 +96,13 @@ const statusParse = function (status){
 const loadPage = async function () {
     setInterval(async () => {
         await store.getLiveScore();
-    }, 30*1000); //30 giây lấy 1 lần
+    }, 30*60*1000); //30 phút lấy 1 lần
 }
 
 const liveScoreFilter = computed(()=>{
     return store.livescore.filter((item) => {
-        return item.homeName.includes(data.keyword) || item.awayName.includes(data.keyword)
+        return item.homeName.toLowerCase().includes(data.keyword.toLowerCase())
+            || item.awayName.toLowerCase().includes(data.keyword.toLowerCase())
     })
     .sort((a,b)=>{
         return a[data.sortBy] - b[data.sortBy]

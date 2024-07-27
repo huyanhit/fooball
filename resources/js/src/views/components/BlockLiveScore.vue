@@ -206,7 +206,7 @@ const changeStatus = function (status){
 const checkScroll = function (e){
     let obj = e.target;
     if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
-        let length    = Math.floor(liveScoreFilter.value.length / 1000);
+        let length = Math.floor(liveScoreFilter.value.length / 100);
         if(data.pageShow < length ){
             data.pageShow = (data.pageShow + 1);
             obj.scrollTop = 1
@@ -264,10 +264,10 @@ onMounted(()=>{
     left: 7px !important;
 }
 .multiselect-dropdown.is-hidden {
-    overflow: unset;
+    overflow: unset!important;
 }
 .multiselect-option {
-    font-size: 12px;
-    text-transform: uppercase;
+    font-size: 12px!important;
+    text-transform: uppercase!important;
 }
 </style>

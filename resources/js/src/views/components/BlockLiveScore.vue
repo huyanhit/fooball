@@ -77,9 +77,17 @@
                                 </b-button>
                             </td>
                             <td>
-                                <div class="d-flex flex-column w-50px fs-11" v-if="item.matchTime">
-                                    <span>{{moment.unix(item.matchTime).format('h:mm:ss')}}</span>
-                                    <span v-html="statusParse(item.status)"></span>
+                                <div class="d-flex flex-column w-50px fs-11">
+                                    <span v-if="[1].includes(item.status)">
+                                        {{liveFirstTime(item)}}
+                                    </span>
+                                    <span v-else-if="[3].includes(item.status)">
+                                        {{liveHaftTime(item)}}
+                                    </span>
+                                    <span v-else>
+                                        {{moment.unix(item.updateTime).format('LT')}}
+                                    </span>
+                                    <span class="lowercase" v-html="statusParse(item.status)"></span>
                                 </div>
                             </td>
                             <td>
@@ -149,6 +157,35 @@ onMounted(async () => {
     store.getLiveScore();
     await loadPage();
 })
+
+const liveFirstTime = function (item) {
+    let ms = 0
+    if(item.halfStartTime){
+        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.halfStartTime).valueOf()
+    } else {
+        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.matchTime).valueOf()
+    }
+    let seconds = (ms / 1000).toFixed(1);
+    let minutes = (ms / (1000 * 60)).toFixed(1);
+    if (seconds < 60) return seconds + " s";
+    else if (minutes <= 45) return parseInt(minutes) + " '";
+    else if (minutes > 45) return '90 +(' + (parseInt(minutes) - 45) + ')';
+}
+
+const liveHaftTime = function (item) {
+    let ms = 0;
+    if(item.halfStartTime){
+        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.halfStartTime).valueOf()
+    } else {
+        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.matchTime).valueOf() - (1000 * 60)
+    }
+
+    let seconds = (ms / 1000).toFixed(1);
+    let minutes = (ms / (1000 * 60)).toFixed(1);
+    if (seconds < 60) return seconds + " s";
+    else if (minutes <= 45) return parseInt(minutes) + " '";
+    else if (minutes > 45) return '90 +(' + (parseInt(minutes) - 45) + ')';
+}
 
 const statusParse = function (status){
     switch (status) {

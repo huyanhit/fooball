@@ -14,7 +14,7 @@ class BookmakerController extends Controller
      */
     public function index(Request $request)
     {
-        if($request['save']){
+        if($this->checkSaveRequest($request['save'], new Bookmaker())){
             $bookmakers = $this->getJsonAPI('bookmaker');
             if(isset($leagues['data'])){
                 Bookmaker::upsert($bookmakers['data'], uniqueBy: ['companyIdMain'],

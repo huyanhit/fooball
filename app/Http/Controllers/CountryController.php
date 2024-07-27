@@ -14,7 +14,7 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        if($request['save']){
+        if($this->checkSaveRequest($request['save'], new Country())){
             $countries = $this->getJsonAPI('country');
             if(isset($leagues['data'])){
                 Country::upsert($countries['data'], uniqueBy: ['countryId'], update: ['country']);

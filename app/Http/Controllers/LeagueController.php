@@ -14,7 +14,7 @@ class LeagueController extends Controller
      */
     public function index(Request $request)
     {
-        if($request['save']){
+        if($this->checkSaveRequest($request['save'], new League())){
             $leagues = $this->getJsonAPI('league/basic');
             if(isset($leagues['data'])){
                 League::upsert($leagues['data'], uniqueBy: ['leagueId'],

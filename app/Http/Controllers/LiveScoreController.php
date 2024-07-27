@@ -15,7 +15,7 @@ class LiveScoreController extends Controller
      */
     public function index(Request $request)
     {
-        if($request['save'] || $request['live']){
+        if($this->checkSaveRequest($request['save'], new Livescore()) || $request['live']){
             $liveScore = $this->getJsonAPI('livescores');
             if(isset($liveScore['data'])){
                 if($request['save']){

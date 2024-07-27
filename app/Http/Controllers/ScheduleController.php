@@ -13,7 +13,7 @@ class ScheduleController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request){
-        if($request['save']){
+        if($this->checkSaveRequest($request['save'], new Schedule())){
             $schedules = $this->getJsonAPI('schedule/modify');
             if(isset($schedules['data'])){
                 Schedule::upsert($schedules['data'], uniqueBy: ['matchId'],

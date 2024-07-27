@@ -14,7 +14,7 @@ import '@/assets/css/bootstrap.min.css';
 import '@/assets/css/app.min.css';
 import '@/assets/css/icons.min.css';
 import '@/assets/css/custom.min.css';
-import '@/assets/css/app.css';
+import '@vueform/multiselect/themes/default.css';
 import 'simplebar/dist/simplebar.css'
 
 import '@/assets/libs/feather-icons/feather.min.js';

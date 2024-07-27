@@ -1,78 +1,126 @@
 <template>
     <b-overlay :show="data.overlay">
         <b-card title="Lịch đấu hôm nay" class="text-center">
-            <div class="position-relative mb-2">
-                <input type="text" class="form-control" v-model="data.keyword"
-                       placeholder="Lọc theo tên đội bóng" autocomplete="off" id="search-options" value="">
+            <div class="d-flex position-relative mb-2">
+                <div class="flex-fill me-2">
+                    <input type="text" class="form-control" v-model="data.keyword"
+                           placeholder="Lọc theo tên đội bóng" autocomplete="off" id="search-options" value="">
+                </div>
+                <span class="flex-shrink-1 badge border border-primary text-primary p-2">Tìm thấy {{liveScoreFilter.length}} trận</span>
             </div>
-            <div class="h-[calc(100vh-300px)] overflow-auto" data-simplebar>
-                <table class="table table-nowrap relative">
-                    <tr class="text-center uppercase h-[40px] bg-success text-white">
-                        <th>
-                            time
-                        </th>
-                        <th>home</th>
-                        <th>
-                            score
-                        </th>
+            <div class="h-[calc(100vh-300px)] overflow-auto" id="simple-bar" @scroll="checkScroll">
+                <table class="relative">
+                    <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
+                        <th> <div @click="data.likes = []"><i class="ri ri-delete-bin-2-line"/></div></th>
+                        <th> time </th>
+                        <td> </td>
+                        <th> home </th>
+                        <th> score </th>
                         <th> away </th>
-                        <th>
-                            round
-                        </th>
-                    </tr>
-                    <template v-for="(item, index) in liveScoreFilter" class="text-center h-[40px]" :key="index">
-                    <tr class="text-left bg-success-light" v-if="!liveScoreFilter[index - 1] || (item.leagueId !== liveScoreFilter[index - 1].leagueId)">
-                        <td colspan="5" class="h-[40px] px-2 fw-bold" v-if="store.league[item.leagueId]"> {{store.league[item.leagueId].name}}</td>
-                    </tr>
-                    <tr class="text-center h-[40px]">
+                        <th> <i class="ri-flag-2-fill"></i> </th>
+                        <th> FT </th>
+                        <th> Data </th>
                         <td>
-                            <div class="d-flex flex-column small w-50px" v-if="item.matchTime">
-                                <span>{{moment.unix(item.matchTime).format('h:mm:ss')}}</span>
-                                <span v-html="statusParse(item.status)"></span>
+                            <div class="fs-11 lowercase text-black bookmaker">
+                                <multiselect
+                                    v-model="data.bookmaker"
+                                    :can-clear="false"
+                                    :caret="false"
+                                    :options="data.bookmakers" />
                             </div>
                         </td>
-                        <td class="uppercase fs-12 max-w-[150px] text-truncate"> {{ item.homeName }} </td>
-                        <td class="text-center">
-                        <span class="">
-                            <span class="mx-1 bg-yellow-500 px-0.5 fs-12 text-white inline-block">{{ item.homeYellow }}</span>
-                            <span class="mx-1 bg-red-500 px-0.5 fs-12 text-white inline-block">{{ item.homeRed }}</span>
-                            <span class="mx-2 fw-bold fs-14">{{ item.homeScore }}</span>
-                                <span class="text-danger"> vs </span>
-                            <span class="mx-2 fw-bold fs-14">{{ item.awayScore }}</span>
-                            <span class="mx-1 bg-red-500 px-0.5 fs-12 text-white inline-block">{{ item.awayRed }}</span>
-                            <span class="mx-1 bg-yellow-500 px-0.5 fs-12 text-white inline-block">{{ item.awayYellow }}</span>
-                        </span>
-                        </td>
-                        <td class="uppercase fs-12 max-w-[150px] text-truncate"> {{ item.awayName }} </td>
-                        <td>
-                            <div class="small w-50px">{{ item.season}}</div>
-                        </td>
                     </tr>
+                    <template v-for="(item, index) in liveScoreFilter" class="text-center h-[40px]"
+                        :key="index">
+                        <template v-if="index > (data.pageShow * 100) && index < ((data.pageShow + 1) * 100)">
+                        <tr class="text-left bg-success-light" v-if="!liveScoreFilter[index - 1] || (item.leagueId !== liveScoreFilter[index - 1].leagueId)">
+                            <td colspan="10" class="h-[30px] px-2 fw-bold" v-if="store.league[item.leagueId]"> {{store.league[item.leagueId].name}}</td>
+                        </tr>
+                        <tr class="text-center h-[30px]">
+                            <td>
+                                <b-button size="sm" class="btn-outline-light text-muted cursor-pointer" @click="setLike(item.id)">
+                                    <i class="ri ri-star-fill" :class="{'text-yellow-500': data.likes.includes(item.id)}"></i>
+                                </b-button>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column w-50px fs-11" v-if="item.matchTime">
+                                    <span>{{moment.unix(item.matchTime).format('h:mm:ss')}}</span>
+                                    <span v-html="statusParse(item.status)"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div ><i class="ri ri-movie-line"/></div>
+                            </td>
+                            <td>
+                                <div class="cursor-pointer uppercase fs-12 w-[100px] text-center inline-block" :title="item.homeName">
+                                    {{ item.homeName }}
+                                </div>
+                            </td>
+                            <td>
+                                <span>
+                                    <span class="badge text-body fs-16 relative top-1" >{{ item.homeScore }}</span>
+                                    <span class="badge rounded-pill border-dark text-body hover:bg-gray-400 cursor-pointer">1 tip</span>
+                                    <span class="badge text-body fs-16 relative top-1">{{ item.awayScore }}</span>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="cursor-pointer uppercase fs-12 w-[100px] text-center inline-block" :title="item.awayName">{{ item.awayName }}</div>
+                            </td>
+                            <td>
+                                <div class="fs-11">	6-3 </div>
+                            </td>
+                            <td>
+                                <div class="fs-11"> 2-0 </div>
+                            </td>
+                            <td>
+                                <div class="fs-11"> <i class="ri-flag-2-fill"></i></div>
+                            </td>
+                            <td>
+                                <table class="fs-11">
+                                    <tr class="px-1">
+                                        <td>0.85</td>
+                                        <td>0.85</td>
+                                        <td>0.85</td>
+                                    </tr>
+                                    <tr class="px-1">
+                                        <td>0.85</td>
+                                        <td>0.85</td>
+                                        <td>0.85</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </template>
                     </template>
                 </table>
             </div>
         </b-card>
     </b-overlay>
 </template>
-
-<style scoped>
-
-</style>
 <script setup>
 import {computed, onMounted, reactive} from "vue";
-import {BCard, BOverlay} from "bootstrap-vue-next";
+import {BButton, BCard, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
+import Multiselect from '@vueform/multiselect'
+import SimpleBar from 'simplebar'
 import moment from 'moment';
-
 const store = useAppStore();
 const data = reactive({
     overlay: false,
     keyword: '',
-    sortBy: 'leagueId',
+    sortBy: 'like',
+    likes: [],
+    bookmaker: 'Batman',
+    pageShow: 0,
+    bookmakers: [
+        'Batman',
+        'Robin',
+        'Joker',
+    ]
 })
 
 onMounted(async () => {
-    await store.getLiveScore();
+    await store.getLiveScore({save: 12 * 3600});
     await loadPage();
 })
 
@@ -92,20 +140,59 @@ const statusParse = function (status){
         case -14: return '<span class="text-black"> Postponed </span>';
     }
 }
+const setLike = function (id){
+    if(data.likes.includes(setLike)){
+        data.likes.splice(id, 1)
+    }else{
+        data.likes.push(id)
+    }
+}
+const checkScroll = function (e){
+    let obj = e.target;
+    if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
+        data.pageShow ++;
+        obj.scrollTop = 1
+    }if(obj.scrollTop === 0){
+        data.pageShow = data.pageShow > 0 ? data.pageShow-1 : 0;
+        obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
+    }
+}
 
 const loadPage = async function () {
     setInterval(async () => {
         await store.getLiveScore();
-    }, 500*1000); //10 s lấy 1 lần
+        store.livescore.sort((a,b)=>{
+            return a[data.sortBy] - b[data.sortBy]
+        })
+    }, 5*1000); //2 s lấy 1 lần
 }
 
 const liveScoreFilter = computed(()=>{
-    return store.livescore.filter((item) => {
+    let filters = store.livescore.filter((item) => {
         return item.homeName.toLowerCase().includes(data.keyword.toLowerCase())
             || item.awayName.toLowerCase().includes(data.keyword.toLowerCase())
     })
-    .sort((a,b)=>{
-        return a[data.sortBy] - b[data.sortBy]
-    });
+    let up   = filters.filter((item) => data.likes.includes(item.id))
+    let down = filters.filter((item) => !data.likes.includes(item.id))
+
+    return up.concat(down);
+})
+
+onMounted(()=>{
+    const simpleBar = new SimpleBar(document.getElementById('simple-bar'), { autoHide: false })
+    simpleBar.getScrollElement().addEventListener('scroll', checkScroll);
 })
 </script>
+<style>
+.table>:not(caption)>*>* {
+    border-bottom: none;
+}
+.bookmaker .multiselect-single-label {
+    padding-right: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.simplebar-scrollbar {
+    left: 7px;
+}
+</style>

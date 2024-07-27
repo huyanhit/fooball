@@ -193,6 +193,6 @@ onMounted(()=>{
     text-transform: uppercase;
 }
 .simplebar-scrollbar {
-    left: 7px;
+    left: 7px !important;
 }
 </style>

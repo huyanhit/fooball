@@ -8,7 +8,8 @@
                 </div>
                 <span class="flex-shrink-1 badge border border-primary text-primary p-2">Tìm thấy {{liveScoreFilter.length}} trận</span>
             </div>
-            <div class="h-[calc(100vh-300px)] overflow-auto" id="simple-bar" @scroll="checkScroll">
+            {{data.pageShow}}
+            <div class="h-[calc(100vh-300px)] overflow-auto" id="simple-bar">
                 <table class="relative">
                     <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
                         <th> <div @click="data.likes = []"><i class="ri ri-delete-bin-2-line"/></div></th>
@@ -150,11 +151,15 @@ const setLike = function (id){
 const checkScroll = function (e){
     let obj = e.target;
     if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
-        data.pageShow ++;
+        let length    = Math.floor(liveScoreFilter.value.length / 1000);
+        data.pageShow = data.pageShow < length ? (data.pageShow + 1): length;
         obj.scrollTop = 1
-    }if(obj.scrollTop === 0){
-        data.pageShow = data.pageShow > 0 ? data.pageShow-1 : 0;
-        obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
+    }
+    if(obj.scrollTop < 1 && data.pageShow > 0){
+        setTimeout(()=>{
+            obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
+        }, 100)
+        data.pageShow = data.pageShow > 0 ? (data.pageShow - 1) : 0;
     }
 }
 

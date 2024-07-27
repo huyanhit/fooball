@@ -17,16 +17,20 @@ export const useAppStore = defineStore('app', {
             this.mainLayout = payload;
         },
         async getLeague(params = null) {
-            this.league = await apiService.callApi({method: 'get', url: 'league', param:params});
+            const response = await apiService.callApi({method: 'get', url: 'league', param:params});
+            if(response.code === 0) this.league = response.data
         },
         async getLeagueProfile(params = null) {
-            this.league_profile = await apiService.callApi({method: 'get', url: 'league-profile', param:params});
+            const response = await apiService.callApi({method: 'get', url: 'league-profile', param:params});
+            if(response.code === 0) this.league_profile = response.data
         },
         async getSchedule(params = null) {
-            this.schedule = await apiService.callApi({method: 'get', url: 'schedule', param:params});
+            const response = await apiService.callApi({method: 'get', url: 'schedule', param:params});
+            if(response.code === 0) this.schedule = response.data
         },
         async getLiveScore(params = null) {
-            this.livescore = await apiService.callApi({method: 'get', url: 'live-score', param:params});
+            const response = await apiService.callApi({method: 'get', url: 'live-score', param:params});
+            if(response.code === 0) this.livescore = response.data
         }
     },
     getters: {

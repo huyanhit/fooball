@@ -96,7 +96,7 @@ const statusParse = function (status){
 const loadPage = async function () {
     setInterval(async () => {
         await store.getLiveScore();
-    }, 30*60*1000); //30 phút lấy 1 lần
+    }, 500*1000); //10 s lấy 1 lần
 }
 
 const liveScoreFilter = computed(()=>{

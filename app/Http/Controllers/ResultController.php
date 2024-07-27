@@ -6,33 +6,34 @@ use App\Models\Explain;
 use App\Models\Result;
 use App\Http\Requests\StoreResultRequest;
 use App\Http\Requests\UpdateResultRequest;
+use Illuminate\Http\Request;
 
 class ResultController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $resultsData = Result::paginate();
-        if($resultsData->isEmpty()){
-            $results = $this->getJsonAPI('schedule/basic', ['leagueId' => '1639']);
-            if(!empty($results['data'])){
-                foreach ($results['data'] as $data){
-                    $data['extraExplain']['matchId'] = $data['matchId'];
-                    $explain = $data['extraExplain'];
-                    unset($data['extraExplain']);
-                    Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
-                    Result::updateOrCreate(['matchId' => $data['matchId']], $data);
+        if($request['save'] || $request['live']){
+            $results = $this->getJsonAPI('schedule/basic', ['leagueId' => $request['leagueId']]);
+            if(isset($results['data'])){
+                if($request['save']){
+                    foreach ($results['data'] as $data){
+                        $data['extraExplain']['matchId'] = $data['matchId'];
+                        $explain = $data['extraExplain'];
+                        unset($data['extraExplain']);
+                        Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
+                        Result::updateOrCreate(['matchId' => $data['matchId']], $data);
+                    }
                 }
-
-                return Result::paginate();
-            } else {
-                return $results;
+                return response($results);
+            }else{
+                return response($results, 401);
             }
+        }else{
+            return response(['code'=> 0, 'data'=> Result::get()->toArray()]);
         }
-
-        return $resultsData;
     }
 
     /**

@@ -5,27 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Schedule;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
+use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $schedulesData = Schedule::paginate();
-        if($schedulesData->isEmpty()){
+    public function index(Request $request){
+        if($request['save']){
             $schedules = $this->getJsonAPI('schedule/modify');
-            if(!empty($schedules['data'])){
+            if(isset($schedules['data'])){
                 Schedule::upsert($schedules['data'], uniqueBy: ['matchId'],
                     update: ['type', 'matchTime', 'modifyTime']);
-                return Schedule::paginate();
+                $schedules['data'] = collect($schedules['data'])->keyBy('matchId');
+                return response($schedules);
             } else {
-                return $schedules;
+                return response($schedules, 401);
             }
+        }else{
+            return response(['code'=> 0, 'data'=> Schedule::get()->keyBy('matchId')]);
         }
-
-        return $schedulesData;
     }
 
     /**

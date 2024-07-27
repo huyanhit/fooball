@@ -5,27 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Bookmaker;
 use App\Http\Requests\StoreBookmakerRequest;
 use App\Http\Requests\UpdateBookmakerRequest;
+use Illuminate\Http\Request;
 
 class BookmakerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookmakersData = Bookmaker::paginate();
-        if($bookmakersData->isEmpty()){
+        if($request['save']){
             $bookmakers = $this->getJsonAPI('bookmaker');
-            if(!empty($bookmakers['data'])){
-                Bookmaker::upsert($bookmakers['data'], uniqueBy: ['companyIdEu'],
-                    update: ['companyName', 'companyIdMain']);
-                return Bookmaker::paginate();
+            if(isset($leagues['data'])){
+                Bookmaker::upsert($bookmakers['data'], uniqueBy: ['companyIdMain'],
+                    update: ['companyIdEu', 'companyName']);
+                return response($bookmakers);
             } else {
-                return $bookmakers;
+                return response($bookmakers, 401);
             }
+        }else{
+            return response(['code'=> 0, 'data'=> Bookmaker::get()->keyBy('companyIdMain')]);
         }
-
-        return $bookmakersData;
     }
 
     /**

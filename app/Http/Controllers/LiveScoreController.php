@@ -15,20 +15,24 @@ class LiveScoreController extends Controller
      */
     public function index(Request $request)
     {
-        $livescore = $this->getJsonAPI('livescores');
-        if(!empty($livescore) && isset($livescore['data'])){
-            if($request['save']){
-                foreach ($livescore['data'] as $data){
-                    $data['extraExplain']['matchId'] = $data['matchId'];
-                    $explain = $data['extraExplain'];
-                    unset($data['extraExplain']);
-                    Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
-                    Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
+        if($request['save'] || $request['live']){
+            $liveScore = $this->getJsonAPI('livescores');
+            if(isset($liveScore['data'])){
+                if($request['save']){
+                    foreach ($liveScore['data'] as $data){
+                        $data['extraExplain']['matchId'] = $data['matchId'];
+                        $explain = $data['extraExplain'];
+                        unset($data['extraExplain']);
+                        Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
+                        Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
+                    }
                 }
+                return response($liveScore);
+            }else{
+                return response($liveScore, 401);
             }
-            return $livescore['data'];
-        } else {
-            return Livescore::get()->toArray();
+        }else{
+            return response(['code'=> 0, 'data'=> Livescore::get()->toArray()]);
         }
     }
 
@@ -51,7 +55,7 @@ class LiveScoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Livescore $livescore)
+    public function show(Livescore $liveScore)
     {
         //
     }
@@ -59,7 +63,7 @@ class LiveScoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Livescore $livescore)
+    public function edit(Livescore $liveScore)
     {
         //
     }
@@ -67,7 +71,7 @@ class LiveScoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLivescoreRequest $request, Livescore $livescore)
+    public function update(UpdateLivescoreRequest $request, Livescore $liveScore)
     {
         //
     }
@@ -75,7 +79,7 @@ class LiveScoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Livescore $livescore)
+    public function destroy(Livescore $liveScore)
     {
         //
     }

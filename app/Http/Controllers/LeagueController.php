@@ -5,27 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\League;
 use App\Http\Requests\StoreLeagueRequest;
 use App\Http\Requests\UpdateLeagueRequest;
+use Illuminate\Http\Request;
 
 class LeagueController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $leaguesData = League::get();
-        if($leaguesData->isEmpty()){
+        if($request['save']){
             $leagues = $this->getJsonAPI('league/basic');
-            if(!empty($leagues['data'])){
+            if(isset($leagues['data'])){
                 League::upsert($leagues['data'], uniqueBy: ['leagueId'],
                     update: ['name', 'shortName', 'type', 'subLeagueName']);
-                return League::get()->keyBy('leagueId');
-            } else {
-                return collect($leagues)->keyBy('leagueId');
-            }
-        }
+                $leagues['data'] = collect($leagues['data'])->keyBy('leagueId');
 
-        return $leaguesData->keyBy('leagueId');
+                return response($leagues);
+            } else {
+                return response($leagues, 401);
+            }
+        }else{
+            return response(['code'=> 0, 'data'=> League::get()->keyBy('leagueId')]);
+        }
     }
 
     /**

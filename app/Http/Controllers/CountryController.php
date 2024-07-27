@@ -5,26 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
+use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $countriesData = Country::get();
-        if($countriesData->isEmpty()){
+        if($request['save']){
             $countries = $this->getJsonAPI('country');
-            if(!empty($countries['data'])){
+            if(isset($leagues['data'])){
                 Country::upsert($countries['data'], uniqueBy: ['countryId'], update: ['country']);
-                return Country::get();
+                return response($countries);
             } else {
-                return $countries;
+                return response($countries, 401);
             }
+        }else{
+            return response(['code'=> 0, 'data'=> Country::get()->keyBy('countryId')]);
         }
-
-        return $countriesData;
     }
 
     /**

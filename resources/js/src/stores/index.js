@@ -36,6 +36,10 @@ export const useAppStore = defineStore('app', {
         async getOdds(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds', param:params});
             if(response.code === 0) this.odd = response.data
+        },
+        async getBookmaker(params = null) {
+            const response = await apiService.callApi({method: 'get', url: 'bookmaker', param:params});
+            if(response.code === 0) this.bookmaker = response.data
         }
     },
     getters: {

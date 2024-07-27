@@ -56,13 +56,12 @@
                         <th> FT </th>
                         <th> Data </th>
                         <td>
-                            <div class="fs-11 lowercase text-black bookmaker">
-                                <multiselect
-                                    v-model="data.bookmaker"
-                                    :can-clear="false"
-                                    :caret="false"
-                                    :options="data.bookmakers" />
-                            </div>
+                            <BDropdown variant="light" size="sm" :text="data.bookmaker.companyName"
+                                       dropstart split class="bookmaker w-[80px]" >
+                                <BDropdownItem v-for="item in store.bookmaker" @click="data.bookmaker = item" >
+                                    <span v-if="item.companyIdMain > 0"> {{ item.companyName }}</span>
+                                </BDropdownItem>
+                            </BDropdown>
                         </td>
                     </tr>
                     <template v-for="(item, index) in liveScoreFilter" class="text-center h-[40px]"
@@ -87,20 +86,20 @@
                                 <div ><i class="ri ri-movie-line hover:text-red-500"/></div>
                             </td>
                             <td>
-                                <div class="cursor-pointer uppercase fs-12 w-[100px] text-center inline-block hover:text-blue-600"
+                                <div class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
                                      :title="item.homeName">
                                     {{ item.homeName }}
                                 </div>
                             </td>
                             <td>
                                 <span>
-                                    <span class="badge text-body fs-16" >{{ item.homeScore }}</span>
+                                    <span class="badge text-body fs-14" >{{ item.homeScore }}</span>
                                     <span class="badge rounded-pill border-dark text-body hover:bg-gray-200 cursor-pointer relative top-[-2px]">1 tip</span>
-                                    <span class="badge text-body fs-16">{{ item.awayScore }}</span>
+                                    <span class="badge text-body fs-14">{{ item.awayScore }}</span>
                                 </span>
                             </td>
                             <td>
-                                <div class="cursor-pointer uppercase fs-12 w-[100px] text-center inline-block hover:text-blue-600"
+                                <div class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
                                      :title="item.awayName">{{ item.awayName }}</div>
                             </td>
                             <td>
@@ -114,19 +113,8 @@
                             <td>
                                 <div class="fs-11 hover:text-red-500"> <i class="ri-flag-2-fill"></i></div>
                             </td>
-                            <td>
-                                <table class="fs-11">
-                                    <tr class="px-1">
-                                        <td><div class="fs-11 hover:text-blue-600"> 2-0 </div></td>
-                                        <td><div class="fs-11 hover:text-blue-600"> 2-0 </div></td>
-                                        <td><div class="fs-11 hover:text-blue-600"> 2-0 </div></td>
-                                    </tr>
-                                    <tr class="px-1">
-                                        <td><div class="fs-11 hover:text-blue-600"> 2-0 </div></td>
-                                        <td><div class="fs-11 hover:text-blue-600"> 2-0 </div></td>
-                                        <td><div class="fs-11 hover:text-blue-600"> 2-0 </div></td>
-                                    </tr>
-                                </table>
+                            <td v-if="store.odd">
+                                <LiveOdds :match="item"/>
                             </td>
                         </tr>
                         </template>
@@ -138,31 +126,27 @@
 </template>
 <script setup>
 import {computed, onMounted, reactive} from "vue";
-import {BButton, BCard, BOverlay} from "bootstrap-vue-next";
+import {BButton, BCard, BDropdown, BDropdownItem, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
-import Multiselect from '@vueform/multiselect'
 import SimpleBar from 'simplebar'
 import moment from 'moment';
+import LiveOdds from "@/views/components/patials/LiveOdds.vue";
 const store = useAppStore();
 const data = reactive({
     overlay: false,
     keyword: '',
     sortBy: 'status',
     likes: [],
-    bookmaker: 'Batman',
+    bookmaker: {},
     pageShow: 0,
     is_status: '',
     statuses: [1,2,3,4,5],
-    bookmakers: [
-        'Batman',
-        'Robin',
-        'Joker',
-    ]
 })
 
 onMounted(async () => {
-    await store.getOdds();
-    await store.getLiveScore({save: 12 * 3600});
+    store.getBookmaker();
+    store.getOdds();
+    store.getLiveScore();
     await loadPage();
 })
 
@@ -255,16 +239,12 @@ onMounted(()=>{
 .table>:not(caption)>*>* {
     border-bottom: none;
 }
-.bookmaker .multiselect-single-label {
-    padding-right: 0;
+.bookmaker > button {
+    padding: 0 2px;
     font-size: 12px;
-    text-transform: uppercase;
 }
 .simplebar-scrollbar {
     left: 7px !important;
-}
-.multiselect-dropdown.is-hidden {
-    overflow: unset!important;
 }
 .multiselect-option {
     font-size: 12px!important;

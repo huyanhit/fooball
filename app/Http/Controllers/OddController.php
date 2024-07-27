@@ -28,8 +28,7 @@ class OddController extends Controller
                 }
 
                 $odd['data'] = $oddNew;
-
-                return response($this->processOdd($odd));
+                return response($this->processOdd($odd['data']));
             }else{
                 return response($odd, 401);
             }
@@ -94,9 +93,10 @@ class OddController extends Controller
         $handicapHalf = array('matchId','companyId','instantHandicap','instantHome','instantAway','changeTime','OddsType');
         $overUnderHalf = array('matchId','companyId','instantHandicap','instantOver','instantUnder','changeTime','OddsType');
         foreach ($odd as $key => $value){
+            $decode = is_array($value['odds'])? $value['odds']: json_decode($value['odds']);
             $data = array_map(function($item){
                 return explode(',', $item);
-            }, json_decode($value['odds']));
+            }, $decode);
 
             switch ($value['companyIdMain']){
                 case 'handicap':

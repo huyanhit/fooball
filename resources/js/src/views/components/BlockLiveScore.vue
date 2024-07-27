@@ -7,9 +7,8 @@
                            placeholder="Lọc theo tên đội bóng"
                            autocomplete="off" id="search-options" value="">
                 </div>
-
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Tìm thấy {{liveScoreFilter.length}} trận</span>
-                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{data.pageShow}}</span>
+                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{data.pageShow + 1}}</span>
             </div>
             <div class="d-flex flex-row position-relative mb-2">
                 <span class="m-0 flex-shrink-1 fs-12 border rounded bg-gray-500 text-white px-1 cursor-pointer me-2"
@@ -40,7 +39,7 @@
                       @click="changeStatus('order')">order</span>
             </div>
             <div class="h-[calc(100vh-300px)] overflow-auto" id="simple-bar">
-                <table class="relative">
+                <table class="relative border border-groove">
                     <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
                         <th>
                             <b-button size="sm" class="btn-outline-warning hover:text-red-500 cursor-pointer"
@@ -105,10 +104,12 @@
                                      :title="item.awayName">{{ item.awayName }}</div>
                             </td>
                             <td>
-                                <div class="fs-11 hover:text-red-500">	6-3 </div>
+                                <div class="fs-11 hover:text-red-500" v-if="item.status === 1"> {{ item.homeCorner }}-{{ item.awayCorner }} </div>
+                                <div class="fs-11 hover:text-red-500" else> - </div>
                             </td>
                             <td>
-                                <div class="fs-11 hover:text-red-500"> 2-0 </div>
+                                <div class="fs-11 hover:text-red-500" v-if="item.status === 1"> {{ item.homeHalfScore }}-{{ item.awayHalfScore }} </div>
+                                <div class="fs-11 hover:text-red-500" else> - </div>
                             </td>
                             <td>
                                 <div class="fs-11 hover:text-red-500"> <i class="ri-flag-2-fill"></i></div>
@@ -160,6 +161,7 @@ const data = reactive({
 })
 
 onMounted(async () => {
+    await store.getOdds();
     await store.getLiveScore({save: 12 * 3600});
     await loadPage();
 })

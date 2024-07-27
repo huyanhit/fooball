@@ -11,6 +11,7 @@ export const useAppStore = defineStore('app', {
         schedule: [],
         result: [],
         livescore: [],
+        odd: []
     }),
     actions: {
         setMainLayout(payload = null) {
@@ -31,6 +32,10 @@ export const useAppStore = defineStore('app', {
         async getLiveScore(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'live-score', param:params});
             if(response.code === 0) this.livescore = response.data
+        },
+        async getOdds(params = null) {
+            const response = await apiService.callApi({method: 'get', url: 'odds', param:params});
+            if(response.code === 0) this.odd = response.data
         }
     },
     getters: {

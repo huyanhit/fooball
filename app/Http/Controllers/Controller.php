@@ -41,6 +41,7 @@ class Controller extends BaseController {
             return true;
         }else if(is_numeric($save)){
             $getTime = $model::orderBy('updated_at','desc')->first();
+            if(empty($getTime)) return true;
             if(Carbon::now()->diffInSeconds($getTime->updated_at) > $save){
                 return true;
             }

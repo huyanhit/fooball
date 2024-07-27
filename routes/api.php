@@ -6,6 +6,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\LeagueProfileController;
 use App\Http\Controllers\LiveScoreController;
+use App\Http\Controllers\OddController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
@@ -32,6 +33,7 @@ Route::resource('/bookmaker', BookmakerController::class);
 Route::resource('/schedule', ScheduleController::class);
 Route::resource('/result', ResultController::class);
 Route::resource('/live-score', LiveScoreController::class);
+Route::resource('/odds', OddController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');

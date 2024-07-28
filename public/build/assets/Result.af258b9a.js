@@ -1,0 +1,1 @@
+import{H as s,o,c as t,a as e,D as a}from"./main.b45dd1c4.js";import{_ as c}from"./BlockLeague.f803cbf2.js";const _={class:"d-flex mt-1"},r={class:"flex-grow-1 w-[300px] pe-1"},l=e("div",{class:"flex-fill"},[e("div",{class:"row"}," result ")],-1),p={__name:"Result",setup(n){return s(()=>{}),(d,i)=>(o(),t("div",_,[e("div",r,[a(c)]),l]))}};export{p as default};

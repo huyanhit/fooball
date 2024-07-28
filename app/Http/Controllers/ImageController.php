@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Image;
+use App\Models\LeagueProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,13 +15,17 @@ class ImageController extends Controller
 {
     const PUBLIC_STORAGE = '';
     public function getImageUrl(Request $request){
-        $url = $request->get('url');
-
-        if(preg_match('/(\w+)(\.\w+)+(?!.*(\w+)(\.\w+)+)/m', $url)){
-
-            $image = Image::where('url', $url)->first();
+        $id = $request->get('id');
+        $category = $request->get('category');
+        $prop = $request->get('prop');
+        $file = null;
+        if ($category == 'league-profile') {
+            $file = LeagueProfile::find($id);
+        }
+        if(!empty($file) && preg_match('/(\w+)(\.\w+)+(?!.*(\w+)(\.\w+)+)/m', $file[$prop])){
+            $image = Image::where('url',  $file[$prop])->first();
             if(empty($image)){
-                $id = $this->uploadUrl($url);
+                $id = $this->uploadUrl( $file[$prop]);
                 $image = Image::find($id);
             }
 

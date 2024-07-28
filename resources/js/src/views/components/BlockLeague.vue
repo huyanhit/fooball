@@ -23,7 +23,8 @@
                         <li class="d-flex align-items-center list-group-item"
                             v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">
                             <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
-                                <img :src="'http://tasks.local/api/get-image-url?url='+item.logo" alt="" class="w-[45px]">
+                                <img :src="'http://tasks.local/api/get-image-url?id='+item.id+'&category=league-profile&prop=logo'"
+                                     alt="" class="w-[45px]">
                             </div>
                             <div class="flex-fill">
                                 <div>{{ item.name }}</div>

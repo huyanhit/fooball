@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookmakerController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\LeagueProfileController;
 use App\Http\Controllers\LiveScoreController;
@@ -35,6 +36,7 @@ Route::resource('/result', ResultController::class);
 Route::resource('/live-score', LiveScoreController::class);
 Route::resource('/odds', OddController::class);
 
+Route::get('/get-image-url', [ImageController::class, 'getImageUrl']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
     Route::resource('/user', UserController::class);

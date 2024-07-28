@@ -1,15 +1,34 @@
 <template>
     <b-overlay :show="data.overlay">
         <b-card class="mb-0">
-            <div class="d-flex flex-row position-relative">
-                <span class="flex-fill fs-16 uppercase p-2">Giải đấu</span>
-                <span class="flex-shrink-1">Trang {{data.pageShow + 1}}</span>
+            <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
+            <div class="d-flex flex-row position-relative mb-2">
+                <div class="flex-fill me-2">
+                    <input type="text" class="form-control" v-model="data.keyword"
+                           placeholder="Lọc theo tên đội bóng"
+                           autocomplete="off" id="search-options" value="">
+                </div>
+                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{data.pageShow + 1}}</span>
             </div>
-            <div class="h-[calc(100vh-254px)] overflow-auto" id="league-bar">
+            <div class="d-flex flex-row position-relative mb-2">
+                <span class="m-0 flex-shrink-1 fs-12 border rounded bg-gray-500 text-white px-1 cursor-pointer me-2"
+                      @click="changeStatus('reset')">Reset</span>
+                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
+                      :class="{'bg-red-400 text-white': data.is_status === 'hot'}"
+                      @click="changeStatus('hot')"> Hot </span>
+            </div>
+            <div class="h-[calc(100vh-330px)] overflow-auto" id="league-bar">
                 <ul class="list-group overflow-auto" >
-                    <template v-for="item in store.league_profile">
-                        <li class="list-group-item" v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">
-                            <i class="mdi mdi-check-bold align-middle lh-1 me-2"></i> {{ item.name }}
+                    <template v-for="item in leagueFilter">
+                        <li class="d-flex align-items-center list-group-item"
+                            v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">
+                            <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
+                                <img :src="'http://tasks.local/api/get-image-url?url='+item.logo" alt="" class="w-[45px]">
+                            </div>
+                            <div class="flex-fill">
+                                <div>{{ item.name }}</div>
+                                <div class="text-muted fs-11"> Vòng {{ item.currentRound }}</div>
+                            </div>
                         </li>
                     </template>
                 </ul>
@@ -18,7 +37,7 @@
     </b-overlay>
 </template>
 <script setup>
-import {onMounted, reactive} from "vue";
+import {computed, onMounted, reactive} from "vue";
 import {BCard, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
 import SimpleBar from "simplebar";
@@ -26,6 +45,9 @@ const store = useAppStore();
 const data = reactive({
     overlay: false,
     pageShow: 0,
+    keyword: '',
+    is_status: '',
+    statuses: [],
 })
 onMounted(() => {
     loadPage();
@@ -33,11 +55,18 @@ onMounted(() => {
     simpleBar.getScrollElement().addEventListener('scroll', checkScroll);
 })
 
+const changeStatus = function (status){
+    data.is_status = status
+    data.pageShow = 0;
+    switch (status) {
+        case 'hot': data.statuses = ["111"]; break;
+        case 'reset': data.statuses = []; data.is_status = ''; break;
+    }
+}
 const checkScroll = function (e){
     let obj = e.target;
     if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
         let length = Math.floor(Object.keys(store.league_profile).length / 100);
-        console.log(length)
         if(data.pageShow < length ){
             data.pageShow = (data.pageShow + 1);
             obj.scrollTop = 1
@@ -57,4 +86,14 @@ const loadPage = async function () {
     await store.getLeagueProfile({save: 12*3600});
     data.overlay = false;
 }
+
+const leagueFilter = computed(()=> {
+    return Object.values(store.league_profile).filter((item) => {
+        if (data.is_status) {
+            return data.statuses.includes(item.leagueId)
+        } else {
+            return item.name.toLowerCase().includes(data.keyword.toLowerCase())
+        }
+    })
+})
 </script>

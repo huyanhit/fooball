@@ -36,9 +36,7 @@ Route::resource('/result', ResultController::class);
 Route::resource('/live-score', LiveScoreController::class);
 Route::resource('/odds', OddController::class);
 
-Route::middleware( 'throttle:100,1')->group(function () {
-    Route::get('/get-image-url', [ImageController::class, 'getImageUrl']);
-});
+Route::get('/get-image-url', [ImageController::class, 'getImageUrl']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
     Route::resource('/user', UserController::class);

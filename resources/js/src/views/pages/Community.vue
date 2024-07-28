@@ -1,9 +1,9 @@
 <template>
-    <div class="row mt-1">
-        <div class="col-4">
+    <div class="d-flex mt-1">
+        <div class="flex-grow-1 w-[300px] pe-1">
             <block-league/>
         </div>
-        <div class="col-8">
+        <div class="flex-fill">
             <div class="row">
                 community
             </div>

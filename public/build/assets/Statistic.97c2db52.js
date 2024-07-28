@@ -1,1 +1,0 @@
-import{H as t,o,c as a,a as s,D as c}from"./main.34ad2b4b.js";import{_ as e}from"./BlockLeague.019d16fe.js";const _={class:"row mt-1"},i={class:"col-4"},r=s("div",{class:"col-8"},[s("div",{class:"row"}," statistics ")],-1),f={__name:"Statistic",setup(n){return t(()=>{}),(d,l)=>(o(),a("div",_,[s("div",i,[c(e)]),r]))}};export{f as default};

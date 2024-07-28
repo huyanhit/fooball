@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-white h-[60px]">
+    <footer class="bg-white h-[60px] mt-1">
         <div class="row p-3">
             <div class="col-sm-6">
                 © 2024

@@ -1,1 +1,0 @@
-import{H as e,o,c as t,a as s,D as a}from"./main.34ad2b4b.js";import{_ as c}from"./BlockLeague.019d16fe.js";const _={class:"row mt-1"},r={class:"col-4"},n=s("div",{class:"col-8"},[s("div",{class:"row"}," result ")],-1),u={__name:"Result",setup(l){return e(()=>{}),(d,i)=>(o(),t("div",_,[s("div",r,[a(c)]),n]))}};export{u as default};

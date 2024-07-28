@@ -5,14 +5,13 @@
         </div>
         <div class="col-8">
             <div class="row">
-                <block-live-score/>
+                statistics
             </div>
         </div>
     </div>
 </template>
 <script setup>
 import {onMounted} from "vue";
-import BlockLiveScore from "@/views/components/BlockLiveScore.vue";
 import BlockLeague from "@/views/components/BlockLeague.vue";
 onMounted(() => {
 

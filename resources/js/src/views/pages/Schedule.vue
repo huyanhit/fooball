@@ -5,7 +5,7 @@
         </div>
         <div class="col-8">
             <div class="row">
-                <block-live-score/>
+                schedule
             </div>
         </div>
     </div>

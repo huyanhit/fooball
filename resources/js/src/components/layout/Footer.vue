@@ -1,6 +1,6 @@
 <template>
-    <footer class="bg-white p-3">
-        <div class="row">
+    <footer class="bg-white h-[60px]">
+        <div class="row p-3">
             <div class="col-sm-6">
                 © 2024
             </div>

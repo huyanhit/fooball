@@ -1,6 +1,6 @@
 <template>
     <b-overlay :show="data.overlay">
-        <b-card  class="text-center">
+        <b-card  class="text-center mb-0">
             <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
@@ -39,7 +39,7 @@
                       :class="{'bg-red-400 text-white': data.is_status === 'order'}"
                       @click="changeStatus('order')">order</span>
             </div>
-            <div class="h-[calc(100vh-300px)] overflow-auto" id="simple-bar">
+            <div class="h-[calc(100vh-330px)] overflow-auto" id="simple-bar">
                 <table class="relative border border-groove">
                     <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
                         <th>

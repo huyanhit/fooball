@@ -5,7 +5,7 @@
         </div>
         <div class="col-8">
             <div class="row">
-                <block-live-score/>
+                community
             </div>
         </div>
     </div>

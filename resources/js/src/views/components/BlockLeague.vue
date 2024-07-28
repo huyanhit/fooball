@@ -1,11 +1,11 @@
 <template>
     <b-overlay :show="data.overlay">
-        <b-card>
+        <b-card class="mb-0">
             <div class="d-flex flex-row position-relative">
                 <span class="flex-fill fs-16 uppercase p-2">Giải đấu</span>
                 <span class="flex-shrink-1">Trang {{data.pageShow + 1}}</span>
             </div>
-            <div class="h-[calc(100vh-224px)] overflow-auto" id="league-bar">
+            <div class="h-[calc(100vh-254px)] overflow-auto" id="league-bar">
                 <ul class="list-group overflow-auto" >
                     <template v-for="item in store.league_profile">
                         <li class="list-group-item" v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">

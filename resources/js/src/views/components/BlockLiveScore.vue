@@ -1,6 +1,7 @@
 <template>
     <b-overlay :show="data.overlay">
-        <b-card title="Lịch đấu hôm nay" class="text-center">
+        <b-card  class="text-center">
+            <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
                     <input type="text" class="form-control" v-model="data.keyword"
@@ -56,7 +57,7 @@
                         <th> FT </th>
                         <th> Data </th>
                         <td>
-                            <BDropdown variant="light" size="sm" :text="data.bookmaker.companyName"
+                            <BDropdown variant="light" size="sm" :text="data.bookmaker.companyName?? 'choose'"
                                        dropstart split class="bookmaker w-[80px]" >
                                 <BDropdownItem v-for="item in store.bookmaker" @click="data.bookmaker = item" >
                                     <span v-if="item.companyIdMain > 0"> {{ item.companyName }}</span>
@@ -66,9 +67,11 @@
                     </tr>
                     <template v-for="(item, index) in liveScoreFilter" class="text-center h-[40px]"
                         :key="index">
-                        <template v-if="index >= (data.pageShow * 100) && index < ((data.pageShow + 1) * 100)">
+                        <template v-if="index >= (data.pageShow * 50) && index < ((data.pageShow + 1) * 50)">
                         <tr class="text-left bg-success-light" v-if="!liveScoreFilter[index - 1] || (item.leagueId !== liveScoreFilter[index - 1].leagueId)">
-                            <td colspan="10" class="h-[30px] px-2 fw-bold" v-if="store.league[item.leagueId]"> {{store.league[item.leagueId].name}}</td>
+                            <td colspan="10" class="h-[30px] px-2 fw-bold" v-if="store.league_profile[item.leagueId]">
+                                <span>{{store.league_profile[item.leagueId].name}}</span>
+                            </td>
                         </tr>
                         <tr class="text-center h-[30px]">
                             <td>
@@ -96,14 +99,35 @@
                             <td>
                                 <div class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
                                      :title="item.homeName">
-                                    {{ item.homeName }}
+                                     {{ item.homeName }}
                                 </div>
                             </td>
                             <td>
+                                <span class="relative">
+                                     <i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-yellow-500 fs-[20px]"></i>
+                                     <span class="absolute fs-10 left-[4px] -top-[1px] text-white">{{ item.homeYellow }}</span>
+                                </span>
+                                <span class="relative">
+                                     <i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-red-500 fs-[20px]"></i>
+                                     <span class="absolute fs-10 left-[4px] -top-[1px] text-white">{{ item.homeRed }}</span>
+                                </span>
                                 <span>
                                     <span class="badge text-body fs-14" >{{ item.homeScore }}</span>
-                                    <span class="badge rounded-pill border-dark text-body hover:bg-gray-200 cursor-pointer relative top-[-2px]">1 tip</span>
+                                    <span
+                                        class="badge rounded-pill border-dark text-body hover:bg-gray-200 cursor-pointer relative top-[-2px]"
+                                        v-if="[0].includes(item.status)">
+                                        1 tip
+                                    </span>
+                                    <span v-else> - </span>
                                     <span class="badge text-body fs-14">{{ item.awayScore }}</span>
+                                </span>
+                                <span class="relative">
+                                     <i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-red-500 fs-[20px]"></i>
+                                     <span class="absolute fs-10 left-[4px] -top-[1px] text-white">{{ item.awayRed }}</span>
+                                </span>
+                                <span class="relative">
+                                     <i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-yellow-500 fs-[20px]"></i>
+                                     <span class="absolute fs-10 left-[4px] -top-[1px] text-white">{{ item.awayYellow }}</span>
                                 </span>
                             </td>
                             <td>
@@ -119,10 +143,19 @@
                                 <div class="fs-11 hover:text-red-500" else> - </div>
                             </td>
                             <td>
-                                <div class="fs-11 hover:text-red-500"> <i class="ri-flag-2-fill"></i></div>
+                                <div class="fs-11 hover:text-red-500"><i class="ri-flag-2-fill"></i>
+                                </div>
                             </td>
-                            <td v-if="store.odd">
-                                <LiveOdds :match="item"/>
+                            <td v-if="store.odd" class="relative">
+                                <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true">
+                                    <live-odds :match="item"/>
+                                </div>
+                                <template v-if="data.showOdd[item.id]">
+                                    <div @mouseleave.prevent.stop="data.showOdd[item.id] = false"
+                                         class="absolute right-[70px] -top-[30px] bg-gray-100 w-[400px] z-1 p-2 border border-groove">
+                                        <match-info :match="item"/>
+                                    </div>
+                                </template>
                             </td>
                         </tr>
                         </template>
@@ -139,6 +172,7 @@ import {useAppStore} from "@/stores";
 import SimpleBar from 'simplebar'
 import moment from 'moment';
 import LiveOdds from "@/views/components/patials/LiveOdds.vue";
+import MatchInfo from "@/views/components/modal/MatchInfo.vue";
 const store = useAppStore();
 const data = reactive({
     overlay: false,
@@ -149,12 +183,13 @@ const data = reactive({
     pageShow: 0,
     is_status: '',
     statuses: [1,2,3,4,5],
+    showOdd: []
 })
 
 onMounted(async () => {
     store.getBookmaker();
-    store.getOdds();
-    store.getLiveScore();
+    store.getOdds({save: 12*3600});
+    store.getLiveScore({save: 12*3600});
     await loadPage();
 })
 
@@ -204,14 +239,16 @@ const statusParse = function (status){
     }
 }
 const setLike = function (id){
-    if(data.likes.includes(setLike)){
-        data.likes.splice(id, 1)
+    data.pageShow = 0;
+    if(data.likes.includes(id)){
+        data.likes.splice(data.likes.indexOf(id), 1)
     }else{
         data.likes.push(id)
     }
 }
 const changeStatus = function (status){
     data.is_status = status
+    data.pageShow = 0;
     switch (status) {
         case 'live': data.statuses = [1,2,3,4,5]; break;
         case 'not_start': data.statuses = [0]; break;
@@ -227,7 +264,7 @@ const changeStatus = function (status){
 const checkScroll = function (e){
     let obj = e.target;
     if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
-        let length = Math.floor(liveScoreFilter.value.length / 100);
+        let length = Math.floor(liveScoreFilter.value.length / 50);
         if(data.pageShow < length ){
             data.pageShow = (data.pageShow + 1);
             obj.scrollTop = 1
@@ -236,7 +273,7 @@ const checkScroll = function (e){
     if(obj.scrollTop < 1 && data.pageShow > 0){
         setTimeout(()=>{
             obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
-        }, 100)
+        }, 50)
         if( data.pageShow > 0 ){
             data.pageShow = (data.pageShow - 1);
         }

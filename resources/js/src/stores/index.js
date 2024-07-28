@@ -18,16 +18,28 @@ export const useAppStore = defineStore('app', {
             this.mainLayout = payload;
         },
         async getLeague(params = null) {
-            const response = await apiService.callApi({method: 'get', url: 'league', param:params});
-            if(response.code === 0) this.league = response.data
+            if(this.league.length === 0){
+                const response = await apiService.callApi({method: 'get', url: 'league', param: params});
+                if (response.code === 0) this.league = response.data
+            }
         },
         async getLeagueProfile(params = null) {
-            const response = await apiService.callApi({method: 'get', url: 'league-profile', param:params});
-            if(response.code === 0) this.league_profile = response.data
+            if(this.league_profile.length === 0){
+                const response = await apiService.callApi({method: 'get', url: 'league-profile', param:params});
+                if(response.code === 0) this.league_profile = response.data
+            }
         },
         async getSchedule(params = null) {
-            const response = await apiService.callApi({method: 'get', url: 'schedule', param:params});
-            if(response.code === 0) this.schedule = response.data
+            if(this.schedule.length === 0) {
+                const response = await apiService.callApi({method: 'get', url: 'schedule', param: params});
+                if (response.code === 0) this.schedule = response.data
+            }
+        },
+        async getBookmaker(params = null) {
+            if(this.bookmaker.length === 0) {
+                const response = await apiService.callApi({method: 'get', url: 'bookmaker', param: params});
+                if (response.code === 0) this.bookmaker = response.data
+            }
         },
         async getLiveScore(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'live-score', param:params});
@@ -37,10 +49,6 @@ export const useAppStore = defineStore('app', {
             const response = await apiService.callApi({method: 'get', url: 'odds', param:params});
             if(response.code === 0) this.odd = response.data
         },
-        async getBookmaker(params = null) {
-            const response = await apiService.callApi({method: 'get', url: 'bookmaker', param:params});
-            if(response.code === 0) this.bookmaker = response.data
-        }
     },
     getters: {
 

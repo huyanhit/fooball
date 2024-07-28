@@ -1,6 +1,6 @@
 <template>
     <b-overlay :show="data.overlay">
-        <b-card class="mb-0">
+        <div class="mb-0 bg-white p-3">
             <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
@@ -20,29 +20,35 @@
             <div class="h-[calc(100vh-330px)] overflow-auto" id="league-bar">
                 <ul class="list-group overflow-auto" >
                     <template v-for="item in leagueFilter">
-                        <li class="d-flex align-items-center list-group-item"
-                            v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">
-                            <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
-                                <img :src="'/api/get-image-url?id='+item.id+'&category=league-profile&prop=logo'"
-                                     alt="" class="w-[45px]">
-                            </div>
-                            <div class="flex-fill">
-                                <div>{{ item.name }}</div>
-                                <div class="text-muted fs-11"> Vòng {{ item.currentRound }}</div>
-                            </div>
+                        <li v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">
+                            <b-link class="d-flex align-items-center list-group-item hover:bg-success-light cursor-pointer"
+                                    :to="'league-detail/'+lodash.kebabCase(item.name)" >
+                                <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
+                                    <img :src="'/api/get-image-url?id='+item.id+'&category=league-profile&prop=logo'"
+                                         alt="" class="w-[45px]">
+                                </div>
+                                <div class="flex-fill">
+                                    <div>{{ item.name }}</div>
+                                    <div class="text-muted fs-11"> Vòng {{ item.currentRound }}</div>
+                                </div>
+                            </b-link>
                         </li>
                     </template>
                 </ul>
             </div>
-        </b-card>
+        </div>
     </b-overlay>
 </template>
 <script setup>
 import {computed, onMounted, reactive} from "vue";
-import {BCard, BOverlay} from "bootstrap-vue-next";
+import {BCard, BLink, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
+import lodash from "lodash";
 import SimpleBar from "simplebar";
+
 const store = useAppStore();
+
+
 const data = reactive({
     overlay: false,
     pageShow: 0,

@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAppStore } from '@/stores';
 
 import {defineAsyncComponent} from "vue";
-
 const Login = defineAsyncComponent(()=> import('../views/login.vue'));
 const Register = defineAsyncComponent(()=> import('../views/register.vue'));
 const LiveScore = defineAsyncComponent(()=> import('../views/pages/Home.vue'));
@@ -12,6 +11,7 @@ const Schedule = defineAsyncComponent(()=> import('../views/pages/Schedule.vue')
 const Tip = defineAsyncComponent(()=> import('../views/pages/Tip.vue'));
 const Community = defineAsyncComponent(()=> import('../views/pages/Community.vue'));
 const Statistic = defineAsyncComponent(()=> import('../views/pages/Statistic.vue'));
+const LeagueDetail = defineAsyncComponent(()=> import('../views/pages/LeagueDetail.vue'));
 
 const routes = [
     { path: '/', name: 'home', component: LiveScore},
@@ -24,7 +24,7 @@ const routes = [
     { path: '/tip', name: 'tip', component: Tip},
     { path: '/community', name: 'community', component: Community},
     { path: '/statistics', name: 'statistics', component: Statistic},
-
+    { path: '/league-detail/:league_name', name: 'league-detail', component: LeagueDetail},
 ];
 
 const router = createRouter({

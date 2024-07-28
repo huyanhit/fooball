@@ -1,6 +1,6 @@
 <template>
     <b-overlay :show="data.overlay">
-        <b-card  class="text-center mb-0">
+        <div class="text-center mb-0 p-2 overflow-hidden">
             <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
@@ -162,7 +162,7 @@
                     </template>
                 </table>
             </div>
-        </b-card>
+        </div>
     </b-overlay>
 </template>
 <script setup>

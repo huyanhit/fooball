@@ -1,10 +1,10 @@
 <template>
     <div class="d-flex mt-1">
-        <div class="flex-grow-1 w-[300px] pe-1">
+        <div class="w-[300px] pe-1">
             <block-league/>
         </div>
-        <div class="flex-fill">
-            <div class="row">
+        <div class="flex-fill p-2 bg-white">
+            <div class="">
                 tip
             </div>
         </div>

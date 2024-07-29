@@ -11,7 +11,8 @@ export const useAppStore = defineStore('app', {
         schedule: [],
         result: [],
         livescore: [],
-        odd: []
+        odd: [],
+        files: []
     }),
     actions: {
         setMainLayout(payload = null) {

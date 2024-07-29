@@ -3,13 +3,13 @@
     "file": "assets/boxicons.c23887bb.eot",
     "src": "resources/js/src/assets/fonts/boxicons.eot"
   },
-  "resources/js/src/assets/fonts/la-regular-400d41d.eot": {
-    "file": "assets/la-regular-400d41d.7dc456f0.eot",
-    "src": "resources/js/src/assets/fonts/la-regular-400d41d.eot"
-  },
   "resources/js/src/assets/fonts/la-brands-400d41d.eot": {
     "file": "assets/la-brands-400d41d.c0e32387.eot",
     "src": "resources/js/src/assets/fonts/la-brands-400d41d.eot"
+  },
+  "resources/js/src/assets/fonts/la-regular-400d41d.eot": {
+    "file": "assets/la-regular-400d41d.7dc456f0.eot",
+    "src": "resources/js/src/assets/fonts/la-regular-400d41d.eot"
   },
   "resources/js/src/assets/fonts/la-solid-900.eot": {
     "file": "assets/la-solid-900.8a57f8a9.eot",
@@ -27,6 +27,10 @@
     "file": "assets/boxicons.4b87cbc7.woff2",
     "src": "resources/js/src/assets/fonts/boxicons.woff2"
   },
+  "resources/js/src/assets/fonts/la-regular-400.woff2": {
+    "file": "assets/la-regular-400.51ca2c00.woff2",
+    "src": "resources/js/src/assets/fonts/la-regular-400.woff2"
+  },
   "resources/js/src/assets/fonts/la-brands-400.woff2": {
     "file": "assets/la-brands-400.ff70c9bc.woff2",
     "src": "resources/js/src/assets/fonts/la-brands-400.woff2"
@@ -39,13 +43,21 @@
     "file": "assets/remixicone85e.b0d0b7e5.woff2",
     "src": "resources/js/src/assets/fonts/remixicone85e.woff2"
   },
-  "resources/js/src/assets/fonts/la-regular-400.woff2": {
-    "file": "assets/la-regular-400.51ca2c00.woff2",
-    "src": "resources/js/src/assets/fonts/la-regular-400.woff2"
-  },
   "resources/js/src/assets/images/sidebar/img-2.jpg": {
     "file": "assets/img-2.54d3615d.jpg",
     "src": "resources/js/src/assets/images/sidebar/img-2.jpg"
+  },
+  "resources/js/src/assets/images/sidebar/img-3.jpg": {
+    "file": "assets/img-3.9f918a9b.jpg",
+    "src": "resources/js/src/assets/images/sidebar/img-3.jpg"
+  },
+  "resources/js/src/assets/images/flags/us.svg": {
+    "file": "assets/us.de148770.svg",
+    "src": "resources/js/src/assets/images/flags/us.svg"
+  },
+  "resources/js/src/assets/images/auth-one-bg.jpg": {
+    "file": "assets/auth-one-bg.85095c4e.jpg",
+    "src": "resources/js/src/assets/images/auth-one-bg.jpg"
   },
   "resources/js/src/assets/images/sidebar/img-1.jpg": {
     "file": "assets/img-1.83ab24c3.jpg",
@@ -55,21 +67,17 @@
     "file": "assets/img-4.d7136dca.jpg",
     "src": "resources/js/src/assets/images/sidebar/img-4.jpg"
   },
-  "resources/js/src/assets/images/flags/us.svg": {
-    "file": "assets/us.de148770.svg",
-    "src": "resources/js/src/assets/images/flags/us.svg"
-  },
-  "resources/js/src/assets/images/sidebar/img-3.jpg": {
-    "file": "assets/img-3.9f918a9b.jpg",
-    "src": "resources/js/src/assets/images/sidebar/img-3.jpg"
-  },
-  "resources/js/src/assets/images/auth-one-bg.jpg": {
-    "file": "assets/auth-one-bg.85095c4e.jpg",
-    "src": "resources/js/src/assets/images/auth-one-bg.jpg"
-  },
   "resources/js/src/assets/fonts/materialdesignicons-webfont9445.woff2": {
     "file": "assets/materialdesignicons-webfont9445.c1c004a9.woff2",
     "src": "resources/js/src/assets/fonts/materialdesignicons-webfont9445.woff2"
+  },
+  "resources/js/src/assets/fonts/la-regular-400.woff": {
+    "file": "assets/la-regular-400.7711fabc.woff",
+    "src": "resources/js/src/assets/fonts/la-regular-400.woff"
+  },
+  "resources/js/src/assets/fonts/boxicons.woff": {
+    "file": "assets/boxicons.d5d511cf.woff",
+    "src": "resources/js/src/assets/fonts/boxicons.woff"
   },
   "resources/js/src/assets/fonts/la-brands-400.woff": {
     "file": "assets/la-brands-400.14c63377.woff",
@@ -79,29 +87,25 @@
     "file": "assets/la-solid-900.a0d21b2a.woff",
     "src": "resources/js/src/assets/fonts/la-solid-900.woff"
   },
-  "resources/js/src/assets/fonts/la-regular-400.woff": {
-    "file": "assets/la-regular-400.7711fabc.woff",
-    "src": "resources/js/src/assets/fonts/la-regular-400.woff"
-  },
   "resources/js/src/assets/fonts/remixicone85e.woff": {
     "file": "assets/remixicone85e.52976819.woff",
     "src": "resources/js/src/assets/fonts/remixicone85e.woff"
   },
-  "resources/js/src/assets/fonts/boxicons.woff": {
-    "file": "assets/boxicons.d5d511cf.woff",
-    "src": "resources/js/src/assets/fonts/boxicons.woff"
+  "resources/js/src/assets/fonts/la-regular-400.ttf": {
+    "file": "assets/la-regular-400.4b6ab8d0.ttf",
+    "src": "resources/js/src/assets/fonts/la-regular-400.ttf"
   },
   "resources/js/src/assets/fonts/materialdesignicons-webfont9445.woff": {
     "file": "assets/materialdesignicons-webfont9445.80bb28b3.woff",
     "src": "resources/js/src/assets/fonts/materialdesignicons-webfont9445.woff"
   },
+  "resources/js/src/assets/fonts/boxicons.ttf": {
+    "file": "assets/boxicons.47509a2d.ttf",
+    "src": "resources/js/src/assets/fonts/boxicons.ttf"
+  },
   "resources/js/src/assets/fonts/la-brands-400.ttf": {
     "file": "assets/la-brands-400.fbc98702.ttf",
     "src": "resources/js/src/assets/fonts/la-brands-400.ttf"
-  },
-  "resources/js/src/assets/fonts/la-regular-400.ttf": {
-    "file": "assets/la-regular-400.4b6ab8d0.ttf",
-    "src": "resources/js/src/assets/fonts/la-regular-400.ttf"
   },
   "resources/js/src/assets/fonts/la-solid-900.ttf": {
     "file": "assets/la-solid-900.07ce3559.ttf",
@@ -110,10 +114,6 @@
   "resources/js/src/assets/fonts/remixicone85e.ttf": {
     "file": "assets/remixicone85e.4022c89b.ttf",
     "src": "resources/js/src/assets/fonts/remixicone85e.ttf"
-  },
-  "resources/js/src/assets/fonts/boxicons.ttf": {
-    "file": "assets/boxicons.47509a2d.ttf",
-    "src": "resources/js/src/assets/fonts/boxicons.ttf"
   },
   "resources/js/src/assets/fonts/la-regular-400.svg": {
     "file": "assets/la-regular-400.884ce19c.svg",
@@ -139,10 +139,6 @@
     "file": "assets/remixicone85e.c728a748.svg",
     "src": "resources/js/src/assets/fonts/remixicone85e.svg"
   },
-  "resources/js/src/assets/images/users/avatar-5.jpg": {
-    "file": "assets/avatar-5.a7e2e2e2.jpg",
-    "src": "resources/js/src/assets/images/users/avatar-5.jpg"
-  },
   "resources/js/src/assets/images/users/avatar-3.jpg": {
     "file": "assets/avatar-3.62d66768.jpg",
     "src": "resources/js/src/assets/images/users/avatar-3.jpg"
@@ -150,6 +146,10 @@
   "resources/js/src/assets/images/users/avatar-2.jpg": {
     "file": "assets/avatar-2.52cb265f.jpg",
     "src": "resources/js/src/assets/images/users/avatar-2.jpg"
+  },
+  "resources/js/src/assets/images/users/avatar-5.jpg": {
+    "file": "assets/avatar-5.a7e2e2e2.jpg",
+    "src": "resources/js/src/assets/images/users/avatar-5.jpg"
   },
   "resources/js/src/assets/images/users/avatar-6.jpg": {
     "file": "assets/avatar-6.81ca5a20.jpg",
@@ -159,16 +159,16 @@
     "file": "assets/avatar-8.b7cb8a12.jpg",
     "src": "resources/js/src/assets/images/users/avatar-8.jpg"
   },
-  "resources/js/src/assets/images/users/avatar-1.jpg": {
-    "file": "assets/avatar-1.2e539fe5.jpg",
-    "src": "resources/js/src/assets/images/users/avatar-1.jpg"
-  },
   "resources/js/src/assets/images/svg/bell.svg": {
     "file": "assets/bell.e732f028.svg",
     "src": "resources/js/src/assets/images/svg/bell.svg"
   },
+  "resources/js/src/assets/images/users/avatar-1.jpg": {
+    "file": "assets/avatar-1.2e539fe5.jpg",
+    "src": "resources/js/src/assets/images/users/avatar-1.jpg"
+  },
   "resources/js/src/main.js": {
-    "file": "assets/main.c896f72d.js",
+    "file": "assets/main.2e780311.js",
     "src": "resources/js/src/main.js",
     "isEntry": true,
     "dynamicImports": [
@@ -181,10 +181,11 @@
       "resources/js/src/views/pages/Tip.vue",
       "resources/js/src/views/pages/Community.vue",
       "resources/js/src/views/pages/Statistic.vue",
-      "resources/js/src/views/pages/LeagueDetail.vue"
+      "resources/js/src/views/pages/LeagueDetail.vue",
+      "resources/js/src/views/pages/MatchDetail.vue"
     ],
     "css": [
-      "assets/main.e0ee67b0.css"
+      "assets/main.58403bb6.css"
     ],
     "assets": [
       "assets/avatar-2.52cb265f.jpg",
@@ -232,42 +233,42 @@
     ]
   },
   "resources/js/src/views/login.vue": {
-    "file": "assets/login.b63582fc.js",
+    "file": "assets/login.7f90b71b.js",
     "src": "resources/js/src/views/login.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
-      "_index.658e9e92.js"
+      "_index.f57b0dd0.js"
     ]
   },
-  "_index.658e9e92.js": {
-    "file": "assets/index.658e9e92.js",
+  "_index.f57b0dd0.js": {
+    "file": "assets/index.f57b0dd0.js",
     "imports": [
       "resources/js/src/main.js"
     ]
   },
   "resources/js/src/views/register.vue": {
-    "file": "assets/register.74798302.js",
+    "file": "assets/register.43f949f2.js",
     "src": "resources/js/src/views/register.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
-      "_index.658e9e92.js"
+      "_index.f57b0dd0.js"
     ]
   },
   "resources/js/src/views/pages/Home.vue": {
-    "file": "assets/Home.f04fd4ac.js",
+    "file": "assets/Home.d10f2423.js",
     "src": "resources/js/src/views/pages/Home.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
       "_BlockLiveScore.vue_vue_type_style_index_0_lang.f307e5c2.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
-  "_BlockLeague.dc3ae3cd.js": {
-    "file": "assets/BlockLeague.dc3ae3cd.js",
+  "_BlockLeague.02a8928d.js": {
+    "file": "assets/BlockLeague.02a8928d.js",
     "imports": [
       "resources/js/src/main.js",
       "_lodash.bc509cb4.js"
@@ -283,71 +284,71 @@
     "file": "assets/lodash.bc509cb4.js"
   },
   "resources/js/src/views/pages/Favorite.vue": {
-    "file": "assets/Favorite.7434329a.js",
+    "file": "assets/Favorite.b8ce4e40.js",
     "src": "resources/js/src/views/pages/Favorite.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
       "_BlockLiveScore.vue_vue_type_style_index_0_lang.f307e5c2.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
   "resources/js/src/views/pages/Result.vue": {
-    "file": "assets/Result.77bf20ed.js",
+    "file": "assets/Result.53a7d549.js",
     "src": "resources/js/src/views/pages/Result.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
   "resources/js/src/views/pages/Schedule.vue": {
-    "file": "assets/Schedule.7d302816.js",
+    "file": "assets/Schedule.99c52733.js",
     "src": "resources/js/src/views/pages/Schedule.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
       "_BlockLiveScore.vue_vue_type_style_index_0_lang.f307e5c2.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
   "resources/js/src/views/pages/Tip.vue": {
-    "file": "assets/Tip.26fbe9bc.js",
+    "file": "assets/Tip.200c4ec0.js",
     "src": "resources/js/src/views/pages/Tip.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
       "_BlockLiveScore.vue_vue_type_style_index_0_lang.f307e5c2.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
   "resources/js/src/views/pages/Community.vue": {
-    "file": "assets/Community.40bd11fe.js",
+    "file": "assets/Community.eb7d0882.js",
     "src": "resources/js/src/views/pages/Community.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
       "_BlockLiveScore.vue_vue_type_style_index_0_lang.f307e5c2.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
   "resources/js/src/views/pages/Statistic.vue": {
-    "file": "assets/Statistic.6f8af106.js",
+    "file": "assets/Statistic.33ca331c.js",
     "src": "resources/js/src/views/pages/Statistic.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/src/main.js",
-      "_BlockLeague.dc3ae3cd.js",
+      "_BlockLeague.02a8928d.js",
       "_lodash.bc509cb4.js"
     ]
   },
   "resources/js/src/views/pages/LeagueDetail.vue": {
-    "file": "assets/LeagueDetail.eea6f4a1.js",
+    "file": "assets/LeagueDetail.ea7890f1.js",
     "src": "resources/js/src/views/pages/LeagueDetail.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -358,25 +359,40 @@
       "assets/LeagueDetail.7e10c486.css"
     ]
   },
+  "resources/js/src/views/pages/MatchDetail.vue": {
+    "file": "assets/MatchDetail.ab80562d.js",
+    "src": "resources/js/src/views/pages/MatchDetail.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/src/main.js"
+    ],
+    "css": [
+      "assets/MatchDetail.7e10c486.css"
+    ]
+  },
   "BlockLiveScore.css": {
     "file": "assets/BlockLiveScore.17c8e5b8.css",
     "src": "BlockLiveScore.css"
+  },
+  "resources/js/src/views/pages/MatchDetail.css": {
+    "file": "assets/MatchDetail.7e10c486.css",
+    "src": "resources/js/src/views/pages/MatchDetail.css"
   },
   "resources/js/src/views/pages/LeagueDetail.css": {
     "file": "assets/LeagueDetail.7e10c486.css",
     "src": "resources/js/src/views/pages/LeagueDetail.css"
   },
   "resources/js/src/main.css": {
-    "file": "assets/main.e0ee67b0.css",
+    "file": "assets/main.58403bb6.css",
     "src": "resources/js/src/main.css"
-  },
-  "resources/js/src/assets/fonts/la-regular-400.eot": {
-    "file": "assets/la-regular-400d41d.7dc456f0.eot",
-    "src": "resources/js/src/assets/fonts/la-regular-400.eot"
   },
   "resources/js/src/assets/fonts/la-brands-400.eot": {
     "file": "assets/la-brands-400d41d.c0e32387.eot",
     "src": "resources/js/src/assets/fonts/la-brands-400.eot"
+  },
+  "resources/js/src/assets/fonts/la-regular-400.eot": {
+    "file": "assets/la-regular-400d41d.7dc456f0.eot",
+    "src": "resources/js/src/assets/fonts/la-regular-400.eot"
   },
   "resources/js/src/assets/fonts/la-solid-900d41d.eot": {
     "file": "assets/la-solid-900.8a57f8a9.eot",

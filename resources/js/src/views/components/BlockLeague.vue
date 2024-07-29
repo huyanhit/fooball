@@ -24,8 +24,7 @@
                             <b-link class="d-flex align-items-center list-group-item hover:bg-success-light cursor-pointer"
                                     :to="'league-detail/'+lodash.kebabCase(item.name)" >
                                 <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
-                                    <img :src="'/api/get-image-url?id='+item.id+'&category=league-profile&prop=logo'"
-                                         alt="" class="w-[45px]">
+                                    <ImageFile :item="item" classProps="w-[45px]"/>
                                 </div>
                                 <div class="flex-fill">
                                     <div>{{ item.name }}</div>
@@ -41,10 +40,11 @@
 </template>
 <script setup>
 import {computed, onMounted, reactive} from "vue";
-import {BCard, BLink, BOverlay} from "bootstrap-vue-next";
+import {BLink, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
 import lodash from "lodash";
 import SimpleBar from "simplebar";
+import ImageFile from "@/views/components/patials/ImageFile.vue";
 
 const store = useAppStore();
 

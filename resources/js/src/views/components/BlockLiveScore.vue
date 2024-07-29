@@ -97,10 +97,10 @@
                                 <div ><i class="ri ri-movie-line hover:text-red-500"/></div>
                             </td>
                             <td>
-                                <div class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
+                                <b-link :to="'/match-detail/'+item.matchId" class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
                                      :title="item.homeName">
                                      {{ item.homeName }}
-                                </div>
+                                </b-link>
                             </td>
                             <td>
                                 <span class="relative">
@@ -131,8 +131,8 @@
                                 </span>
                             </td>
                             <td>
-                                <div class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
-                                     :title="item.awayName">{{ item.awayName }}</div>
+                                <b-link :to="'/match-detail/'+item.matchId"  class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
+                                     :title="item.awayName">{{ item.awayName }}</b-link>
                             </td>
                             <td>
                                 <div class="fs-11 hover:text-red-500" v-if="item.status === 1"> {{ item.homeCorner }}-{{ item.awayCorner }} </div>
@@ -167,7 +167,7 @@
 </template>
 <script setup>
 import {computed, onMounted, reactive} from "vue";
-import {BButton, BCard, BDropdown, BDropdownItem, BOverlay} from "bootstrap-vue-next";
+import {BButton, BCard, BDropdown, BDropdownItem, BLink, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
 import SimpleBar from 'simplebar'
 import moment from 'moment';
@@ -291,11 +291,12 @@ const loadPage = async function () {
 
 const liveScoreFilter = computed(()=>{
     let filters = store.livescore.filter((item) => {
-        if(data.is_status){
-            return data.statuses.includes(item.status)
+        if (data.is_status){
+            return data.statuses.includes(item.status) && (item.homeName.toLowerCase().includes(data.keyword.toLowerCase())
+                || item.awayName.toLowerCase().includes(data.keyword.toLowerCase()))
         }else{
-            return item.homeName.toLowerCase().includes(data.keyword.toLowerCase())
-                || item.awayName.toLowerCase().includes(data.keyword.toLowerCase())
+            return (item.homeName.toLowerCase().includes(data.keyword.toLowerCase())
+                || item.awayName.toLowerCase().includes(data.keyword.toLowerCase()))
         }
     })
     let up   = filters.filter((item) => data.likes.includes(item.id))

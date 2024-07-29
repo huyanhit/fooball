@@ -23,6 +23,7 @@ class Controller extends BaseController {
     const API_CHANEL = 'sport/football/';
     const API_DOMAIN = 'http://api.isportsapi.com/';
 
+    private int $timeRequest = 0;
     public function getJsonAPI($path, $params = [])
     {
         $paramStr = '';
@@ -36,13 +37,17 @@ class Controller extends BaseController {
         return json_decode(file_get_contents(self::API_DOMAIN .self::API_CHANEL. $path . self::API_KEY . $paramStr), true);
     }
 
-    public function checkSaveRequest($save, $model){
-        if($save === "auto"){
+    public function setTimeRequest($second){
+        $this->timeRequest = $second;
+    }
+    public function checkSaveRequest($save, $model): bool
+    {
+        if(is_numeric($save) && $save > $this->timeRequest){
             return true;
-        }else if(is_numeric($save)){
+        }else if($this->timeRequest > 0){
             $getTime = $model::orderBy('updated_at','desc')->first();
             if(empty($getTime)) return true;
-            if(Carbon::now()->diffInSeconds($getTime->updated_at) > $save){
+            if(Carbon::now()->diffInSeconds($getTime->updated_at) > $this->timeRequest){
                 return true;
             }
         }

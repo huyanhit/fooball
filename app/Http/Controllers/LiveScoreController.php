@@ -15,7 +15,8 @@ class LiveScoreController extends Controller
      */
     public function index(Request $request)
     {
-        if($this->checkSaveRequest($request['save'], new Livescore()) || $request['live']){
+        // $this->setTimeRequest(2);
+        if($this->checkSaveRequest($request['save'], new Livescore())){
             $liveScore = $this->getJsonAPI('livescores');
             if(isset($liveScore['data'])){
                 if($request['save']){
@@ -27,12 +28,13 @@ class LiveScoreController extends Controller
                         Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                     }
                 }
+                $liveScore['data'] = collect($liveScore['data'])->keyBy('matchId');
                 return response($liveScore);
             }else{
                 return response($liveScore, 401);
             }
         }else{
-            return response(['code'=> 0, 'data'=> Livescore::get()->toArray()]);
+            return response(['code'=> 0, 'data'=> Livescore::get()->keyBy('matchId')]);
         }
     }
 

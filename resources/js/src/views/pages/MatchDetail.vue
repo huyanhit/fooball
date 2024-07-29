@@ -1,6 +1,7 @@
 <template>
     <div class="d-flex flex-column bg-white">
         <div class="text-center my-3">
+            {{store.livescore[route.params.match_id]}}
             <span class="fw-bold text-red-500 me-1">
                 <span class="fs-18">Chinese FA Cup</span>
             </span>
@@ -388,25 +389,37 @@
     </div>
 </template>
 <script setup>
-import {computed, reactive} from "vue";
+import {computed, onMounted, reactive} from "vue";
 import {useAppStore} from "@/stores";
+import {useRoute, useRouter} from "vue-router";
 const props = defineProps(['match']);
 const store = useAppStore();
+const router = useRouter();
+const route  = useRoute()
+
 const data = reactive({
     handicap: {},
     europeOdds: {},
-    matchId:'362682521'
+    match: {}
+})
+
+onMounted(()=>{
+    store.getLiveScore();
+})
+data.match = computed(()=>{
+    return store.livescore[route.params.match_id]
 })
 
 data.handicap = computed(()=>{
-    return store.odd['handicap'][data.matchId]
+    return store.odd['handicap'][route.params.match_id]
 })
 data.europeOdds = computed(()=>{
-    return store.odd['europeOdds'][data.matchId]
+    return store.odd['europeOdds'][route.params.match_id]
 })
 data.overUnder = computed(()=>{
-    return store.odd['overUnder'][data.matchId]
+    return store.odd['overUnder'][route.params.match_id]
 })
+
 </script>
 <style>
 .collapse{

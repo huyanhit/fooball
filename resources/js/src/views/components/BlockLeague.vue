@@ -46,10 +46,8 @@ import lodash from "lodash";
 import SimpleBar from "simplebar";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
 
-const store = useAppStore();
-
-
-const data = reactive({
+const store  = useAppStore();
+const data   = reactive({
     overlay: false,
     pageShow: 0,
     keyword: '',

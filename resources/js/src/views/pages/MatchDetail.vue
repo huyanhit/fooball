@@ -1,18 +1,19 @@
 <template>
     <div class="d-flex flex-column bg-white">
         <div class="text-center my-3">
-            {{store.livescore[route.params.match_id]}}
             <span class="fw-bold text-red-500 me-1">
-                <span class="fs-18">Chinese FA Cup</span>
+                <span class="fs-18"> {{data.match['leagueName']}}</span>
             </span>
             <span class="text-dark fs-14">
                 15-01-2023 14:30 Sunday
             </span>
         </div>
+
         <div class="d-flex justify-content-around mb-3">
             <div class="d-flex align-items-center justify-content-end  text-center w-[35%]">
-                <div class="fs-18 fw-bold">Shandong Taishan</div>
+                <div class="fs-18 fw-bold">{{data.match['homeName']}}</div>
                 <div class="inline-block mt-2">
+                    <image-file :item="data.match"></image-file>
                     <img src="//football.bola012.com/image/team/images/40/1gy3vjsrhjq.png?8" height="80" alt="Shandong Taishan" />
                 </div>
                 <i class="ri ri-star-fill fs-36 ml-[30px]"></i>
@@ -30,7 +31,7 @@
                 <div class="inline-block">
                     <img src="//football.bola012.com/image/team/images/40/1gy3vjsrhjq.png?8" height="80" alt="Shandong Taishan" />
                 </div>
-                <div class="fs-18 fw-bold">Zhejiang Greentown</div>
+                <div class="fs-18 fw-bold">{{data.match['awayName']}}</div>
             </div>
         </div>
     </div>
@@ -392,6 +393,7 @@
 import {computed, onMounted, reactive} from "vue";
 import {useAppStore} from "@/stores";
 import {useRoute, useRouter} from "vue-router";
+import ImageFile from "@/views/components/patials/ImageFile.vue";
 const props = defineProps(['match']);
 const store = useAppStore();
 const router = useRouter();
@@ -407,7 +409,7 @@ onMounted(()=>{
     store.getLiveScore();
 })
 data.match = computed(()=>{
-    return store.livescore[route.params.match_id]
+    return {}
 })
 
 data.handicap = computed(()=>{

@@ -28,13 +28,12 @@ class LiveScoreController extends Controller
                         Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                     }
                 }
-                $liveScore['data'] = collect($liveScore['data'])->keyBy('matchId');
                 return response($liveScore);
             }else{
                 return response($liveScore, 401);
             }
         }else{
-            return response(['code'=> 0, 'data'=> Livescore::get()->keyBy('matchId')]);
+            return response(['code'=> 0, 'data'=> Livescore::get()->toArray()]);
         }
     }
 

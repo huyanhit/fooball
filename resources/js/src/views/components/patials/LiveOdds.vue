@@ -22,9 +22,11 @@ import {computed, onMounted, reactive} from "vue";
         europeOdds: {}
     })
     data.handicap = computed(()=>{
+        if(store.odd['handicap'])
         return store.odd['handicap'][props.match.matchId]
     })
     data.europeOdds = computed(()=>{
+        if(store.odd['europeOdds'])
         return store.odd['europeOdds'][props.match.matchId]
     })
 </script>

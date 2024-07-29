@@ -88,7 +88,7 @@ const checkScroll = function (e){
 }
 const loadPage = async function () {
     data.overlay = true;
-    await store.getLeagueProfile({save: 12*3600});
+    await store.getLeagueProfile();
     data.overlay = false;
 }
 

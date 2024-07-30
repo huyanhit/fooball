@@ -1,11 +1,12 @@
 
 <template>
     <img :class="classProps" v-if="store.files[props.category+'_'+props.properties+'_'+props.id]"
-         :src="store.files[props.category+'_'+props.properties+'_'+props.id]" onerror="this.src=''" ref="img"/>
+         :src="store.files[props.category+'_'+props.properties+'_'+props.id]" :onerror="'this.src=\''+imageDefault+'\''" ref="img"/>
 </template>
 <script setup>
 import {onMounted, ref} from 'vue'
 import {useAppStore} from "@/stores";
+import imageDefault from '@/assets/images/team-default.png'
 const img = ref(null);
 
 const props = defineProps(['id', 'classProps', 'category', 'properties'])

@@ -2,18 +2,18 @@
     <div class="d-flex flex-column bg-white">
         <div class="text-center my-3">
             <span class="fw-bold text-red-500 me-1">
-                <span class="fs-18"> {{data.match['leagueName']}}</span>
+                <span class="fs-18"></span>
             </span>
             <span class="text-dark fs-14">
                 15-01-2023 14:30 Sunday
             </span>
         </div>
 
-        <div class="d-flex justify-content-around mb-3">
+        <div class="d-flex justify-content-around mb-3" v-if="data.match">
             <div class="d-flex align-items-center justify-content-end  text-center w-[35%]">
                 <div class="fs-18 fw-bold">{{data.match['homeName']}}</div>
                 <div class="inline-block mt-2">
-                    <image-file :item="data.match"></image-file>
+                    <image-file :item="data.match" :category="ss" properties="ss"></image-file>
                     <img src="//football.bola012.com/image/team/images/40/1gy3vjsrhjq.png?8" height="80" alt="Shandong Taishan" />
                 </div>
                 <i class="ri ri-star-fill fs-36 ml-[30px]"></i>
@@ -409,7 +409,7 @@ onMounted(()=>{
     store.getLiveScore();
 })
 data.match = computed(()=>{
-    return {}
+    return store.livescore.find((item) => item.matchId === route.params.match_id)
 })
 
 data.handicap = computed(()=>{

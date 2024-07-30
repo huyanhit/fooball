@@ -8,8 +8,10 @@ use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\LeagueProfileController;
 use App\Http\Controllers\LiveScoreController;
 use App\Http\Controllers\OddController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,8 @@ Route::resource('/schedule', ScheduleController::class);
 Route::resource('/result', ResultController::class);
 Route::resource('/live-score', LiveScoreController::class);
 Route::resource('/odds', OddController::class);
+Route::resource('/teams', TeamController::class);
+Route::resource('/players', PlayerController::class);
 
 Route::get('/get-image-url', [ImageController::class, 'getImageUrl']);
 Route::middleware('auth:sanctum')->group(function () {

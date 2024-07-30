@@ -33,7 +33,6 @@ import {useRoute, useRouter} from "vue-router";
 import {useAppStore} from "@/stores";
 import lodash from "lodash";
 import {BAccordion, BAccordionItem} from "bootstrap-vue-next";
-import SimpleBar from "simplebar";
 
 const store = useAppStore();
 const route = useRoute()

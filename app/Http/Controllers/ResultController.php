@@ -27,7 +27,7 @@ class ResultController extends Controller
                         Result::updateOrCreate(['matchId' => $data['matchId']], $data);
                     }
                 }
-                return response($results);
+                return response(['code'=> 0, 'data'=> Result::get()->toArray()]);
             }else{
                 return response($results, 401);
             }

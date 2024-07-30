@@ -19,7 +19,7 @@ class BookmakerController extends Controller
             if(isset($leagues['data'])){
                 Bookmaker::upsert($bookmakers['data'], uniqueBy: ['companyIdMain'],
                     update: ['companyIdEu', 'companyName']);
-                return response($bookmakers);
+                return response(['code'=> 0, 'data'=> Bookmaker::get()->keyBy('companyIdMain')]);
             } else {
                 return response($bookmakers, 401);
             }

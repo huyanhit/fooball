@@ -19,7 +19,7 @@ class ScheduleController extends Controller
                 Schedule::upsert($schedules['data'], uniqueBy: ['matchId'],
                     update: ['type', 'matchTime', 'modifyTime']);
                 $schedules['data'] = collect($schedules['data'])->keyBy('matchId');
-                return response($schedules);
+                return response(['code'=> 0, 'data'=> Schedule::get()->keyBy('matchId')]);
             } else {
                 return response($schedules, 401);
             }

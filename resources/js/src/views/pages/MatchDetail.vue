@@ -2,36 +2,41 @@
     <div class="d-flex flex-column bg-white">
         <div class="text-center my-3">
             <span class="fw-bold text-red-500 me-1">
-                <span class="fs-18"></span>
+                <span class="fs-18">{{data.match['leagueName']}}</span>
             </span>
-            <span class="text-dark fs-14">
-                15-01-2023 14:30 Sunday
+            <span class="fs-14 text-black">
+                 {{moment(data.match['matchTime']).format('LLLL')}}
             </span>
         </div>
 
         <div class="d-flex justify-content-around mb-3" v-if="data.match">
             <div class="d-flex align-items-center justify-content-end  text-center w-[35%]">
-                <div class="fs-18 fw-bold">{{data.match['homeName']}}</div>
+                <div class="fs-18 fw-bold mx-3  hover:text-blue-600">{{data.match['homeName']}}</div>
                 <div class="inline-block mt-2">
-                    <image-file :item="data.match" :category="ss" properties="ss"></image-file>
-                    <img src="//football.bola012.com/image/team/images/40/1gy3vjsrhjq.png?8" height="80" alt="Shandong Taishan" />
+                    <image-file v-if="data.homeTeam.id" :id="data.homeTeam.id" category="team" properties="logo" class="w-[80px]"></image-file>
                 </div>
-                <i class="ri ri-star-fill fs-36 ml-[30px]"></i>
+                <i class="ri ri-star-fill fs-36 ml-[30px] hover:text-yellow-500"></i>
             </div>
-            <div class="d-flex align-items-center justify-content-center text-center w-[30%]">
-                <div class="fs-48 mr-[40px] fw-bold">2</div>
+            <div class="d-flex align-items-center justify-content-center text-center w-[25%]">
+                <div class="fs-48 mr-[20px] fw-bold">{{ data.match['homeScore'] }}</div>
                 <div class="d-flex flex-column align-items-center">
                     <div>Finished</div>
-                    <span class="text-truncate"> (<span title="Score 1st Half">0-1</span>,<span title="Score 2nd Half">2-0</span>)</span>
+                    <span class="text-truncate"> (<span title="Score 1st Half">
+                        {{data.match['homeHalfScore']}} - {{data.match['awayHalfScore']}}
+                    </span>,<span title="Score 2nd Half">
+                        {{ data.match['homeScore'] - data.match['homeHalfScore']}}
+                        -
+                        {{ data.match['awayScore'] - data.match['homeHalfScore']}}
+                    </span>)</span>
                 </div>
-                <div class="fs-48 ml-[40px] fw-bold">1</div>
+                <div class="fs-48 ml-[20px] fw-bold">{{ data.match['awayScore'] }}</div>
             </div>
             <div class="d-flex align-items-center justify-content-start text-center w-[35%]">
-                <i class="ri ri-star-fill fs-36 mr-[30px]"></i>
+                <i class="ri ri-star-fill fs-36 mr-[30px] hover:text-yellow-500" ></i>
                 <div class="inline-block">
-                    <img src="//football.bola012.com/image/team/images/40/1gy3vjsrhjq.png?8" height="80" alt="Shandong Taishan" />
+                    <image-file v-if="data.awayTeam.id" :id="data.awayTeam.id" category="team" properties="logo" class="w-[80px]"></image-file>
                 </div>
-                <div class="fs-18 fw-bold">{{data.match['awayName']}}</div>
+                <div class="fs-18 fw-bold mx-3 hover:text-blue-600">{{data.match['awayName']}}</div>
             </div>
         </div>
     </div>
@@ -81,24 +86,134 @@
                 <tr>
                     <td>Early</td>
                     <td>&nbsp;</td>
-                    <td>0.66</td>
-                    <td>0</td>
-                    <td>1.11</td>
-                    <td>0.70</td>
-                    <td>0</td>
-                    <td>1.06</td>
-                    <td>2.97</td>
-                    <td>1.86</td>
-                    <td>3.80</td>
-                    <td>3.10</td>
-                    <td>1.83</td>
-                    <td>3.75</td>
-                    <td>0.76</td>
-                    <td>0.5/1</td>
-                    <td>1.00</td>
-                    <td>0.81</td>
-                    <td>0.5/1</td>
-                    <td>0.95</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <template v-if="data.handicap && data.handicap.OddsType === '1'">
+                        <td>{{data.handicap['instantHome']}} </td>
+                        <td>{{data.handicap['instantHandicap']}}</td>
+                        <td>{{data.handicap['instantAway']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.europeOdds && data.europeOdds.OddsType === '1'">
+                        <td>{{data.europeOdds['instantHome']}} </td>
+                        <td>{{data.europeOdds['instantDraw']}}</td>
+                        <td>{{data.europeOdds['instantAway']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.overUnder && data.overUnder.OddsType === '1'">
+                        <td>{{data.overUnder['instantOver']}} </td>
+                        <td>{{data.overUnder['instantHandicap']}}</td>
+                        <td>{{data.overUnder['instantUnder']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+                </tr>
+                <tr>
+                    <td>Live</td>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <template v-if="data.handicap && data.handicap.OddsType === '2'">
+                        <td>{{data.handicap['instantHome']}}</td>
+                        <td>{{data.handicap['instantHandicap']}}</td>
+                        <td>{{data.handicap['instantAway']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.europeOdds && data.europeOdds.OddsType === '2'">
+                        <td>{{data.europeOdds['instantHome']}} </td>
+                        <td>{{data.europeOdds['instantDraw']}}</td>
+                        <td>{{data.europeOdds['instantAway']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.overUnder && data.overUnder.OddsType === '2'">
+                        <td>{{data.overUnder['instantOver']}} </td>
+                        <td>{{data.overUnder['instantHandicap']}}</td>
+                        <td>{{data.overUnder['instantUnder']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+                </tr>
+                <tr>
+                    <td>Inplay</td>
+                    <td>&nbsp;</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <template v-if="data.handicap && data.handicap.OddsType === '3'">
+                        <td>{{data.handicap['instantHome']}} {{data.handicap.type}}</td>
+                        <td>{{data.handicap['instantHandicap']}}</td>
+                        <td>{{data.handicap['instantAway']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.europeOdds && data.europeOdds.OddsType === '3'">
+                        <td>{{data.europeOdds['instantHome']}} </td>
+                        <td>{{data.europeOdds['instantDraw']}}</td>
+                        <td>{{data.europeOdds['instantAway']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
+
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.overUnder && data.handicap.OddsType === '3'">
+                        <td>{{data.overUnder['instantOver']}} </td>
+                        <td>{{data.overUnder['instantHandicap']}}</td>
+                        <td>{{data.overUnder['instantUnder']}}</td>
+                    </template>
+                    <template v-else>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </template>
                 </tr>
                 </tbody>
             </table>
@@ -315,7 +430,6 @@
             </table>
         </div>
     </div>
-
     <div class="bg-white border-top-dashed my-3 p-3">
         <!-- Bordered Tables -->
         <div class="text-center">
@@ -393,6 +507,7 @@
 import {computed, onMounted, reactive} from "vue";
 import {useAppStore} from "@/stores";
 import {useRoute, useRouter} from "vue-router";
+import moment from "moment";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
 const props = defineProps(['match']);
 const store = useAppStore();
@@ -402,24 +517,27 @@ const route  = useRoute()
 const data = reactive({
     handicap: {},
     europeOdds: {},
-    match: {}
+    match: {},
+    homeTeam: {},
+    awayTeam: {}
 })
 
-onMounted(()=>{
-    store.getLiveScore();
-})
-data.match = computed(()=>{
-    return store.livescore.find((item) => item.matchId === route.params.match_id)
+onMounted(async () => {
+    await store.getLiveScore();
+    await store.getOdds();
+    data.match = store.livescore.find((item) => item.matchId === route.params.match_id)
+    data.homeTeam = await store.getTeam(data.match.homeId)
+    data.awayTeam = await store.getTeam(data.match.awayId)
 })
 
 data.handicap = computed(()=>{
-    return store.odd['handicap'][route.params.match_id]
+    return store.odd && store.odd['handicap']? store.odd['handicap'][route.params.match_id]: null
 })
 data.europeOdds = computed(()=>{
-    return store.odd['europeOdds'][route.params.match_id]
+    return store.odd && store.odd['europeOdds']? store.odd['europeOdds'][route.params.match_id]: null
 })
 data.overUnder = computed(()=>{
-    return store.odd['overUnder'][route.params.match_id]
+    return store.odd && store.odd['overUnder']? store.odd['overUnder'][route.params.match_id]: null
 })
 
 </script>

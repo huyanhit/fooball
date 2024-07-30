@@ -18,7 +18,7 @@ class CountryController extends Controller
             $countries = $this->getJsonAPI('country');
             if(isset($leagues['data'])){
                 Country::upsert($countries['data'], uniqueBy: ['countryId'], update: ['country']);
-                return response($countries);
+                return response(['code'=> 0, 'data'=> Country::get()->keyBy('countryId')]);
             } else {
                 return response($countries, 401);
             }

@@ -24,7 +24,7 @@
                             <b-link class="d-flex align-items-center list-group-item hover:bg-success-light cursor-pointer"
                                     :to="'league-detail/'+lodash.kebabCase(item.name)" >
                                 <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
-                                    <ImageFile :item="item" category="league-profile" properties="logo" classProps="w-[45px]"/>
+                                    <ImageFile :id="item.id" category="league-profile" properties="logo" classProps="w-[45px]"/>
                                 </div>
                                 <div class="flex-fill">
                                     <div>{{ item.name }}</div>

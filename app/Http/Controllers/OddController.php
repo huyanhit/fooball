@@ -28,7 +28,7 @@ class OddController extends Controller
                 }
 
                 $odd['data'] = $oddNew;
-                return response($this->processOdd($odd['data']));
+                return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
             }else{
                 return response($odd, 401);
             }

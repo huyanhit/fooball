@@ -21,7 +21,7 @@ class PlayerController extends Controller
                 Player::upsert($players['data'], uniqueBy: ['playerId'],
                     update: ['name']);
                 $players['data'] = collect($players['data'])->keyBy('playerId');
-                return response($players);
+                return response(['code' => 0, 'data' => Player::get()->keyBy('playerId')]);
             } else {
                 return response($players, 401);
             }

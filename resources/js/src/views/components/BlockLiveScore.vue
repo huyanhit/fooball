@@ -97,7 +97,7 @@
                                 <div ><i class="ri ri-movie-line hover:text-red-500"/></div>
                             </td>
                             <td>
-                                <b-link :to="'/match-detail/'+item.matchId" class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
+                                <b-link :to="'/match-detail/'+item.matchId" class="cursor-pointer uppercase fw-bold fs-11 w-[100px] text-center inline-block hover:text-blue-600"
                                      :title="item.homeName">
                                      {{ item.homeName }}
                                 </b-link>
@@ -131,7 +131,7 @@
                                 </span>
                             </td>
                             <td>
-                                <b-link :to="'/match-detail/'+item.matchId"  class="cursor-pointer uppercase fs-11 w-[100px] text-center inline-block hover:text-blue-600"
+                                <b-link :to="'/match-detail/'+item.matchId"  class="cursor-pointer uppercase fw-bold fs-11 w-[100px] text-center inline-block hover:text-blue-600"
                                      :title="item.awayName">{{ item.awayName }}</b-link>
                             </td>
                             <td>

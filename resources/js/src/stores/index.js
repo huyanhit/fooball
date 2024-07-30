@@ -12,11 +12,14 @@ export const useAppStore = defineStore('app', {
         result: [],
         livescore: [],
         odd: [],
-        files: []
+        files: {},
     }),
     actions: {
         setMainLayout(payload = null) {
             this.mainLayout = payload;
+        },
+        async getTeam(id, params = null) {
+            return await apiService.callApi({method: 'get', url: 'teams/'+id, param: params});
         },
         async getLeague(params = null) {
             if(this.league.length === 0){
@@ -48,7 +51,9 @@ export const useAppStore = defineStore('app', {
         },
         async getOdds(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds', param:params});
-            if(response.code === 0) this.odd = response.data
+            if(response.code === 0) {
+                this.odd = response.data
+            }
         },
     },
     getters: {

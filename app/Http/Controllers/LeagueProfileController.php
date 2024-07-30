@@ -21,7 +21,7 @@ class LeagueProfileController extends Controller
                     update: ['name', 'shortName', 'type', 'subLeagueName']);
                 $leagues['data'] = collect($leagues['data'])->keyBy('leagueId');
 
-                return response($leagues);
+                return response(['code'=> 0, 'data'=> LeagueProfile::get()->keyBy('leagueId')]);
             } else {
                 return response($leagues, 401);
             }

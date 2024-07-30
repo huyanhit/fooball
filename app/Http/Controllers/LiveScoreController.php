@@ -28,7 +28,7 @@ class LiveScoreController extends Controller
                         Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                     }
                 }
-                return response($liveScore);
+                return response(['code'=> 0, 'data'=> Livescore::get()->toArray()]);
             }else{
                 return response($liveScore, 401);
             }

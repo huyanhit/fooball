@@ -28,7 +28,7 @@ class OddController extends Controller
             return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray(), $request['matchId'])]);
         }
 
-       // return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
+        return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
     }
 
     /**
@@ -91,7 +91,6 @@ class OddController extends Controller
             $data = array_map(function($item){
                 return explode(',', $item);
             }, $decode);
-
             switch ($value['companyIdMain']){
                 case 'handicap':
                     $odd[$key]['odds'] = $this->combineOdd($handicap, $data, $matchId);

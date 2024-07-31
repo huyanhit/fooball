@@ -26,7 +26,7 @@
                     </span>,<span title="Score 2nd Half">
                         {{ data.match['homeScore'] - data.match['homeHalfScore']}}
                         -
-                        {{ data.match['awayScore'] - data.match['homeHalfScore']}}
+                        {{ data.match['awayScore'] - data.match['awayHalfScore']}}
                     </span>)</span>
                 </div>
                 <div class="fs-48 ml-[20px] fw-bold">{{ data.match['awayScore'] }}</div>

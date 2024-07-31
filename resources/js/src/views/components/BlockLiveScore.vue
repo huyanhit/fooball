@@ -60,7 +60,7 @@
                             <BDropdown variant="light" size="sm" :text="data.bookmaker.companyName?? 'choose'"
                                        dropstart split class="bookmaker w-[80px]" >
                                 <BDropdownItem v-for="item in store.bookmaker" @click="data.bookmaker = item" >
-                                    <span v-if="item.companyIdMain > 0"> {{ item.companyName }}</span>
+                                    <span> {{ item.companyName }}</span>
                                 </BDropdownItem>
                             </BDropdown>
                         </td>
@@ -148,12 +148,12 @@
                             </td>
                             <td v-if="store.odd" class="relative">
                                 <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true">
-                                    <live-odds :match="item"/>
+                                    <live-odds :match="item" :bookmaker="data.bookmaker"/>
                                 </div>
                                 <template v-if="data.showOdd[item.id]">
                                     <div @mouseleave.prevent.stop="data.showOdd[item.id] = false"
                                          class="absolute right-[70px] -top-[30px] bg-gray-100 w-[400px] z-1 p-2 border border-groove">
-                                        <match-info :match="item"/>
+                                         <match-info :match="item" :bookmaker="data.bookmaker"/>
                                     </div>
                                 </template>
                             </td>
@@ -179,18 +179,21 @@ const data = reactive({
     keyword: '',
     sortBy: 'status',
     likes: [],
-    bookmaker: {},
+    bookmaker: {
+        companyIdMain: 31,
+        companyName: 'Sbobet'
+    },
     pageShow: 0,
     is_status: '',
     statuses: [1,2,3,4,5],
-    showOdd: []
+    showOdd: [],
 })
 
 onMounted(async () => {
+    store.getOdds({save: 1800});
+    store.getLiveScore({save: 1800});
     store.getBookmaker();
-    store.getOdds({save: 12*3600});
-    store.getLiveScore({save: 12*3600});
-    await loadPage();
+    await reload();
 })
 
 const liveFirstTime = function (item) {
@@ -280,7 +283,7 @@ const checkScroll = function (e){
     }
 }
 
-const loadPage = async function () {
+const reload = function () {
     setInterval(async () => {
         await store.getLiveScore();
         store.livescore.sort((a,b)=>{

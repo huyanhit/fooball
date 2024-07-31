@@ -19,24 +19,30 @@
                 <th scope="row">FT</th>
                 <td colspan="3">ODDS</td>
             </tr>
-            <tr>
-                <th scope="row" v-if="data.handicap">AH</th>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.handicap?.instantHome?? '-'}} </div></td>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.handicap?.instantHandicap?? '-'}} </div></td>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.handicap?.instantAway?? '-'}} </div></td>
-            </tr>
-            <tr>
-                <th scope="row" v-if="data.europeOdds">1X2</th>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.europeOdds?.instantHome?? '-'}} </div></td>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.europeOdds?.instantDraw?? '-'}} </div></td>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.europeOdds?.instantAway?? '-'}} </div></td>
-            </tr>
-            <tr>
-                <th scope="row" v-if="data.overUnder">O/U</th>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.overUnder?.instantOver?? '-'}} </div></td>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.overUnder?.instantHandicap?? '-'}} </div></td>
-                <td><div class="fs-11 hover:text-blue-600"> {{data.overUnder?.instantUnder?? '-'}} </div></td>
-            </tr>
+            <template v-for="item in data.handicap">
+                <tr>
+                    <th scope="row" v-if="data.handicap">AH</th>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHandicap?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantAway?? '-'}} </div></td>
+                </tr>
+            </template>
+            <template v-for="item in data.europeOdds">
+                <tr>
+                    <th scope="row" v-if="data.europeOdds">1X2</th>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantDraw?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantAway?? '-'}} </div></td>
+                </tr>
+            </template>
+            <template v-for="item in data.overUnder">
+                <tr>
+                    <th scope="row" v-if="data.overUnder">O/U</th>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantOver?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHandicap?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantUnder?? '-'}} </div></td>
+                </tr>
+            </template>
             <tr>
                 <td colspan="4" class="text-center py-1"><b-button variant="outline-info" size="sm"> view more </b-button></td>
             </tr>
@@ -47,7 +53,7 @@
 import {computed, reactive} from "vue";
 import {BButton} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
-const props = defineProps(['match']);
+const props = defineProps(['match', 'bookmaker']);
 const store = useAppStore();
 const data = reactive({
     handicap: {},
@@ -55,13 +61,19 @@ const data = reactive({
 })
 
 data.handicap = computed(()=>{
-    return store.odd['handicap'][props.match.matchId]
+    if(store.odd['handicap'] && store.odd['handicap'][props.match.matchId])
+        return Object.values(store.odd['handicap'][props.match.matchId]).
+        filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
 })
 data.europeOdds = computed(()=>{
-    return store.odd['europeOdds'][props.match.matchId]
+    if(store.odd['europeOdds'] && store.odd['europeOdds'][props.match.matchId])
+        return Object.values(store.odd['europeOdds'][props.match.matchId]).
+        filter(item =>  parseInt(item.companyId) === props.bookmaker.companyIdMain)
 })
 data.overUnder = computed(()=>{
-    return store.odd['overUnder'][props.match.matchId]
+    if(store.odd['overUnder'] && store.odd['overUnder'][props.match.matchId])
+        return Object.values(store.odd['overUnder'][props.match.matchId]).
+        filter(item =>  parseInt(item.companyId) === props.bookmaker.companyIdMain)
 })
 </script>
 <style scoped>

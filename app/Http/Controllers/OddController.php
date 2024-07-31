@@ -119,10 +119,9 @@ class OddController extends Controller
         $results = [];
         foreach ($data as $val){
             if(!$matchId){
-                $results[$val[0]] = array_combine($odd, $val);
+                $results[$val[0]][] = array_combine($odd, $val);
             }else if($val[0] === $matchId){
-                $results[$val[0]] = array_combine($odd, $val);
-                break;
+                $results[$val[0]][] = array_combine($odd, $val);
             }
         }
 

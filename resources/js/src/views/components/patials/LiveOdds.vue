@@ -1,33 +1,40 @@
 <template>
     <table class="fs-11">
-        <tr class="px-1" v-if="data.handicap">
-            <td><div class="fs-11 hover:text-blue-600"> {{data.handicap.instantHome?? '-'}} </div></td>
-            <td><div class="fs-11 hover:text-blue-600"> {{data.handicap.instantHandicap?? '-'}} </div></td>
-            <td><div class="fs-11 hover:text-blue-600"> {{data.handicap.instantAway?? '-'}} </div></td>
-        </tr>
-        <tr class="px-1" v-if="data.europeOdds">
-            <td><div class="fs-11 hover:text-blue-600"> {{data.europeOdds.instantHome?? '-'}} </div></td>
-            <td><div class="fs-11 hover:text-blue-600"> {{data.europeOdds.instantDraw?? '-'}} </div></td>
-            <td><div class="fs-11 hover:text-blue-600"> {{data.europeOdds.instantAway?? '-'}} </div></td>
-        </tr>
+        <template  v-if="data.handicap" v-for="item in data.handicap">
+            <tr class="px-1">
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+            </tr>
+        </template>
+        <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+            <tr class="px-1">
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+            </tr>
+        </template>
     </table>
 </template>
 <script setup>
-import {computed, onMounted, reactive} from "vue";
+import {computed, reactive} from "vue";
     import {useAppStore} from "@/stores";
     const store = useAppStore();
-    const props = defineProps(['match']);
+    const props = defineProps(['match', "bookmaker"]);
     const data = reactive({
         handicap: {},
         europeOdds: {}
     })
     data.handicap = computed(()=>{
-        if(store.odd['handicap'])
-        return store.odd['handicap'][props.match.matchId]
+        if(store.odd['handicap'] && store.odd['handicap'][props.match.matchId])
+            return Object.values(store.odd['handicap'][props.match.matchId]).
+            filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
+
     })
     data.europeOdds = computed(()=>{
-        if(store.odd['europeOdds'])
-        return store.odd['europeOdds'][props.match.matchId]
+        if(store.odd['europeOdds'] && store.odd['europeOdds'][props.match.matchId])
+            return Object.values(store.odd['europeOdds'][props.match.matchId]).
+            filter(item =>  parseInt(item.companyId) === props.bookmaker.companyIdMain)
     })
 </script>
 <style scoped>

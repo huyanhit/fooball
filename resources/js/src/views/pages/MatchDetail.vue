@@ -86,134 +86,138 @@
                 <tr>
                     <td>Early</td>
                     <td>&nbsp;</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <template v-if="data.handicap && data.handicap.OddsType === '1'">
-                        <td>{{data.handicap['instantHome']}} </td>
-                        <td>{{data.handicap['instantHandicap']}}</td>
-                        <td>{{data.handicap['instantAway']}}</td>
-                    </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.handicap" v-for="item in data.handicap">
+                        <template class="px-1" v-if="item.OddsType === '1'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+                        </template>
                     </template>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <template v-if="data.europeOdds && data.europeOdds.OddsType === '1'">
-                        <td>{{data.europeOdds['instantHome']}} </td>
-                        <td>{{data.europeOdds['instantDraw']}}</td>
-                        <td>{{data.europeOdds['instantAway']}}</td>
-                    </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </template>
 
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <template v-if="data.overUnder && data.overUnder.OddsType === '1'">
-                        <td>{{data.overUnder['instantOver']}} </td>
-                        <td>{{data.overUnder['instantHandicap']}}</td>
-                        <td>{{data.overUnder['instantUnder']}}</td>
+                    <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+                        <template class="px-1" v-if="item.OddsType === '1'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+                        </template>
                     </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.overUnder" v-for="item in data.overUnder">
+                        <template class="px-1" v-if="item.OddsType === '1'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantOver}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantUnder?? '-'}} </div></td>
+                        </template>
                     </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                 </tr>
                 <tr>
                     <td>Live</td>
                     <td>&nbsp;</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <template v-if="data.handicap && data.handicap.OddsType === '2'">
-                        <td>{{data.handicap['instantHome']}}</td>
-                        <td>{{data.handicap['instantHandicap']}}</td>
-                        <td>{{data.handicap['instantAway']}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.handicap" v-for="item in data.handicap">
+                        <template class="px-1" v-if="item.OddsType === '2'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+                        </template>
                     </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
 
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <template v-if="data.europeOdds && data.europeOdds.OddsType === '2'">
-                        <td>{{data.europeOdds['instantHome']}} </td>
-                        <td>{{data.europeOdds['instantDraw']}}</td>
-                        <td>{{data.europeOdds['instantAway']}}</td>
-                    </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+                        <template class="px-1" v-if="item.OddsType === '2'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+                        </template>
                     </template>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <template v-if="data.overUnder && data.overUnder.OddsType === '2'">
-                        <td>{{data.overUnder['instantOver']}} </td>
-                        <td>{{data.overUnder['instantHandicap']}}</td>
-                        <td>{{data.overUnder['instantUnder']}}</td>
+
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.overUnder" v-for="item in data.overUnder">
+                        <template class="px-1" v-if="item.OddsType === '2'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantOver}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantUnder?? '-'}} </div></td>
+                        </template>
                     </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                 </tr>
+
                 <tr>
                     <td>Inplay</td>
                     <td>&nbsp;</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <template v-if="data.handicap && data.handicap.OddsType === '3'">
-                        <td>{{data.handicap['instantHome']}} {{data.handicap.type}}</td>
-                        <td>{{data.handicap['instantHandicap']}}</td>
-                        <td>{{data.handicap['instantAway']}}</td>
-                    </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.handicap" v-for="item in data.handicap">
+                        <template class="px-1" v-if="item.OddsType === '3'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+                        </template>
                     </template>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <template v-if="data.europeOdds && data.europeOdds.OddsType === '3'">
-                        <td>{{data.europeOdds['instantHome']}} </td>
-                        <td>{{data.europeOdds['instantDraw']}}</td>
-                        <td>{{data.europeOdds['instantAway']}}</td>
-                    </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </template>
 
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <template v-if="data.overUnder && data.handicap.OddsType === '3'">
-                        <td>{{data.overUnder['instantOver']}} </td>
-                        <td>{{data.overUnder['instantHandicap']}}</td>
-                        <td>{{data.overUnder['instantUnder']}}</td>
+                    <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+                        <template class="px-1" v-if="item.OddsType === '3'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
+                        </template>
                     </template>
-                    <template v-else>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <template v-if="data.overUnder" v-for="item in data.overUnder">
+                        <template class="px-1" v-if="item.OddsType === '3'">
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantOver}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
+                            <td><div class="fs-11 hover:text-blue-600"> {{item.instantUnder?? '-'}} </div></td>
+                        </template>
                     </template>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                 </tr>
                 </tbody>
             </table>
@@ -519,25 +523,48 @@ const data = reactive({
     europeOdds: {},
     match: {},
     homeTeam: {},
-    awayTeam: {}
+    awayTeam: {},
+    bookmaker: {
+        companyIdMain: 31,
+        companyName: 'Sbobet'
+    },
 })
 
 onMounted(async () => {
     await store.getLiveScore({matchId: route.params.match_id});
     await store.getOdds({matchId: route.params.match_id});
+    await store.getBookmaker();
+
     data.match = store.livescore.find((item) => item.matchId === route.params.match_id)
     data.homeTeam = await store.getTeam(data.match.homeId)
     data.awayTeam = await store.getTeam(data.match.awayId)
+
+    await reload();
 })
 
+const reload = function () {
+    setInterval(() => {
+        store.getLiveScore({matchId: route.params.match_id});
+        store.getOdds({matchId: route.params.match_id});
+    }, 30*1000); //2 s lấy 1 lần
+}
+
 data.handicap = computed(()=>{
-    return store.odd && store.odd['handicap']? store.odd['handicap'][route.params.match_id]: null
+    console.log(data.bookmaker.companyIdMain)
+    console.log(store.odd['handicap'])
+    if(store.odd['handicap'] && store.odd['handicap'][route.params.match_id])
+        return Object.values(store.odd['handicap'][route.params.match_id]).
+        filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
 })
 data.europeOdds = computed(()=>{
-    return store.odd && store.odd['europeOdds']? store.odd['europeOdds'][route.params.match_id]: null
+    if(store.odd['europeOdds'] && store.odd['europeOdds'][route.params.match_id])
+        return Object.values(store.odd['europeOdds'][route.params.match_id]).
+        filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
 })
 data.overUnder = computed(()=>{
-    return store.odd && store.odd['overUnder']? store.odd['overUnder'][route.params.match_id]: null
+    if(store.odd['overUnder'] && store.odd['overUnder'][route.params.match_id])
+        return Object.values(store.odd['overUnder'][route.params.match_id]).
+        filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
 })
 
 </script>

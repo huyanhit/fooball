@@ -173,6 +173,7 @@ import SimpleBar from 'simplebar'
 import moment from 'moment';
 import LiveOdds from "@/views/components/patials/LiveOdds.vue";
 import MatchInfo from "@/views/components/modal/MatchInfo.vue";
+import {onUnmounted} from "@vue/runtime-core";
 const store = useAppStore();
 const data = reactive({
     overlay: false,
@@ -187,6 +188,7 @@ const data = reactive({
     is_status: '',
     statuses: [1,2,3,4,5],
     showOdd: [],
+    interval: null
 })
 
 onMounted(async () => {
@@ -284,13 +286,17 @@ const checkScroll = function (e){
 }
 
 const reload = function () {
-    setInterval(async () => {
+    data.interval = setInterval(async () => {
         await store.getLiveScore();
         store.livescore.sort((a,b)=>{
             return a[data.sortBy] - b[data.sortBy]
         })
     }, 30*1000); //2 s lấy 1 lần
 }
+
+onUnmounted(()=>{
+    clearInterval(data.interval);
+})
 
 const liveScoreFilter = computed(()=>{
     let filters = store.livescore.filter((item) => {

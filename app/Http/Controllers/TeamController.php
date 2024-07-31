@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use Illuminate\Http\Request;
+use PHPUnit\Logging\TeamCity\TestFinishedSubscriber;
 
 class TeamController extends Controller
 {
@@ -50,9 +51,9 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Team $team)
+    public function show($team)
     {
-        return response($team);
+        return response(Team::where('teamId', $team)->first());
     }
 
     /**

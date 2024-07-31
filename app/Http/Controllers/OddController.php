@@ -14,27 +14,21 @@ class OddController extends Controller
      */
     public function index(Request $request)
     {
-        if($this->checkSaveRequest($request['save'], new Odd()) || $request['live']){
+        if($this->checkSaveRequest($request['save'], new Odd())){
             $odd = $this->getJsonAPI('odds/main/changes');
-            $oddNew = [];
             if(isset($odd['data'])){
-                if($request['save']){
-                    foreach ($odd['data'] as $key => $value){
-                        Odd::updateOrCreate(['companyIdMain' => $key], ['odds' => json_encode($value)]);
-                    }
+                foreach ($odd['data'] as $key => $value){
+                    Odd::updateOrCreate(['companyIdMain' => $key], ['odds' => json_encode($value)]);
                 }
-                foreach ( $odd['data'] as $key => $val){
-                    $oddNew[] = ['companyIdMain' => $key, 'odds' => $val];
-                }
-
-                $odd['data'] = $oddNew;
-                return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
             }else{
                 return response($odd, 401);
             }
-        }else{
-            return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
         }
+        if($request['matchId']){
+            return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray(), $request['matchId'])]);
+        }
+
+       // return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
     }
 
     /**
@@ -85,7 +79,7 @@ class OddController extends Controller
         //
     }
 
-    private function processOdd($odd){
+    private function processOdd($odd, $matchId = null){
         $result = [];
         $handicap = array('matchId','companyId','instantHandicap','instantHome','instantAway','maintenance','inPlay','changeTime','close','OddsType');
         $europeOdds = array('matchId','companyId','instantHome','instantDraw','instantAway','changeTime','close','OddsType');
@@ -100,31 +94,37 @@ class OddController extends Controller
 
             switch ($value['companyIdMain']){
                 case 'handicap':
-                    $odd[$key]['odds'] = $this->combineOdd($handicap, $data);
+                    $odd[$key]['odds'] = $this->combineOdd($handicap, $data, $matchId);
                     break;
                 case 'europeOdds':
-                    $odd[$key]['odds'] = $this->combineOdd($europeOdds, $data);
+                    $odd[$key]['odds'] = $this->combineOdd($europeOdds, $data, $matchId);
                     break;
                 case 'overUnder':
-                    $odd[$key]['odds'] = $this->combineOdd($overUnder, $data);
+                    $odd[$key]['odds'] = $this->combineOdd($overUnder, $data, $matchId);
                     break;
                 case 'handicapHalf':
-                    $odd[$key]['odds'] = $this->combineOdd($handicapHalf, $data);
+                    $odd[$key]['odds'] = $this->combineOdd($handicapHalf, $data, $matchId);
                     break;
                 case 'overUnderHalf':
-                    $odd[$key]['odds'] = $this->combineOdd($overUnderHalf, $data);
+                    $odd[$key]['odds'] = $this->combineOdd($overUnderHalf, $data, $matchId);
                     break;
             }
+
             $result[$odd[$key]['companyIdMain']] = $odd[$key]['odds'];
         }
 
         return $result;
     }
 
-    private function combineOdd($odd, $data){
+    private function combineOdd($odd, $data, $matchId){
         $results = [];
         foreach ($data as $val){
-            $results[$val[0]] = array_combine($odd, $val);
+            if(!$matchId){
+                $results[$val[0]] = array_combine($odd, $val);
+            }else if($val[0] === $matchId){
+                $results[$val[0]] = array_combine($odd, $val);
+                break;
+            }
         }
 
         return $results;

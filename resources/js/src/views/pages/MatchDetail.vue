@@ -523,8 +523,8 @@ const data = reactive({
 })
 
 onMounted(async () => {
-    await store.getLiveScore();
-    await store.getOdds();
+    await store.getLiveScore({matchId: route.params.match_id});
+    await store.getOdds({matchId: route.params.match_id});
     data.match = store.livescore.find((item) => item.matchId === route.params.match_id)
     data.homeTeam = await store.getTeam(data.match.homeId)
     data.awayTeam = await store.getTeam(data.match.awayId)

@@ -26,15 +26,18 @@ import {computed, reactive} from "vue";
         europeOdds: {}
     })
     data.handicap = computed(()=>{
-        if(store.odd['handicap'] && store.odd['handicap'][props.match.matchId])
-            return Object.values(store.odd['handicap'][props.match.matchId]).
-            filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
-
+        for (const index in store.odd['handicap']) {
+            if(store.odd['handicap'][index] && store.odd['handicap'][index][props.match.matchId])
+                return Object.values(store.odd['handicap'][index][props.match.matchId]).
+                filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
+        }
     })
     data.europeOdds = computed(()=>{
-        if(store.odd['europeOdds'] && store.odd['europeOdds'][props.match.matchId])
-            return Object.values(store.odd['europeOdds'][props.match.matchId]).
-            filter(item =>  parseInt(item.companyId) === props.bookmaker.companyIdMain)
+        for (const index in store.odd['europeOdds']) {
+            if (store.odd['europeOdds'][index] && store.odd['europeOdds'][index][props.match.matchId])
+                return Object.values(store.odd['europeOdds'][index][props.match.matchId]).
+                filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
+        }
     })
 </script>
 <style scoped>

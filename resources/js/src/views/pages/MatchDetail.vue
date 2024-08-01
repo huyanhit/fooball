@@ -529,9 +529,10 @@ const reload = function () {
 }
 
 data.handicap = computed(()=>{
-    if(store.odd['handicap'] && store.odd['handicap'][route.params.match_id])
-        return Object.values(store.odd['handicap'][route.params.match_id]).
-        filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+    for (const index in store.odd['handicap']) {
+        if (store.odd['handicap']['index'] && store.odd['handicap']['index'][route.params.match_id])
+            return Object.values(store.odd['handicap']['index'][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+    }
 })
 data.europeOdds = computed(()=>{
     if(store.odd['europeOdds'] && store.odd['europeOdds'][route.params.match_id])

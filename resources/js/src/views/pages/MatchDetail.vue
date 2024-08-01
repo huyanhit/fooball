@@ -530,19 +530,21 @@ const reload = function () {
 
 data.handicap = computed(()=>{
     for (const index in store.odd['handicap']) {
-        if (store.odd['handicap']['index'] && store.odd['handicap']['index'][route.params.match_id])
-            return Object.values(store.odd['handicap']['index'][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+        if (store.odd['handicap'][1] && store.odd['handicap'][1][route.params.match_id])
+            return Object.values(store.odd['handicap'][1][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
     }
 })
 data.europeOdds = computed(()=>{
-    if(store.odd['europeOdds'] && store.odd['europeOdds'][route.params.match_id])
-        return Object.values(store.odd['europeOdds'][route.params.match_id]).
-        filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+    for (const index in store.odd['europeOdds']) {
+        if (store.odd['europeOdds'][1] && store.odd['europeOdds'][1][route.params.match_id])
+            return Object.values(store.odd['europeOdds'][1][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+    }
 })
 data.overUnder = computed(()=>{
-    if(store.odd['overUnder'] && store.odd['overUnder'][route.params.match_id])
-        return Object.values(store.odd['overUnder'][route.params.match_id]).
-        filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+    for (const index in store.odd['overUnder']) {
+        if (store.odd['overUnder'] && store.odd['overUnder'][route.params.match_id])
+            return Object.values(store.odd['overUnder'][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+    }
 })
 
 </script>

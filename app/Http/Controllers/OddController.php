@@ -19,10 +19,10 @@ class OddController extends Controller
     {
         if($this->checkSaveRequest($request['save'], new Odd())){
             $odds[1] = $this->getJsonAPI('odds/main/changes');
-            $odds[2] = $this->getJsonAPI('odds/main');
-            $odds[3] = $this->getJsonAPI('odds/main/future');
-            $odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
-            $odds[5] = $this->getJsonAPI('/odds/all');
+            //$odds[2] = $this->getJsonAPI('odds/main');
+            //$odds[3] = $this->getJsonAPI('odds/main/future');
+            //$odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
+            //$odds[5] = $this->getJsonAPI('/odds/all');
             foreach ($odds as $type => $odd){
                 if(isset($odd['data'])){
                     foreach ($odd['data'] as $key => $value){

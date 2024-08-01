@@ -195,7 +195,6 @@ onMounted( async () => {
     await store.getOdds({save: 1800});
     await store.getLiveScore({save: 1800});
     await store.getBookmaker();
-
     reload();
 })
 
@@ -291,6 +290,7 @@ const reload = function () {
         store.getLiveScore();
         store.getOdds();
     }, 10*1000);
+
 }
 
 onUnmounted(()=>{

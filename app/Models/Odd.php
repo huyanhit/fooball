@@ -11,5 +11,6 @@ class Odd extends Model
     protected $fillable = [
         "companyIdMain",
         "odds",
+        "type",
     ];
 }

@@ -24,7 +24,7 @@
                             <b-link class="d-flex align-items-center list-group-item hover:bg-success-light cursor-pointer"
                                     :to="'league-detail/'+lodash.kebabCase(item.name)" >
                                 <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
-                                    <ImageFile :id="item.id" category="league-profile" properties="logo" classProps="w-[45px]"/>
+                                    <ImageFile :item="item" category="league-profile" properties="logo" classProps="w-[45px]"/>
                                 </div>
                                 <div class="flex-fill">
                                     <div>{{ item.name }}</div>
@@ -45,6 +45,7 @@ import {useAppStore} from "@/stores";
 import lodash from "lodash";
 import SimpleBar from "simplebar";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
+import imageDefault from "@/assets/images/team-default.png";
 
 const store  = useAppStore();
 const data   = reactive({
@@ -54,6 +55,7 @@ const data   = reactive({
     is_status: '',
     statuses: [],
 })
+
 onMounted(() => {
     loadPage();
     const simpleBar = new SimpleBar(document.getElementById('league-bar'), { autoHide: false })
@@ -70,14 +72,14 @@ const changeStatus = function (status){
 }
 const checkScroll = function (e){
     let obj = e.target;
-    if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
+    if(Math.ceil(obj.scrollTop) === (obj.scrollHeight - obj.offsetHeight)){
         let length = Math.floor(Object.keys(store.league_profile).length / 100);
         if(data.pageShow < length ){
             data.pageShow = (data.pageShow + 1);
             obj.scrollTop = 1
         }
     }
-    if(obj.scrollTop < 1 && data.pageShow > 0){
+    if(Math.ceil(obj.scrollTop) < 1 && data.pageShow > 0){
         setTimeout(()=>{
             obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
         }, 100)

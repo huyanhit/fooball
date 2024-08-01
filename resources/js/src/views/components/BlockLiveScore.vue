@@ -191,11 +191,12 @@ const data = reactive({
     interval: null
 })
 
-onMounted(async () => {
-    store.getOdds({save: 1800});
-    store.getLiveScore({save: 1800});
-    store.getBookmaker();
-    await reload();
+onMounted( async () => {
+    await store.getOdds({save: 1800});
+    await store.getLiveScore({save: 1800});
+    await store.getBookmaker();
+
+    reload();
 })
 
 const liveFirstTime = function (item) {
@@ -268,14 +269,14 @@ const changeStatus = function (status){
 }
 const checkScroll = function (e){
     let obj = e.target;
-    if(obj.scrollTop === (obj.scrollHeight - obj.offsetHeight)){
+    if(Math.ceil(obj.scrollTop) === obj.scrollHeight - obj.offsetHeight){
         let length = Math.floor(liveScoreFilter.value.length / 50);
         if(data.pageShow < length ){
             data.pageShow = (data.pageShow + 1);
             obj.scrollTop = 1
         }
     }
-    if(obj.scrollTop < 1 && data.pageShow > 0){
+    if(Math.ceil(obj.scrollTop) < 1 && data.pageShow > 0){
         setTimeout(()=>{
             obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
         }, 50)
@@ -286,19 +287,21 @@ const checkScroll = function (e){
 }
 
 const reload = function () {
-    data.interval = setInterval(async () => {
-        await store.getLiveScore();
-        store.livescore.sort((a,b)=>{
-            return a[data.sortBy] - b[data.sortBy]
-        })
-    }, 30*1000); //2 s lấy 1 lần
+    data.interval = setInterval( () => {
+        store.getLiveScore();
+        store.getOdds();
+    }, 10*1000);
 }
 
 onUnmounted(()=>{
     clearInterval(data.interval);
 })
 
-const liveScoreFilter = computed(()=>{
+const liveScoreFilter = computed(() =>{
+    store.livescore.sort((a, b) => {
+        return a[data.sortBy] - b[data.sortBy]
+    })
+
     let filters = store.livescore.filter((item) => {
         if (data.is_status){
             return data.statuses.includes(item.status) && (item.homeName.toLowerCase().includes(data.keyword.toLowerCase())

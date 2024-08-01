@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center justify-content-end  text-center w-[35%]">
                 <div class="fs-18 fw-bold mx-3  hover:text-blue-600">{{data.match['homeName']}}</div>
                 <div class="inline-block mt-2">
-                    <image-file v-if="data.homeTeam.id" :id="data.homeTeam.id" category="team" properties="logo" class="w-[80px]"></image-file>
+                    <image-file save="true" v-if="data.homeTeam.id" :item="data.homeTeam" category="team" properties="logo" class="w-[80px]"></image-file>
                 </div>
                 <i class="ri ri-star-fill fs-36 ml-[30px] hover:text-yellow-500"></i>
             </div>
@@ -34,7 +34,7 @@
             <div class="d-flex align-items-center justify-content-start text-center w-[35%]">
                 <i class="ri ri-star-fill fs-36 mr-[30px] hover:text-yellow-500" ></i>
                 <div class="inline-block">
-                    <image-file v-if="data.awayTeam.id" :id="data.awayTeam.id" category="team" properties="logo" class="w-[80px]"></image-file>
+                    <image-file save="true" v-if="data.awayTeam.id" :item="data.awayTeam" category="team" properties="logo" class="w-[80px]"></image-file>
                 </div>
                 <div class="fs-18 fw-bold mx-3 hover:text-blue-600">{{data.match['awayName']}}</div>
             </div>
@@ -529,8 +529,6 @@ const reload = function () {
 }
 
 data.handicap = computed(()=>{
-    console.log(data.bookmaker.companyIdMain)
-    console.log(store.odd['handicap'])
     if(store.odd['handicap'] && store.odd['handicap'][route.params.match_id])
         return Object.values(store.odd['handicap'][route.params.match_id]).
         filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)

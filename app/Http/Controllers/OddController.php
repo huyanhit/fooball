@@ -6,9 +6,11 @@ use App\Models\Odd;
 use App\Http\Requests\StoreOddRequest;
 use App\Http\Requests\UpdateOddRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class OddController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -20,6 +22,7 @@ class OddController extends Controller
                 foreach ($odd['data'] as $key => $value){
                     Odd::updateOrCreate(['companyIdMain' => $key], ['odds' => json_encode($value)]);
                 }
+                Cache::put('odds', $this->processOdd(Odd::get()->toArray()));
             }else{
                 return response($odd, 401);
             }
@@ -28,7 +31,7 @@ class OddController extends Controller
             return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray(), $request['matchId'])]);
         }
 
-        return response(['code'=> 0, 'data'=> $this->processOdd(Odd::get()->toArray())]);
+        return response(['code'=> 0, 'data'=> Cache::get('odds')??$this->processOdd(Odd::get()->toArray())]);
     }
 
     /**

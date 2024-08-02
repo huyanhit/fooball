@@ -39,31 +39,47 @@
                       :class="{'bg-red-400 text-white': data.is_status === 'order'}"
                       @click="changeStatus('order')">order</span>
             </div>
-            <div class="h-[calc(100vh-330px)] overflow-auto" id="simple-bar">
-                <table class="relative border border-groove">
-                    <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
-                        <th>
+            <table>
+                <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
+                    <th style="width: 5%">
+                        <div class="flex-fill me-2">
                             <b-button size="sm" class="btn-outline-warning hover:text-red-500 cursor-pointer"
                                       @click="data.likes = []">
                                 <i class="ri ri-delete-bin-2-line"/>
                             </b-button>
-                        </th>
-                        <th> time </th>
-                        <td> </td>
-                        <th> home </th>
-                        <th> score </th>
-                        <th> away </th>
-                        <th> <i class="ri-flag-2-fill"></i> </th>
-                        <th> FT </th>
-                        <th> Data </th>
-                        <td>
-                            <BDropdown variant="light" size="sm" :text="data.bookmaker.companyName?? 'choose'"
-                                       dropstart split class="bookmaker w-[80px]" >
-                                <BDropdownItem v-for="item in store.bookmaker" @click="data.bookmaker = item" >
-                                    <span> {{ item.companyName }}</span>
-                                </BDropdownItem>
-                            </BDropdown>
-                        </td>
+                        </div>
+                    </th>
+                    <th style="width: 13%;">time</th>
+                    <td style="width: 2%;"></td>
+                    <th style="width: 18%;">home</th>
+                    <th style="width: 20%;">score</th>
+                    <th style="width: 18%;">away</th>
+                    <th style="width: 3%;"><i class="ri-flag-2-fill"></i></th>
+                    <th style="width: 3%;">FT</th>
+                    <th style="width: 5%;">Data</th>
+                    <td style="width: 18%; text-align: right">
+                        <BDropdown variant="light" size="sm" :text="data.bookmaker.companyName?? 'choose'"
+                                   dropend class="bookmaker w-[80px]" >
+                            <BDropdownItem v-for="item in store.bookmaker" @click="data.bookmaker = item" >
+                                <span> {{ item.companyName }}</span>
+                            </BDropdownItem>
+                        </BDropdown>
+                    </td>
+                </tr>
+            </table>
+            <div class="h-[calc(100vh-330px)] overflow-auto" id="simple-bar">
+                <table class="relative border border-groove">
+                    <tr class="h-[0]">
+                        <th style="width: 5%"></th>
+                        <th style="width: 13%;"></th>
+                        <td style="width: 2%;"></td>
+                        <th style="width: 18%;"></th>
+                        <th style="width: 20%;"></th>
+                        <th style="width: 18%;"></th>
+                        <th style="width: 3%;"></th>
+                        <th style="width: 3%;"></th>
+                        <th style="width: 3%;"></th>
+                        <td style="width: 18%;"></td>
                     </tr>
                     <template v-for="(item, index) in liveScoreFilter" class="text-center h-[40px]"
                         :key="index">
@@ -147,15 +163,15 @@
                                 </div>
                             </td>
                             <td v-if="store.odd" class="relative">
-                                <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true">
+                                <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true"
+                                     @mouseleave.prevent.stop="data.showOdd[item.id] = false">
                                     <live-odds :match="item" :bookmaker="data.bookmaker"/>
+                                    <div @mouseleave.prevent.stop="data.showOdd[item.id] = false">
+                                        <BDropdown :offset="{mainAxis: -100, crossAxis: -50 }" class="odd-match" v-model="data.showOdd[item.id]" lass="m-1" v-if="data.showOdd[item.id]">
+                                            <match-info :match="item" :bookmaker="data.bookmaker"/>
+                                        </BDropdown>
+                                    </div>
                                 </div>
-                                <BDropdown class="odd-match" v-model="data.showOdd[item.id]" lass="m-1" v-if="data.showOdd[item.id]">
-                                    <template #button-content>
-                                        Custom
-                                    </template>
-                                    <match-info :match="item" :bookmaker="data.bookmaker"/>
-                                </BDropdown>
                             </td>
                         </tr>
                         </template>
@@ -178,7 +194,6 @@ const store = useAppStore();
 const data = reactive({
     overlay: false,
     keyword: '',
-    sortBy: 'status',
     likes: [],
     bookmaker: {
         companyIdMain: '31',
@@ -192,9 +207,9 @@ const data = reactive({
 })
 
 onMounted( async () => {
-    await store.getOdds({save: 1800});
-    await store.getLiveScore({save: 1800});
-    await store.getBookmaker();
+    store.getLiveScore({save: 1800});
+    store.getOdds({save: 1800});
+    store.getBookmaker();
     reload();
 })
 
@@ -297,15 +312,7 @@ onUnmounted(()=>{
     clearInterval(data.interval);
 })
 
-const findMatch = function (id){
-    return store.livescore.filter((item) => item.id === id)
-}
-
 const liveScoreFilter = computed(() =>{
-    store.livescore.sort((a, b) => {
-        return a[data.sortBy] - b[data.sortBy]
-    })
-
     let filters = store.livescore.filter((item) => {
         if (data.is_status){
             return data.statuses.includes(item.status) && (item.homeName.toLowerCase().includes(data.keyword.toLowerCase())

@@ -1,13 +1,13 @@
 <template>
     <table class="fs-11">
-        <template  v-if="data.handicap[1]" v-for="item in data.handicap[1]">
+        <template  v-if="data.handicap[5]" v-for="item in data.handicap[5]">
             <tr class="px-1">
-                <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}}</div></td>
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
             </tr>
         </template>
-        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
+        <template v-if="data.europeOdds[5]" v-for="item in data.europeOdds[5]">
             <tr class="px-1">
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}} </div></td>
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></td>

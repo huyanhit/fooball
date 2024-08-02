@@ -21,7 +21,7 @@
                 <td colspan="3" class="w-[150px]">ODDS</td>
                 <td colspan="3" class="w-[150px]">FIRST ODDS</td>
             </tr>
-            <template v-for="item in data.handicap[1]">
+            <template v-for="item in data.handicap[5]">
                 <tr>
                     <th scope="row">AH</th>
                     <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHome?? '-'}} </div></td>
@@ -33,7 +33,7 @@
                     <td><div class="fs-11 hover:text-blue-600"> {{item?.initialAway?? '-'}} </div></td>
                 </tr>
             </template>
-            <template v-for="item in data.europeOdds[1]">
+            <template v-for="item in data.europeOdds[5]">
                 <tr>
                     <th scope="row">1X2</th>
                     <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHome?? '-'}} </div></td>
@@ -45,7 +45,7 @@
                     <td><div class="fs-11 hover:text-blue-600"> {{item?.initialAway?? '-'}} </div></td>
                 </tr>
             </template>
-            <template v-for="item in data.overUnder[1]">
+            <template v-for="item in data.overUnder[5]">
                 <tr>
                     <th scope="row">O/U</th>
                     <td><div class="fs-11 hover:text-blue-600"> {{item?.instantOver?? '-'}} </div></td>

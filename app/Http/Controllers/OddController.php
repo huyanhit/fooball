@@ -18,11 +18,15 @@ class OddController extends Controller
     public function index(Request $request)
     {
         if($this->checkSaveRequest($request['save'], new Odd())){
-            $odds[1] = $this->getJsonAPI('odds/main');
-            //$odds[2] = $this->getJsonAPI('odds/main/changes');
-            //$odds[3] = $this->getJsonAPI('odds/main/future');
-            //$odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
-            //$odds[5] = $this->getJsonAPI('/odds/all');
+//            $odds[1] = $this->getJsonAPI('odds/main');
+//            $odds[2] = $this->getJsonAPI('odds/main/changes');
+//            $odds[3] = $this->getJsonAPI('odds/main/future');
+//            $odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
+            $odds[5] = $this->getJsonAPI('/odds/all');
+            $odds[6] = $this->getJsonAPI('odds/all/changes');
+            $odds[7] = $this->getJsonAPI('odds/all/history', ['date' => Carbon::now()->format('Y/m/d')]);
+            $odds[8] = $this->getJsonAPI('odds/all/future');
+
             foreach ($odds as $type => $odd){
                 if(isset($odd['data'])){
                     foreach ($odd['data'] as $key => $value){
@@ -91,8 +95,8 @@ class OddController extends Controller
     private function processOdd($odd, $matchId = null){
         $result = [];
         foreach ($odd as $key => $value){
-            if($value['type'] == 1 || $value['type'] == 5){
-                $handicap = array('matchId','companyId', 'initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay','changeTime','close','OddsType');
+            if($value['type'] == 1){
+                $handicap = array('matchId','companyId', 'initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay', 'changeTime','close','OddsType');
                 $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','changeTime','close','OddsType');
                 $overUnder = array('matchId','companyId','initialHandicap', 'initialOver', 'initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime','close','OddsType');
                 $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway','changeTime','OddsType');
@@ -103,12 +107,35 @@ class OddController extends Controller
                 $overUnder = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder', 'changeTime', 'close', 'OddsType');
                 $handicapHalf = array('matchId', 'companyId', 'instantHandicap', 'instantHome', 'instantAway', 'changeTime', 'OddsType');
                 $overUnderHalf = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder', 'changeTime', 'OddsType');
-            }else{
+            }else if($value['type'] == 3 || $value['type'] == 4){
                 $handicap = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay','changeTime','close');
                 $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','changeTime','close');
                 $overUnder = array('matchId','companyId','initialHandicap', 'initialOver', 'initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime','close');
                 $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway','changeTime');
                 $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime');
+            }else if($value['type'] == 5){
+                $handicap = array('matchId','companyId', 'initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay',
+                    'handicapIndex', 'handicapCount', 'changeTime','close','OddsType');
+                $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','changeTime',
+                    'handicapIndex', 'close','OddsType');
+                $overUnder = array('matchId','companyId','initialHandicap','initialOver','initialUnder','instantHandicap','instantOver','instantUnder',
+                    'handicapIndex', 'changeTime','close','OddsType');
+                $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway',
+                    'inPlay', 'handicapIndex','changeTime','OddsType');
+                $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder',
+                    'handicapIndex','changeTime','OddsType');
+            }else if($value['type'] == 6){
+                $handicap = array('matchId', 'companyId', 'instantHandicap', 'instantHome', 'instantAway', 'maintenance', 'inPlay','handicapIndex', 'changeTime', 'close', 'OddsType');
+                $europeOdds = array('matchId', 'companyId', 'instantHome', 'instantDraw', 'instantAway','handicapIndex', 'changeTime', 'close', 'OddsType');
+                $overUnder = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder','handicapIndex', 'changeTime', 'close', 'OddsType');
+                $handicapHalf = array('matchId', 'companyId', 'instantHandicap', 'instantHome', 'instantAway','inPlay', 'handicapIndex','changeTime', 'OddsType');
+                $overUnderHalf = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder','handicapIndex', 'changeTime', 'OddsType');
+            }if($value['type'] == 7 || $value['type'] == 8){
+                $handicap = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay', 'handicapIndex', 'handicapCount','changeTime','close');
+                $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','handicapIndex','changeTime','close');
+                $overUnder = array('matchId','companyId','initialHandicap', 'initialOver', 'initialUnder', 'instantHandicap','instantOver','instantUnder','handicapIndex','changeTime','close');
+                $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway','inPlay','handicapIndex', 'changeTime');
+                $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder','handicapIndex','changeTime');
             }
 
             $decode = is_array($value['odds'])? $value['odds']: json_decode($value['odds']);

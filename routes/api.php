@@ -8,6 +8,7 @@ use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\LeagueProfileController;
 use App\Http\Controllers\LiveScoreController;
 use App\Http\Controllers\OddController;
+use App\Http\Controllers\OddDetailController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ScheduleController;
@@ -37,6 +38,7 @@ Route::resource('/schedule', ScheduleController::class);
 Route::resource('/result', ResultController::class);
 Route::resource('/live-score', LiveScoreController::class);
 Route::resource('/odds', OddController::class);
+Route::resource('/odds-detail', OddDetailController::class);
 Route::resource('/teams', TeamController::class);
 Route::resource('/players', PlayerController::class);
 

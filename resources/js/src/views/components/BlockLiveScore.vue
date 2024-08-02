@@ -150,12 +150,12 @@
                                 <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true">
                                     <live-odds :match="item" :bookmaker="data.bookmaker"/>
                                 </div>
-                                <template v-if="data.showOdd[item.id]">
-                                    <div @mouseleave.prevent.stop="data.showOdd[item.id] = false"
-                                         class="absolute right-[70px] -top-[30px] bg-gray-100 w-[400px] z-1 p-2 border border-groove">
-                                         <match-info :match="item" :bookmaker="data.bookmaker"/>
-                                    </div>
-                                </template>
+                                <BDropdown class="odd-match" v-model="data.showOdd[item.id]" lass="m-1" v-if="data.showOdd[item.id]">
+                                    <template #button-content>
+                                        Custom
+                                    </template>
+                                    <match-info :match="item" :bookmaker="data.bookmaker"/>
+                                </BDropdown>
                             </td>
                         </tr>
                         </template>
@@ -181,13 +181,13 @@ const data = reactive({
     sortBy: 'status',
     likes: [],
     bookmaker: {
-        companyIdMain: 31,
+        companyIdMain: '31',
         companyName: 'Sbobet'
     },
     pageShow: 0,
     is_status: '',
     statuses: [1,2,3,4,5],
-    showOdd: [],
+    showOdd: 0,
     interval: null
 })
 
@@ -297,6 +297,10 @@ onUnmounted(()=>{
     clearInterval(data.interval);
 })
 
+const findMatch = function (id){
+    return store.livescore.filter((item) => item.id === id)
+}
+
 const liveScoreFilter = computed(() =>{
     store.livescore.sort((a, b) => {
         return a[data.sortBy] - b[data.sortBy]
@@ -336,5 +340,16 @@ onMounted(()=>{
 .multiselect-option {
     font-size: 12px!important;
     text-transform: uppercase!important;
+}
+.odd-match{
+    position: absolute;
+}
+.odd-match .dropdown-menu{
+    padding: 0;
+}
+.odd-match > .btn{
+    visibility: hidden;
+    position: absolute;
+    height: 0;
 }
 </style>

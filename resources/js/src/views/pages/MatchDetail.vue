@@ -86,9 +86,16 @@
                 <tr>
                     <td>Early</td>
                     <td>&nbsp;</td>
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.handicap" v-for="item in data.handicap">
+                        <template v-if="data.handicap[1]" v-for="item in data.handicap[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '1'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
+                            </span>
+                    </template></td>
+                    <td colspan="3">
+                        <template v-if="data.handicap[1]" v-for="item in data.handicap[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '1'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></span>
@@ -97,9 +104,17 @@
                         </template>
                     </td>
 
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+                        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '1'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialDraw?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '1'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></span>
@@ -108,9 +123,17 @@
                         </template>
                     </td>
 
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.overUnder" v-for="item in data.overUnder">
+                        <template v-if="data.overUnder[1]" v-for="item in data.overUnder[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '1'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialOver}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialUnder?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.overUnder[1]" v-for="item in data.overUnder[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '1'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantOver}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></span>
@@ -122,9 +145,17 @@
                 <tr>
                     <td>Live</td>
                     <td>&nbsp;</td>
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.handicap" v-for="item in data.handicap">
+                        <template v-if="data.handicap[1]" v-for="item in data.handicap[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '2'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.handicap[1]" v-for="item in data.handicap[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '2'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></span>
@@ -133,9 +164,17 @@
                         </template>
                     </td>
 
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+                        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '2'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialDraw?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '2'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></span>
@@ -144,9 +183,17 @@
                         </template>
                     </td>
 
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.overUnder" v-for="item in data.overUnder">
+                        <template v-if="data.overUnder[1]" v-for="item in data.overUnder[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '2'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialOver}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialUnder?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.overUnder[1]" v-for="item in data.overUnder[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '2'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantOver}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></span>
@@ -159,20 +206,27 @@
                 <tr>
                     <td>Inplay</td>
                     <td>&nbsp;</td>
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.handicap" v-for="item in data.handicap">
+                        <template v-if="data.handicap[1]" v-for="item in data.handicap[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '3'">
-                                <span><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></span>
-                                <span><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></span>
-                                <span><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.handicap[1]" v-for="item in data.handicap[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '3'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
                             </span>
                         </template>
                     </td>
 
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+                        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
                             <span class="d-flex justify-content-between" v-if="item.OddsType === '3'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHome}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></span>
@@ -180,10 +234,27 @@
                             </span>
                         </template>
                     </td>
-
-                    <td colspan="3"></td>
                     <td colspan="3">
-                        <template v-if="data.overUnder" v-for="item in data.overUnder">
+                        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
+                            <span class="d-flex justify-content-between" v-if="item.OddsType === '3'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHome}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialDraw?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialAway?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+
+                    <td colspan="3">
+                        <template v-if="data.overUnder[1]" v-for="item in data.overUnder[1]">
+                            <span class="d-flex justify-content-between px-1" v-if="item.OddsType === '3'">
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialOver}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialHandicap?? '-'}} </div></span>
+                                <span><div class="fs-11 hover:text-blue-600"> {{item.initialUnder?? '-'}} </div></span>
+                            </span>
+                        </template>
+                    </td>
+                    <td colspan="3">
+                        <template v-if="data.overUnder[1]" v-for="item in data.overUnder[1]">
                             <span class="d-flex justify-content-between px-1" v-if="item.OddsType === '3'">
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantOver}} </div></span>
                                 <span><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></span>
@@ -499,7 +570,7 @@ const data = reactive({
     homeTeam: {},
     awayTeam: {},
     bookmaker: {
-        companyIdMain: 31,
+        companyIdMain: '31',
         companyName: 'Sbobet'
     },
     interval: null
@@ -529,22 +600,34 @@ const reload = function () {
 }
 
 data.handicap = computed(()=>{
+    let results = [];
     for (const index in store.odd['handicap']) {
-        if (store.odd['handicap'][1] && store.odd['handicap'][1][route.params.match_id])
-            return Object.values(store.odd['handicap'][1][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+        if (store.odd['handicap'][index] && store.odd['handicap'][index][route.params.match_id]){
+            results[index] = Object.values(store.odd['handicap'][index][route.params.match_id])
+                .filter(item => item.companyId === data.bookmaker.companyIdMain)
+        }
     }
+    return results
 })
 data.europeOdds = computed(()=>{
+    let results = [];
     for (const index in store.odd['europeOdds']) {
-        if (store.odd['europeOdds'][1] && store.odd['europeOdds'][1][route.params.match_id])
-            return Object.values(store.odd['europeOdds'][1][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+        if (store.odd['europeOdds'][index] && store.odd['europeOdds'][index][route.params.match_id]){
+            results[index] = Object.values(store.odd['europeOdds'][index][route.params.match_id])
+                .filter(item => item.companyId === data.bookmaker.companyIdMain)
+        }
     }
+    return results
 })
 data.overUnder = computed(()=>{
+    let results = [];
     for (const index in store.odd['overUnder']) {
-        if (store.odd['overUnder'] && store.odd['overUnder'][route.params.match_id])
-            return Object.values(store.odd['overUnder'][route.params.match_id]).filter(item => parseInt(item.companyId) === data.bookmaker.companyIdMain)
+        if (store.odd['overUnder'] && store.odd['overUnder'][route.params.match_id]){
+            results[index] = Object.values(store.odd['overUnder'][route.params.match_id])
+                .filter(item => item.companyId === data.bookmaker.companyIdMain)
+        }
     }
+    return results
 })
 
 </script>

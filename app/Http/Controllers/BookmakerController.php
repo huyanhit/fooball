@@ -17,15 +17,14 @@ class BookmakerController extends Controller
         if($this->checkSaveRequest($request['save'], new Bookmaker())){
             $bookmakers = $this->getJsonAPI('bookmaker');
             if(isset($leagues['data'])){
-                Bookmaker::upsert($bookmakers['data'], uniqueBy: ['companyIdMain'],
-                    update: ['companyIdEu', 'companyName']);
-                return response(['code'=> 0, 'data'=> Bookmaker::get()->keyBy('companyIdMain')]);
+                Bookmaker::upsert($bookmakers['data'], uniqueBy: ['companyIdMain'], update: ['companyIdEu', 'companyName']);
             } else {
                 return response($bookmakers, 401);
             }
-        }else{
-            return response(['code'=> 0, 'data'=> Bookmaker::get()->keyBy('companyIdMain')]);
         }
+
+        return response(['code'=> 0, 'data'=> Bookmaker::get()->keyBy('companyIdMain')]);
+
     }
 
     /**

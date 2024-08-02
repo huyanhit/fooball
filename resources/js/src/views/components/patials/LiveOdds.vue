@@ -1,13 +1,13 @@
 <template>
     <table class="fs-11">
-        <template  v-if="data.handicap" v-for="item in data.handicap">
+        <template  v-if="data.handicap[1]" v-for="item in data.handicap[1]">
             <tr class="px-1">
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}} </div></td>
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantHandicap?? '-'}} </div></td>
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantAway?? '-'}} </div></td>
             </tr>
         </template>
-        <template v-if="data.europeOdds" v-for="item in data.europeOdds">
+        <template v-if="data.europeOdds[1]" v-for="item in data.europeOdds[1]">
             <tr class="px-1">
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantHome?? '-'}} </div></td>
                 <td><div class="fs-11 hover:text-blue-600"> {{item.instantDraw?? '-'}} </div></td>
@@ -26,18 +26,24 @@ import {computed, reactive} from "vue";
         europeOdds: {}
     })
     data.handicap = computed(()=>{
+        let results = [];
         for (const index in store.odd['handicap']) {
-            if(store.odd['handicap'][index] && store.odd['handicap'][index][props.match.matchId])
-                return Object.values(store.odd['handicap'][index][props.match.matchId]).
-                filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
+            if (store.odd['handicap'][index] && store.odd['handicap'][index][props.match.matchId]){
+                results[index] = Object.values(store.odd['handicap'][index][props.match.matchId])
+                    .filter(item => item.companyId === props.bookmaker.companyIdMain)
+            }
         }
+        return results
     })
     data.europeOdds = computed(()=>{
+        let results = [];
         for (const index in store.odd['europeOdds']) {
-            if (store.odd['europeOdds'][index] && store.odd['europeOdds'][index][props.match.matchId])
-                return Object.values(store.odd['europeOdds'][index][props.match.matchId]).
-                filter(item => parseInt(item.companyId) === props.bookmaker.companyIdMain)
+            if (store.odd['europeOdds'][index] && store.odd['europeOdds'][index][props.match.matchId]){
+                results[index] = Object.values(store.odd['europeOdds'][index][props.match.matchId])
+                    .filter(item => item.companyId === props.bookmaker.companyIdMain)
+            }
         }
+        return results
     })
 </script>
 <style scoped>

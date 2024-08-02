@@ -2,6 +2,7 @@
 /node_modules
 /public/app
 /storage/*.key
+/storage/app/team/*
 /vendor
 .env
 .env.backup

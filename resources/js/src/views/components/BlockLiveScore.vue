@@ -67,7 +67,7 @@
                     </td>
                 </tr>
             </table>
-            <div class="h-[calc(100vh-330px)] overflow-auto" id="simple-bar">
+            <div class="h-[calc(100vh-360px)] overflow-auto" id="simple-bar">
                 <table class="relative border border-groove">
                     <tr class="h-[0]">
                         <th style="width: 5%"></th>

@@ -4,21 +4,26 @@ import apiService from "@/composables/use-api";
 export const useAppStore = defineStore('app', {
     state: () => ({
         mainLayout: 'app',
-        country: [],
-        league: [],
-        league_profile: [],
-        bookmaker: [],
-        schedule: [],
-        result: [],
-        livescore: [],
-        odd: [],
+        countries: [],
+        leagues: [],
+        league_profiles: [],
+        bookmakers: [],
+        schedules: [],
+        live_scores: [],
+        odds: [],
+        odds_change: [],
         files: {},
+
 
         page_show: 1,
         is_status: '',
         statuses: [1,2,3,4,5],
         keyword: '',
         likes: [],
+        bookmaker: {
+            companyIdMain: '31',
+            companyName: 'Sbobet'
+        },
     }),
     actions: {
         setMainLayout(payload = null) {
@@ -28,41 +33,53 @@ export const useAppStore = defineStore('app', {
             return await apiService.callApi({method: 'get', url: 'teams/'+id, param: params});
         },
         async getLeague(params = null) {
-            if(this.league.length === 0){
+            if(this.leagues.length === 0){
                 const response = await apiService.callApi({method: 'get', url: 'league', param: params});
-                if (response.code === 0) this.league = response.data
+                if (response.code === 0) this.leagues = response.data
             }
         },
         async getLeagueProfile(params = null) {
-            if(this.league_profile.length === 0){
+            if(this.league_profiles.length === 0){
                 const response = await apiService.callApi({method: 'get', url: 'league-profile', param:params});
-                if(response.code === 0) this.league_profile = response.data
+                if(response.code === 0) this.league_profiles = response.data
             }
         },
         async getSchedule(params = null) {
-            if(this.schedule.length === 0) {
+            if(this.schedules.length === 0) {
                 const response = await apiService.callApi({method: 'get', url: 'schedule', param: params});
-                if (response.code === 0) this.schedule = response.data
+                if (response.code === 0) this.schedules = response.data
             }
         },
         async getBookmaker(params = null) {
-            if(this.bookmaker.length === 0) {
+            if(this.bookmakers.length === 0) {
                 const response = await apiService.callApi({method: 'get', url: 'bookmaker', param: params});
-                if (response.code === 0) this.bookmaker = response.data
+                if (response.code === 0) this.bookmakers = response.data
             }
         },
         async getLiveScore(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'live-score', param:params});
-            if(response.code === 0) this.livescore = response.data
-        },
-        async getOdds(params = null) {
-            const response = await apiService.callApi({method: 'get', url: 'odds', param:params});
             if(response.code === 0) {
-                this.odd = response.data
+                this.live_scores = response.data
             }
         },
+        async getLiveScoreChange(params = null) {
+            const response = await apiService.callApi({method: 'get', url: 'live-score-change', param:params});
+            if(response.code === 0) {
+                this.live_scores = this.live_scores.concat(response.data)
+            }
+        },
+        async getOdds(params = null) {
+            const response = await apiService.callApi({method: 'get', url: 'odds-detail', param:params});
+            if(response.code === 0) {
+                this.odds = response.data
+            }
+        },
+        async getOddChange(params = null) {
+            const response = await apiService.callApi({method: 'get', url: 'odds-change', param:params});
+            if(response.code === 0) {
+                this.odds = this.odds.concat(response.data)
+            }
+        }
     },
-    getters: {
-
-    },
+    getters: {},
 });

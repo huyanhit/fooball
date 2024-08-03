@@ -42,6 +42,9 @@ Route::resource('/odds-detail', OddDetailController::class);
 Route::resource('/teams', TeamController::class);
 Route::resource('/players', PlayerController::class);
 
+
+Route::get('/odds-change', [OddDetailController::class, 'change']);
+Route::get('/live-score-change', [LiveScoreController::class, 'change']);
 Route::get('/get-image-url', [ImageController::class, 'getImageUrl']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');

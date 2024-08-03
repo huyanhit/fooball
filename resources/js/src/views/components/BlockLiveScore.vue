@@ -60,9 +60,9 @@
                     <td style="width: 18%; text-align: right">
                         <BDropdown variant="success" size="sm" dropend class="bookmaker min-w-[100px]">
                             <template #button-content>
-                                <span class="min-w-[80px] uppercase"> {{data.bookmaker.companyName??choose}} </span>
+                                <span class="min-w-[80px] uppercase"> {{store.bookmaker.companyName??choose}} </span>
                             </template>
-                            <BDropdownItem v-for="item in store.bookmaker" @click="data.bookmaker = item" >
+                            <BDropdownItem v-for="item in store.bookmakers" @click="store.bookmaker = item" >
                                 <span> {{ item.companyName }}</span>
                             </BDropdownItem>
                         </BDropdown>
@@ -87,8 +87,8 @@
                         <template v-if="pageMinItem(index) && pageMaxItem(index)">
                             <tr class="text-left bg-success-light"
                                 v-if="!liveScoreFilter[index - 1] || (item.leagueId !== liveScoreFilter[index - 1].leagueId)">
-                                <td colspan="10" class="h-[30px] px-2 fw-bold" v-if="store.league_profile[item.leagueId]">
-                                    <span>{{store.league_profile[item.leagueId].name}}</span>
+                                <td colspan="10" class="h-[30px] px-2 fw-bold" v-if="store.league_profiles[item.leagueId]">
+                                    <span>{{store.league_profiles[item.leagueId].name}}</span>
                                 </td>
                             </tr>
                             <tr class="text-center h-[30px]">
@@ -161,13 +161,13 @@
                                     <div class="fs-11 hover:text-red-500"><i class="ri-flag-2-fill"></i>
                                     </div>
                                 </td>
-                                <td v-if="store.odd" class="relative">
+                                <td v-if="store.odds" class="relative">
                                     <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true"
                                          @mouseleave.prevent.stop="data.showOdd[item.id] = false">
-                                        <live-odds :match="item" :bookmaker="data.bookmaker"/>
+                                        <live-odds :odds="odds" :match="item" :bookmaker="store.bookmaker"/>
                                         <div @mouseleave.prevent.stop="data.showOdd[item.id] = false">
                                             <BDropdown :offset="{mainAxis: -100, crossAxis: -50 }" class="odd-match" v-model="data.showOdd[item.id]" lass="m-1" v-if="data.showOdd[item.id]">
-                                                <match-info :match="item" :bookmaker="data.bookmaker"/>
+                                                <match-info :odds="odds" :match="item" :bookmaker="store.bookmaker"/>
                                             </BDropdown>
                                         </div>
                                     </div>
@@ -182,7 +182,7 @@
 </template>
 <script setup>
 import {computed, onMounted, reactive} from "vue";
-import {BButton, BCard, BDropdown, BDropdownItem, BLink, BOverlay} from "bootstrap-vue-next";
+import {BButton, BDropdown, BDropdownItem, BLink, BOverlay} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
 import SimpleBar from 'simplebar'
 import moment from 'moment';
@@ -194,11 +194,6 @@ const data = reactive({
     overlay: false,
     keyword: '',
     likes: [],
-    bookmaker: {
-        companyIdMain: '31',
-        companyName: 'Sbobet'
-    },
-
     showOdd: 0,
     interval: null
 })
@@ -213,6 +208,15 @@ onMounted( async () => {
 const pageMinItem = function(index){
     return index >= ((store.page_show - 1) * 50)
 }
+
+const odds = computed(()=>{
+    let results = {};
+    for (const item of store.odds) {
+        results[item.type+'-'+item.companyId+'-'+item.matchId+'-'+item.OddsType] = item
+    }
+
+    return results
+})
 
 const pageMaxItem = function(index){
     if (Math.floor(liveScoreFilter.value.length) === (store.page_show * 50)){
@@ -297,8 +301,6 @@ const checkScroll = function (e){
         if(store.page_show < totalPage){
             store.page_show = (store.page_show + 1);
             obj.scrollTop = 1
-            console.log(store.page_show)
-            console.log(totalPage)
         }
     }else if(Math.ceil(obj.scrollTop) < 1 && store.page_show > 1){
         setTimeout(()=>{
@@ -312,9 +314,9 @@ const checkScroll = function (e){
 
 const reload = function () {
     data.interval = setInterval( () => {
-        store.getLiveScore();
-        store.getOdds();
-    }, 3600*1000);
+        store.getLiveScoreChange();
+        store.getOddChange();
+    }, 60*1000);
 }
 
 onUnmounted(()=>{
@@ -322,7 +324,7 @@ onUnmounted(()=>{
 })
 
 const liveScoreFilter = computed(() =>{
-    let filters = store.livescore.filter((item) => {
+    let filters = store.live_scores.filter((item) => {
         if (store.is_status){
             return store.statuses.includes(item.status) && (
                 item.homeName.toLowerCase().includes(store.keyword.toLowerCase())

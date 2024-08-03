@@ -21,40 +21,40 @@
                 <td colspan="3" class="w-[150px]">ODDS</td>
                 <td colspan="3" class="w-[150px]">FIRST ODDS</td>
             </tr>
-            <template v-for="item in data.handicap[5]">
+            <template v-if="odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]">
                 <tr>
                     <th scope="row">AH</th>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHandicap?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantAway?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantHandicap?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantAway?? '-'}} </div></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialAway?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialDraw?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['handicap-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialAway?? '-'}} </div></td>
                 </tr>
             </template>
-            <template v-for="item in data.europeOdds[5]">
+            <template v-if="odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]">
                 <tr>
                     <th scope="row">1X2</th>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantAway?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantDraw?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantAway?? '-'}} </div></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialAway?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialDraw?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['europeOdds-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialAway?? '-'}} </div></td>
                 </tr>
             </template>
-            <template v-for="item in data.overUnder[5]">
+            <template v-if="odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]">
                 <tr>
                     <th scope="row">O/U</th>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantOver?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantHandicap?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.instantUnder?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantOver?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantHandicap?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.instantUnder?? '-'}} </div></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{item?.initialAway?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialHome?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialDraw?? '-'}} </div></td>
+                    <td><div class="fs-11 hover:text-blue-600"> {{odds['overUnder-'+bookmaker.companyIdMain+'-'+match.matchId+'-'+oddsType]?.initialAway?? '-'}} </div></td>
                 </tr>
             </template>
             <tr>
@@ -64,46 +64,11 @@
     </table>
 </template>
 <script setup>
-import {computed, reactive} from "vue";
 import {BButton} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
-const props = defineProps(['match', 'bookmaker']);
+const props = defineProps(['odds', 'match', 'bookmaker']);
 const store = useAppStore();
-const data = reactive({
-    handicap: {},
-    europeOdds: {}
-})
-
-data.handicap = computed(()=>{
-    let results = [];
-    for (const index in store.odd['handicap']) {
-        if (store.odd['handicap'][index] && store.odd['handicap'][index][props.match.matchId]){
-            results[index] = Object.values(store.odd['handicap'][index][props.match.matchId])
-                .filter(item => item.companyId === props.bookmaker.companyIdMain)
-        }
-    }
-    return results
-})
-data.europeOdds = computed(()=>{
-    let results = [];
-    for (const index in store.odd['europeOdds']) {
-        if (store.odd['europeOdds'][index] && store.odd['europeOdds'][index][props.match.matchId]){
-            results[index] = Object.values(store.odd['europeOdds'][index][props.match.matchId])
-                .filter(item => item.companyId === props.bookmaker.companyIdMain)
-        }
-    }
-    return results
-})
-data.overUnder = computed(()=>{
-    let results = [];
-    for (const index in store.odd['overUnder']) {
-        if (store.odd['overUnder'] && store.odd['overUnder'][props.match.matchId]){
-            results[index] = Object.values(store.odd['overUnder'][props.match.matchId])
-                .filter(item => item.companyId === props.bookmaker.companyIdMain)
-        }
-    }
-    return results
-})
+const oddsType = 3
 </script>
 <style scoped>
 

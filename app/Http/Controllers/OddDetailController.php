@@ -18,79 +18,49 @@ class OddDetailController extends Controller
      */
     public function index(Request $request)
     {
+        ini_set('memory_limit', -1);
         if($this->checkSaveRequest($request['save'], new Odd())){
             $odds[1] = $this->getJsonAPI('odds/main');
-            $odds[2] = $this->getJsonAPI('odds/main/changes');
-            $odds[3] = $this->getJsonAPI('odds/main/future');
-            $odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
-            // $odds[5] = $this->getJsonAPI('/odds/all');
-            // $odds[6] = $this->getJsonAPI('odds/all/changes');
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){
-                    foreach ($odd['data'] as $type => $data){
-                        $this->processOdd($key, $type, $data);
-                    }
+                    $this->processOdd($key, $odd['data']);
                 }
             }
-
-            //Cache::put('odds', $this->processOdd(Odd::get()->toArray()));
+            Cache::put('odds-detail', OddDetail::whereIn('key', [1,2])->get());
         }
+
+
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::where('matchId', $request['matchId'])->get()]);
+            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1,2])
+                   ->where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data' => OddDetail::where('key', 1)->get()]);
+        return response(['code'=> 0, 'data' => Cache::get('odds-detail')?? OddDetail::whereIn('key', [1,2])->get()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function change(Request $request)
     {
-        //
+        $this->setTimeRequest(600);
+        if($this->checkSaveRequest($request['save'], new Odd())){
+            $odds[2] = $this->getJsonAPI('odds/main/changes');
+            foreach ($odds as $key => $odd){
+                if(isset($odd['data'])){
+                    $this->processOdd($key, $odd['data']);
+                }
+            }
+            Cache::put('odds-detail-change', OddDetail::where('key', 2)->get());
+        }
+
+        if($request['matchId']){
+            return response(['code'=> 0, 'data' => OddDetail::where('key', 2)
+                   ->where('matchId', $request['matchId'])->get()]);
+        }
+
+        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')?? OddDetail::where('key', 2)->get()]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOddRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Odd $odd)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Odd $odd)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOddRequest $request, Odd $odd)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Odd $odd)
-    {
-        //
-    }
-
-    private function processOdd($key, $type, $data){
+    private function processOdd($key, $odds){
         if($key == 1){
             $handicap = array('matchId','companyId', 'initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay', 'changeTime','close','OddsType');
             $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','changeTime','close','OddsType');
@@ -103,6 +73,12 @@ class OddDetailController extends Controller
             $overUnder = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder', 'changeTime', 'close', 'OddsType');
             $handicapHalf = array('matchId', 'companyId', 'instantHandicap', 'instantHome', 'instantAway', 'changeTime', 'OddsType');
             $overUnderHalf = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder', 'changeTime', 'OddsType');
+        }else if($key == 3 || $key == 4){
+            $handicap = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay','changeTime','close');
+            $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','changeTime','close');
+            $overUnder = array('matchId','companyId','initialHandicap', 'initialOver', 'initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime','close');
+            $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway','changeTime');
+            $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime');
         }else if($key == 5){
             $handicap = array('matchId','companyId', 'initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay',
                 'handicapIndex', 'handicapCount', 'changeTime','close','OddsType');
@@ -114,42 +90,48 @@ class OddDetailController extends Controller
                 'inPlay', 'handicapIndex','changeTime','OddsType');
             $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder',
                 'handicapIndex','changeTime','OddsType');
-        }else{
-            $handicap = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay','changeTime','close');
-            $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','changeTime','close');
-            $overUnder = array('matchId','companyId','initialHandicap', 'initialOver', 'initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime','close');
-            $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway','changeTime');
-            $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder','changeTime');
+        }else if($key == 6){
+            $handicap = array('matchId', 'companyId', 'instantHandicap', 'instantHome', 'instantAway', 'maintenance', 'inPlay','handicapIndex', 'changeTime', 'close', 'OddsType');
+            $europeOdds = array('matchId', 'companyId', 'instantHome', 'instantDraw', 'instantAway','handicapIndex', 'changeTime', 'close', 'OddsType');
+            $overUnder = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder','handicapIndex', 'changeTime', 'close', 'OddsType');
+            $handicapHalf = array('matchId', 'companyId', 'instantHandicap', 'instantHome', 'instantAway','inPlay', 'handicapIndex','changeTime', 'OddsType');
+            $overUnderHalf = array('matchId', 'companyId', 'instantHandicap', 'instantOver', 'instantUnder','handicapIndex', 'changeTime', 'OddsType');
+        }if($key == 7 || $key == 8){
+            $handicap = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway','instantHandicap','instantHome','instantAway','maintenance','inPlay', 'handicapIndex', 'handicapCount','changeTime','close');
+            $europeOdds = array('matchId','companyId','initialHome','initialDraw','initialAway','instantHome','instantDraw','instantAway','handicapIndex','changeTime','close');
+            $overUnder = array('matchId','companyId','initialHandicap', 'initialOver', 'initialUnder', 'instantHandicap','instantOver','instantUnder','handicapIndex','changeTime','close');
+            $handicapHalf = array('matchId','companyId','initialHandicap', 'initialHome', 'initialAway', 'instantHandicap','instantHome','instantAway','inPlay','handicapIndex', 'changeTime');
+            $overUnderHalf = array('matchId','companyId','initialHandicap', 'initialOver','initialUnder', 'instantHandicap','instantOver','instantUnder','handicapIndex','changeTime');
         }
 
-        $data = array_map(function($item){
-            return explode(',', $item);
-        }, $data);
+        foreach ($odds as $type => $data){
+            $results = [];
 
-        $results = [];
+            $data = array_map(function($item){
+                return explode(',', $item);
+            }, $data);
 
-        foreach ($data as $val){
-            switch ($type){
-                case 'handicap':
-                    $results[] = $this->combineOdd($handicap, $val, $key, $type);
-                    break;
-                case 'europeOdds':
-                    $results[] =$this->combineOdd($europeOdds, $val, $key, $type);
-                    break;
-                case 'overUnder':
-                    $results[] =$this->combineOdd($overUnder, $val, $key, $type);
-                    break;
-                case 'handicapHalf':
-                    $results[] =$this->combineOdd($handicapHalf, $val, $key, $type);
-                    break;
-                case 'overUnderHalf':
-                    $results[] = $this->combineOdd($overUnderHalf, $val, $key, $type);
-                    break;
+            foreach ($data as $val){
+                switch ($type){
+                    case 'handicap':
+                        $results = $this->combineOdd($handicap, $val, $key, $type);
+                        break;
+                    case 'europeOdds':
+                        $results = $this->combineOdd($europeOdds, $val, $key, $type);
+                        break;
+                    case 'overUnder':
+                        $results = $this->combineOdd($overUnder, $val, $key, $type);
+                        break;
+                    case 'handicapHalf':
+                        $results = $this->combineOdd($handicapHalf, $val, $key, $type);
+                        break;
+                    case 'overUnderHalf':
+                        $results = $this->combineOdd($overUnderHalf, $val, $key, $type);
+                        break;
+                }
+
+                OddDetail::upsert($results, uniqueBy: ['matchId', 'companyId', 'type', 'key'], update: []);
             }
-        }
-        foreach (array_chunk($results, 1000) as $chunk) {
-            OddDetail::upsert($chunk, uniqueBy: ['matchId', 'companyId', 'type', 'key'],
-                update: []);
         }
     }
 

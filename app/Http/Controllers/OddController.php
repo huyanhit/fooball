@@ -17,16 +17,16 @@ class OddController extends Controller
      */
     public function index(Request $request)
     {
-        ini_set('memory_limit', '500M');
+        ini_set('memory_limit', -1);
         if($this->checkSaveRequest($request['save'], new Odd())){
-//            $odds[1] = $this->getJsonAPI('odds/main');
-//            $odds[2] = $this->getJsonAPI('odds/main/changes');
-//            $odds[3] = $this->getJsonAPI('odds/main/future');
-//            $odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
-            $odds[5] = $this->getJsonAPI('/odds/all');
-            $odds[6] = $this->getJsonAPI('odds/all/changes');
-            $odds[7] = $this->getJsonAPI('odds/all/history', ['date' => Carbon::now()->format('Y/m/d')]);
-            $odds[8] = $this->getJsonAPI('odds/all/future');
+            $odds[1] = $this->getJsonAPI('odds/main');
+            $odds[2] = $this->getJsonAPI('odds/main/changes');
+            $odds[3] = $this->getJsonAPI('odds/main/future');
+            $odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
+//            $odds[5] = $this->getJsonAPI('/odds/all');
+//            $odds[6] = $this->getJsonAPI('odds/all/changes');
+//            $odds[7] = $this->getJsonAPI('odds/all/history', ['date' => Carbon::now()->format('Y/m/d')]);
+//            $odds[8] = $this->getJsonAPI('odds/all/future');
 
             foreach ($odds as $type => $odd){
                 if(isset($odd['data'])){

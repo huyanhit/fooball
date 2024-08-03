@@ -106,7 +106,7 @@ const loadPage = async function () {
 }
 
 const leagueFilter = computed(()=> {
-    return Object.values(store.league_profile).filter((item) => {
+    return Object.values(store.league_profiles).filter((item) => {
         if (data.is_status) {
             return data.statuses.includes(item.leagueId)
         } else {

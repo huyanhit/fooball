@@ -1,7 +1,7 @@
 <template>
     <b-overlay :show="data.overlay">
         <ul class="list-group">
-            <li class="list-group-item" v-for="item in store.schedule.data">
+            <li class="list-group-item" v-for="item in store.schedules.data">
                 <i class="mdi mdi-check-bold align-middle lh-1 me-2"></i> {{ item.matchId }}
             </li>
         </ul>

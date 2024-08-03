@@ -144,7 +144,7 @@ class OddDetailController extends Controller
                     'companyId' => $result['companyId'],
                     'type' => $result['type'],
                     'key' => $result['key'],
-                    'changeTime' => $result['key'],
+                    'changeTime' => $result['changeTime'],
                 ], $result);
             }
         }

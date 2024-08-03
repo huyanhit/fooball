@@ -65,7 +65,7 @@ export const useAppStore = defineStore('app', {
         async getLiveScoreChange(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'live-score-change', param:params});
             if(response.code === 0) {
-                this.live_scores = this.live_scores.concat(response.data)
+                this.live_scores = response.data
             }
         },
         async getOdds(params = null) {
@@ -77,7 +77,7 @@ export const useAppStore = defineStore('app', {
         async getOddChange(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds-change', param:params});
             if(response.code === 0) {
-                this.odds = this.odds.concat(response.data)
+                this.odds = response.data
             }
         }
     },

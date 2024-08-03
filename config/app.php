@@ -68,8 +68,8 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
-    'timezone' => 'UTC',
+//env('TIMEZONE', 'Asia/Ho_Chi_Minh')
+    'timezone' => env('TIMEZONE', 'Asia/Ho_Chi_Minh'),
 
     /*
     |--------------------------------------------------------------------------

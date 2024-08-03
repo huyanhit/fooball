@@ -19,7 +19,7 @@ class OddDetailController extends Controller
     public function index(Request $request)
     {
         ini_set('memory_limit', -1);
-        if($this->checkSaveRequest($request['save'], new Odd())){
+        if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[1] = $this->getJsonAPI('odds/main');
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){
@@ -40,8 +40,8 @@ class OddDetailController extends Controller
 
     public function change(Request $request)
     {
-        $this->setTimeRequest(600);
-        if($this->checkSaveRequest($request['save'], new Odd())){
+        $this->setTimeRequest(60);
+        if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[2] = $this->getJsonAPI('odds/main/changes');
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){
@@ -52,11 +52,10 @@ class OddDetailController extends Controller
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::where('key', 2)
-                   ->where('matchId', $request['matchId'])->get()]);
+            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1,2])->where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')?? OddDetail::where('key', 2)->get()]);
+        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')?? OddDetail::whereIn('key', [1,2])->get()]);
     }
 
     private function processOdd($key, $odds){
@@ -113,27 +112,40 @@ class OddDetailController extends Controller
             foreach ($data as $val){
                 switch ($type){
                     case 'handicap':
-                        $results = $this->combineOdd($handicap, $val, $key, $type);
+                        $results[] = $this->combineOdd($handicap, $val, $key, $type);
                         break;
                     case 'europeOdds':
-                        $results = $this->combineOdd($europeOdds, $val, $key, $type);
+                        $results[] = $this->combineOdd($europeOdds, $val, $key, $type);
                         break;
                     case 'overUnder':
-                        $results = $this->combineOdd($overUnder, $val, $key, $type);
+                        $results[] = $this->combineOdd($overUnder, $val, $key, $type);
                         break;
                     case 'handicapHalf':
-                        $results = $this->combineOdd($handicapHalf, $val, $key, $type);
+                        $results[] = $this->combineOdd($handicapHalf, $val, $key, $type);
                         break;
                     case 'overUnderHalf':
-                        $results = $this->combineOdd($overUnderHalf, $val, $key, $type);
+                        $results[] = $this->combineOdd($overUnderHalf, $val, $key, $type);
                         break;
                 }
+            }
 
-                OddDetail::upsert($results, uniqueBy: ['matchId', 'companyId', 'type', 'key'], update: [
-                    'initialHandicap','instantDraw', 'initialHome', 'initialOver','initialUnder',
-                    'initialAway', 'instantOver', 'instantUnder', 'instantHandicap','instantHome',
-                    'instantDraw','instantAway','maintenance','inPlay', 'changeTime', 'close', 'OddsType',
-                ]);
+//            foreach (array_chunk($results, 1000) as $chunk) {
+//                OddDetail::upsert($chunk, ['matchId', 'companyId', 'type', 'key', 'changeTime'], [
+//                    'initialHandicap', 'initialHome', 'initialOver', 'initialDraw', 'initialUnder',
+//                    'initialAway', 'instantHandicap', 'instantHome', 'instantOver', 'instantDraw',
+//                    'instantUnder', 'instantAway', 'maintenance', 'inPlay', 'handicapIndex',
+//                    'handicapCount', 'changeTime', 'close', 'OddsType'
+//                ]);
+//            }
+
+            foreach ($results as $result) {
+                OddDetail::updateOrCreate([
+                    'matchId' => $result['matchId'],
+                    'companyId' => $result['companyId'],
+                    'type' => $result['type'],
+                    'key' => $result['key'],
+                    'changeTime' => $result['key'],
+                ], $result);
             }
         }
     }

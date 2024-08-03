@@ -26,21 +26,21 @@ class LiveScoreController extends Controller
                     Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::get()->toArray());
+                Cache::put('live-score', Livescore::orderBy('id', 'DESC')->get());
             }else{
                 return response($liveScore, 401);
             }
         }
         if($request['matchId']){
-            return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()->toArray()]);
+            return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::get()->toArray()]);
+        return response(['code'=> 0, 'data'=> Cache::get('live-score')??Livescore::orderBy('id', 'DESC')->get()]);
     }
 
     public function change(Request $request)
     {
-        $this->setTimeRequest(600);
+        $this->setTimeRequest(60);
         if($this->checkSaveRequest($request['save'], new Livescore())){
             $liveScore = $this->getJsonAPI('livescores/changes');
             if(isset($liveScore['data'])){
@@ -51,64 +51,16 @@ class LiveScoreController extends Controller
                     Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::get()->toArray());
+                Cache::put('live-score', Livescore::orderBy('id', 'DESC')->get());
             }else{
                 return response($liveScore, 401);
             }
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()->toArray()]);
+            return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::get()->toArray()]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreLivescoreRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Livescore $liveScore)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Livescore $liveScore)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLivescoreRequest $request, Livescore $liveScore)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Livescore $liveScore)
-    {
-        //
+        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::orderBy('id', 'DESC')->get()]);
     }
 }

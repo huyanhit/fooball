@@ -13,7 +13,7 @@ export default {
         }
         return headers;
     },
-        callApi(data){
+    callApi(data){
         if(data.method !== undefined && data.url !== undefined){
             let method = data.method.toLowerCase();
             let url    = data.url.toLowerCase();

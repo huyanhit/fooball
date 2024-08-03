@@ -17,6 +17,7 @@ class OddController extends Controller
      */
     public function index(Request $request)
     {
+        ini_set('memory_limit', '128M');
         if($this->checkSaveRequest($request['save'], new Odd())){
 //            $odds[1] = $this->getJsonAPI('odds/main');
 //            $odds[2] = $this->getJsonAPI('odds/main/changes');

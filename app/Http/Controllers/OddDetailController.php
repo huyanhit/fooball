@@ -37,7 +37,6 @@ class OddDetailController extends Controller
         return response(['code'=> 0, 'data' => Cache::get('odds-detail')?? OddDetail::whereIn('key', [1,2])->get()]);
     }
 
-
     public function change(Request $request)
     {
         $this->setTimeRequest(60);
@@ -128,24 +127,25 @@ class OddDetailController extends Controller
                         break;
                 }
             }
-
-//            foreach (array_chunk($results, 1000) as $chunk) {
-//                OddDetail::upsert($chunk, ['matchId', 'companyId', 'type', 'key', 'changeTime'], [
-//                    'initialHandicap', 'initialHome', 'initialOver', 'initialDraw', 'initialUnder',
-//                    'initialAway', 'instantHandicap', 'instantHome', 'instantOver', 'instantDraw',
-//                    'instantUnder', 'instantAway', 'maintenance', 'inPlay', 'handicapIndex',
-//                    'handicapCount', 'changeTime', 'close', 'OddsType'
-//                ]);
-//            }
-
-            foreach ($results as $result) {
-                OddDetail::updateOrCreate([
-                    'matchId' => $result['matchId'],
-                    'companyId' => $result['companyId'],
-                    'type' => $result['type'],
-                    'key' => $result['key'],
-                    'changeTime' => $result['changeTime'],
-                ], $result);
+            if($key === 1){
+                foreach (array_chunk($results, 1000) as $chunk) {
+                    OddDetail::upsert($chunk, ['matchId', 'companyId', 'type', 'key', 'changeTime'], [
+                        'initialHandicap', 'initialHome', 'initialOver', 'initialDraw', 'initialUnder',
+                        'initialAway', 'instantHandicap', 'instantHome', 'instantOver', 'instantDraw',
+                        'instantUnder', 'instantAway', 'maintenance', 'inPlay', 'handicapIndex',
+                        'handicapCount', 'changeTime', 'close', 'OddsType'
+                    ]);
+                }
+            }else{
+                foreach ($results as $result) {
+                    OddDetail::updateOrCreate([
+                        'matchId' => $result['matchId'],
+                        'companyId' => $result['companyId'],
+                        'type' => $result['type'],
+                        'key' => $result['key'],
+                        'changeTime' => $result['changeTime'],
+                    ], $result);
+                }
             }
         }
     }

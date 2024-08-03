@@ -582,7 +582,7 @@ const liveFirstTime = function (time, item) {
     if (minutes <= 45) return parseInt(minutes) + " '";
     else if (minutes > 45 && minutes < 60) return "HT";
     else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
-    else if (minutes > 105) return '90 +(' + (parseInt(minutes) - 15) + ')';
+    else if (minutes > 105) return '90 +(' + (parseInt(minutes) - 105) + ')';
 }
 
 onMounted(async () => {

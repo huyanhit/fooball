@@ -13,6 +13,12 @@ export const useAppStore = defineStore('app', {
         livescore: [],
         odd: [],
         files: {},
+
+        page_show: 1,
+        is_status: '',
+        statuses: [1,2,3,4,5],
+        keyword: '',
+        likes: [],
     }),
     actions: {
         setMainLayout(payload = null) {

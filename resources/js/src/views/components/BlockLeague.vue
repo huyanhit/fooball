@@ -8,7 +8,7 @@
                            placeholder="Lọc theo tên đội bóng"
                            autocomplete="off" id="search-options" value="">
                 </div>
-                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{data.pageShow + 1}}</span>
+                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{data.page_show}}</span>
             </div>
             <div class="d-flex flex-row position-relative mb-2">
                 <span class="m-0 flex-shrink-1 fs-12 border rounded bg-gray-500 text-white px-1 cursor-pointer me-2"
@@ -17,10 +17,10 @@
                       :class="{'bg-red-400 text-white': data.is_status === 'hot'}"
                       @click="changeStatus('hot')"> Hot </span>
             </div>
-            <div class="h-[calc(100vh-330px)] overflow-auto" id="league-bar">
-                <ul class="list-group overflow-auto" >
-                    <template v-for="item in leagueFilter">
-                        <li v-if="item.id >= (data.pageShow * 50) && item.id < ((data.pageShow + 1) * 50)">
+            <div class="h-[calc(100vh-330px)]" id="league-bar">
+                <ul class="list-group" >
+                    <template v-for="(item, index) in leagueFilter" :key="index">
+                        <li v-if="pageMinItem(index) && pageMaxItem(index)">
                             <b-link class="d-flex align-items-center list-group-item hover:bg-success-light cursor-pointer"
                                     :to="'league-detail/'+lodash.kebabCase(item.name)" >
                                 <div class="avatar-sm me-2 border border-groove inline-block" :style="'background-color:'+ item.color">
@@ -45,12 +45,11 @@ import {useAppStore} from "@/stores";
 import lodash from "lodash";
 import SimpleBar from "simplebar";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
-import imageDefault from "@/assets/images/team-default.png";
 
 const store  = useAppStore();
 const data   = reactive({
     overlay: false,
-    pageShow: 0,
+    page_show: 1,
     keyword: '',
     is_status: '',
     statuses: [],
@@ -62,9 +61,22 @@ onMounted(() => {
     simpleBar.getScrollElement().addEventListener('scroll', checkScroll);
 })
 
+const pageMinItem = function(index){
+    return index >= ((data.page_show - 1) * 50)
+}
+
+const pageMaxItem = function(index){
+    if (Math.floor(leagueFilter.value.length) === (data.page_show * 50)){
+        return index < leagueFilter.value.length
+    }else{
+        return index < (data.page_show * 50)
+    }
+}
+
+
 const changeStatus = function (status){
     data.is_status = status
-    data.pageShow = 0;
+    data.page_show = 1;
     switch (status) {
         case 'hot': data.statuses = ["111"]; break;
         case 'reset': data.statuses = []; data.is_status = ''; break;
@@ -72,19 +84,18 @@ const changeStatus = function (status){
 }
 const checkScroll = function (e){
     let obj = e.target;
-    if(Math.ceil(obj.scrollTop) === (obj.scrollHeight - obj.offsetHeight)){
-        let length = Math.floor(Object.keys(store.league_profile).length / 100);
-        if(data.pageShow < length ){
-            data.pageShow = (data.pageShow + 1);
+    if(Math.ceil(obj.scrollTop) === obj.scrollHeight - obj.offsetHeight){
+        let totalPage = Math.floor(leagueFilter.value.length / 50);
+        if(data.page_show < totalPage){
+            data.page_show = (data.page_show + 1);
             obj.scrollTop = 1
         }
-    }
-    if(Math.ceil(obj.scrollTop) < 1 && data.pageShow > 0){
+    }else if(Math.ceil(obj.scrollTop) < 1 && data.page_show > 1){
         setTimeout(()=>{
             obj.scrollTop = (obj.scrollHeight - obj.offsetHeight) - 1
-        }, 100)
-        if( data.pageShow > 0 ){
-            data.pageShow = (data.pageShow - 1);
+        }, 50)
+        if(data.page_show > 1 ){
+            data.page_show = (data.page_show - 1);
         }
     }
 }

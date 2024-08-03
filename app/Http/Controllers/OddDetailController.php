@@ -29,7 +29,6 @@ class OddDetailController extends Controller
             Cache::put('odds-detail', OddDetail::whereIn('key', [1,2])->get());
         }
 
-
         if($request['matchId']){
             return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1,2])
                    ->where('matchId', $request['matchId'])->get()]);
@@ -130,7 +129,11 @@ class OddDetailController extends Controller
                         break;
                 }
 
-                OddDetail::upsert($results, uniqueBy: ['matchId', 'companyId', 'type', 'key'], update: []);
+                OddDetail::upsert($results, uniqueBy: ['matchId', 'companyId', 'type', 'key'], update: [
+                    'initialHandicap','instantDraw', 'initialHome', 'initialOver','initialUnder',
+                    'initialAway', 'instantOver', 'instantUnder', 'instantHandicap','instantHome',
+                    'instantDraw','instantAway','maintenance','inPlay', 'changeTime', 'close', 'OddsType',
+                ]);
             }
         }
     }

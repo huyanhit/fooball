@@ -207,8 +207,8 @@ const data = reactive({
 })
 
 onMounted( async () => {
-    store.getLiveScore({save: 1800});
-    store.getOdds({save: 1800});
+    store.getLiveScore();
+    store.getOdds();
     store.getBookmaker();
     reload();
 })

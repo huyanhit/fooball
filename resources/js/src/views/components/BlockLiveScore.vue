@@ -304,8 +304,7 @@ const reload = function () {
     data.interval = setInterval( () => {
         store.getLiveScore();
         store.getOdds();
-    }, 10*1000);
-
+    }, 3600*1000);
 }
 
 onUnmounted(()=>{

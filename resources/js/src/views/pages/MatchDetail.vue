@@ -625,22 +625,22 @@ const statusParse = function (status){
 }
 
 data.handicap = computed(()=>{
-    return Object.values(store.odds)
+    return Object.values(store.odds_match)
         .filter(item => item.type === 'handicap' && item.companyId === store.bookmaker.companyIdMain)
 })
 
 data.europeOdds = computed(()=>{
-    return Object.values(store.odds)
+    return Object.values(store.odds_match)
         .filter(item => item.type === 'europeOdds' && item.companyId === store.bookmaker.companyIdMain)
 })
 
 data.overUnder = computed(()=>{
-    return Object.values(store.odds)
+    return Object.values(store.odds_match)
         .filter(item => item.type === 'overUnder' && item.companyId === store.bookmaker.companyIdMain)
 })
 
 data.changeTime = computed(()=>{
-    let all = Object.values(store.odds)
+    let all = Object.values(store.odds_match)
         .filter(item => item.companyId === store.bookmaker.companyIdMain && item.OddsType === '3')
     let groups = {};
     all.forEach(item => {

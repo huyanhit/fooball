@@ -12,6 +12,7 @@ export const useAppStore = defineStore('app', {
         live_scores: [],
         odds: [],
         odds_change: [],
+        odds_match: [],
         files: {},
 
 
@@ -71,13 +72,21 @@ export const useAppStore = defineStore('app', {
         async getOdds(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds-detail', param:params});
             if(response.code === 0) {
-                this.odds = response.data
+                if(params.matchId){
+                    this.odds_match = response.data
+                }else{
+                    this.odds = response.data
+                }
             }
         },
         async getOddChange(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds-change', param:params});
             if(response.code === 0) {
-                this.odds = response.data
+                if(params.matchId){
+                    this.odds_match = response.data
+                }else{
+                    this.odds = response.data
+                }
             }
         }
     },

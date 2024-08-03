@@ -4,7 +4,7 @@
             <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
-                    <input type="text" class="form-control" v-model="store.keyword"
+                    <input type="text" class="form-control" v-model="store.keyword" @input="store.page_show = 1"
                            placeholder="Lọc theo tên đội bóng"
                            autocomplete="off" id="search-options" value="">
                 </div>

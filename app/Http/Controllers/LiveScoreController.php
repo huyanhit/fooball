@@ -26,7 +26,7 @@ class LiveScoreController extends Controller
                     Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::orderBy('id', 'DESC')->get());
+                Cache::put('live-score', Livescore::get());
             }else{
                 return response($liveScore, 401);
             }
@@ -35,7 +35,7 @@ class LiveScoreController extends Controller
             return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data'=> Cache::get('live-score')??Livescore::orderBy('id', 'DESC')->get()]);
+        return response(['code'=> 0, 'data'=> Cache::get('live-score')??Livescore::get()]);
     }
 
     public function change(Request $request)
@@ -51,7 +51,7 @@ class LiveScoreController extends Controller
                     Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::orderBy('id', 'DESC')->get());
+                Cache::put('live-score', Livescore::get());
             }else{
                 return response($liveScore, 401);
             }
@@ -61,6 +61,6 @@ class LiveScoreController extends Controller
             return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::orderBy('id', 'DESC')->get()]);
+        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::get()]);
     }
 }

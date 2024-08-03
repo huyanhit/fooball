@@ -48,14 +48,14 @@ class OddDetailController extends Controller
                     $this->processOdd($key, $odd['data']);
                 }
             }
-            Cache::put('odds-detail-change', OddDetail::where('key', 2)->get());
+            Cache::put('odds-detail-change', OddDetail::whereDate('updated_at', Carbon::today())->whereIn('key', [1,2])->get());
         }
 
         if($request['matchId']){
             return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1,2])->where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')?? OddDetail::whereIn('key', [1,2])->get()]);
+        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')?? OddDetail::whereDate('updated_at', Carbon::today())->whereIn('key', [1,2])->get()]);
     }
 
     private function processOdd($key, $odds){

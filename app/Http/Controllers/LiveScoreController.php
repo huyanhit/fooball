@@ -7,6 +7,7 @@ use App\Models\Livescore;
 use App\Http\Requests\StoreLivescoreRequest;
 use App\Http\Requests\UpdateLivescoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class LiveScoreController extends Controller
@@ -51,7 +52,7 @@ class LiveScoreController extends Controller
                     Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::get());
+                Cache::put('live-score', Livescore::whereDate('updated_at', Carbon::today())->get());
             }else{
                 return response($liveScore, 401);
             }
@@ -61,6 +62,6 @@ class LiveScoreController extends Controller
             return response(['code'=> 0, 'data'=> Livescore::where('matchId', $request['matchId'])->get()]);
         }
 
-        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::get()]);
+        return response(['code'=> 0, 'data'=> Cache::get('live-score')?? Livescore::whereDate('updated_at', Carbon::today())->get()]);
     }
 }

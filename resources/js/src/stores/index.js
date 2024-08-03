@@ -72,7 +72,7 @@ export const useAppStore = defineStore('app', {
         async getOdds(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds-detail', param:params});
             if(response.code === 0) {
-                if(params.matchId){
+                if(params && params.matchId){
                     this.odds_match = response.data
                 }else{
                     this.odds = response.data
@@ -82,7 +82,7 @@ export const useAppStore = defineStore('app', {
         async getOddChange(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds-change', param:params});
             if(response.code === 0) {
-                if(params.matchId){
+                if(params && params.matchId){
                     this.odds_match = response.data
                 }else{
                     this.odds = response.data

@@ -17,6 +17,7 @@ class LiveScoreController extends Controller
      */
     public function index(Request $request)
     {
+        $this->setTimeRequest(60);
         $from = Carbon::parse(Carbon::now()->toDateString())->timestamp;
         $to   = Carbon::parse(Carbon::now()->addDay(1)->toDateString())->timestamp;
         if($this->checkSaveRequest($request['save'], new Livescore())){

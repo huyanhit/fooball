@@ -20,9 +20,9 @@
             <div class="d-flex align-items-center justify-content-center text-center w-[25%]">
                 <div class="fs-48 mr-[20px] fw-bold">{{ data.match['homeScore'] }}</div>
                 <div class="d-flex flex-column align-items-center">
-                    <div class="fs-16">
+                    <div class="fs-16" v-if="store.systems">
                          <span v-if="[1, 2, 3].includes(data.match.status)">
-                             {{timeLineMatch(data.match.updateTime, data.match)}}
+                             {{timeLineMatch(store.systems.time, data.match)}}
                          </span>
                     </div>
                     <div class="uppercase fw-bold" v-html="statusParse(data.match.status)"></div>

@@ -40,12 +40,16 @@ class Controller extends BaseController {
         return json_decode(file_get_contents(self::API_DOMAIN .self::API_CHANEL. $path . self::API_KEY_2 . $paramStr), true);
     }
 
+    public function getServerInfo(): array
+    {
+        return ['time' => Carbon::now()->timestamp , 'timezone'=> config('timezone')];
+    }
+
     public function setTimeRequest($second){
         $this->timeRequest = $second;
     }
     public function checkSaveRequest($save, $model): bool
     {
-
         if(is_numeric($save) && $save > $this->timeRequest){
             return true;
         }else if($this->timeRequest > 0){

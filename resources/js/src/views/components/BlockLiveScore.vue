@@ -100,7 +100,7 @@
                                 <td>
                                     <div class="d-flex flex-column w-50px fs-11">
                                         <span v-if="[1, 2, 3].includes(item.status)">
-                                             {{timeLineMatch(item.updateTime, item)}}
+                                             {{timeLineMatch(store.systems.time, item)}}
                                         </span>
                                         <span v-else>
                                             {{moment.unix(item.updateTime).format('LT')}}

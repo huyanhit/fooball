@@ -206,7 +206,8 @@
                 <template v-for="(odd, index) in data.changeTime" :key="index">
                 <tr>
                     <td>
-                         <span v-if="[1, 2, 3].includes(data.match.status)" v-html="timeLineMatch(index, data.match)">
+                         <span v-if="[1, 2, 3].includes(data.match.status)">
+                           {{timeLineMatch(index, data.match)}}
                          </span>
                     </td>
                     <td></td>
@@ -585,7 +586,7 @@ const timeLineMatch = function (time, item) {
     if (minutes <= 45) return parseInt(minutes) + " '";
     else if (minutes > 45 && minutes < 60) return "HT";
     else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
-    else if (minutes > 105 && minutes < 120) return '90 <span class="text-red-500 fs-10 mb-3"> + (' + (parseInt(minutes) - 105) + ')</span>';
+    else if (minutes > 105 && minutes < 120) return '90 + (' + (parseInt(minutes) - 105) + ')';
 }
 
 onMounted(async () => {

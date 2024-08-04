@@ -71,13 +71,15 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data'=> Cache::get('live-score-change-'.$request['matchId']) ?? []
+                'data' => Cache::has('live-score-change-'.$request['matchId'])?
+                    Cache::get('live-score-change-'.$request['matchId']): []
             ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score-change') ?? []
+            'data'=> Cache::has('live-score-change')? 
+                Cache::has('live-score-change'): []
         ]);
     }
 }

@@ -19,7 +19,7 @@ const liveTimeConvert = computed( () =>{
         let minutes = (ms / (1000 * 60)).toFixed(1);
         if (seconds < 60 && seconds > 0) return seconds + " s";
         else if (minutes < 45 && minutes > 1) return parseInt(minutes) + " '";
-        else if (minutes > 45) return '45+'+ (parseInt(minutes) - 45);
+        else if (minutes > 45) return '45<span class="fs-12 text-red-500">+'+ (parseInt(minutes) - 45) + '</span>';
         else return '---';
     }
     if(props.match.status === 2){
@@ -34,7 +34,7 @@ const liveTimeConvert = computed( () =>{
         }
         let minutes = (ms / (1000 * 60)).toFixed(1);
         if (minutes <= 45  && minutes > 1) return (45 + parseInt(minutes)) + " '";
-        else if (minutes > 45 && minutes < 60) return '90+' +(parseInt(minutes) - 45);
+        else if (minutes > 45 && minutes < 60) return '90<span class="text-red-500">+' +(parseInt(minutes) - 45) + '</span>';
         else return '---';
     }
     if(props.match.status === 4){

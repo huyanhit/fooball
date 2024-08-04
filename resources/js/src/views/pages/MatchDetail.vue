@@ -206,8 +206,7 @@
                 <template v-for="(odd, index) in data.changeTime" :key="index">
                 <tr>
                     <td>
-                         <span v-if="[1, 2, 3].includes(data.match.status)">
-                           {{timeLineMatch(index, data.match)}}
+                         <span v-if="[1, 2, 3].includes(data.match.status)" v-html="timeLineMatch(index, data.match)">
                          </span>
                     </td>
                     <td></td>

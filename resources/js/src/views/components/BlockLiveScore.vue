@@ -99,12 +99,8 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column w-50px fs-11">
-                                        <span v-if="[1].includes(item.status)">
-                                            {{liveFirstTime(item)}}
-                                        </span>
-                                        <span v-else-if="[3].includes(item.status)">
-                                            {{liveHaftTime(item)}}
-                                        </span>
+                                        <span v-if="[1, 2, 3].includes(item)"
+                                              v-html="timeLineMatch(item.updateTime, item)"></span>
                                         <span v-else>
                                             {{moment.unix(item.updateTime).format('LT')}}
                                         </span>
@@ -226,6 +222,15 @@ const pageMaxItem = function(index){
     }
 }
 
+const timeLineMatch = function (time, item) {
+    let ms = moment.unix(time).valueOf() - moment.unix(item.matchTime).valueOf()
+    let minutes = (ms / (1000 * 60)).toFixed(1);
+    if (minutes <= 45 && minutes > 0) return parseInt(minutes) + " '";
+    else if (minutes > 45 && minutes < 60) return "Haft Time";
+    else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
+    else if (minutes > 105 && minutes < 120) return '90 <span class="text-red-500 fs-10 mb-3"> + (' + (parseInt(minutes) - 105) + ')</span>'
+    else return "Updating";
+}
 const liveFirstTime = function (item) {
     let ms = 0
     if(item.halfStartTime){

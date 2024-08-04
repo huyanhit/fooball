@@ -94,12 +94,12 @@ export default {
                 'Content-Type': 'multipart/form-data'
             }),
         })
-            .then(res => {
-                return res.data;
-            })
-            .catch(err => {
-                return {status: 0, message:err.message, data:null};
-            });
+        .then(res => {
+            return res.data;
+        })
+        .catch(err => {
+            return {status: 0, message:err.message, data:null};
+        });
     },
 
     joinParamToUrl(api, params) {

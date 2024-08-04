@@ -99,12 +99,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column w-50px fs-11">
-                                        <span v-if="[1, 2, 3].includes(item)"
-                                              v-html="timeLineMatch(item.updateTime, item)"></span>
+                                        <span v-if="[1, 3].includes(item.status)">
+                                            {{liveTimeConvert(store.systems.time, item)}}
+                                        </span>
                                         <span v-else>
                                             {{moment.unix(item.updateTime).format('LT')}}
                                         </span>
-                                        <span class="lowercase" v-html="statusParse(item.status)"></span>
+                                        <span class="uppercase fs-10 position-relative" v-html="statusParse(item.status)"></span>
                                     </div>
                                 </td>
                                 <td>
@@ -221,53 +222,41 @@ const pageMaxItem = function(index){
         return index < (store.page_show * 50)
     }
 }
-
-const timeLineMatch = function (time, item) {
-    let ms = moment.unix(time).valueOf() - moment.unix(item.matchTime).valueOf()
-    let minutes = (ms / (1000 * 60)).toFixed(1);
-    if (minutes <= 45 && minutes > 0) return parseInt(minutes) + " '";
-    else if (minutes > 45 && minutes < 60) return "Haft Time";
-    else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
-    else if (minutes > 105 && minutes < 120) return '90 <span class="text-red-500 fs-10 mb-3"> + (' + (parseInt(minutes) - 105) + ')</span>'
-    else return "Updating";
-}
-const liveFirstTime = function (item) {
-    let ms = 0
-    if(item.halfStartTime){
-        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.halfStartTime).valueOf()
-    } else {
-        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.matchTime).valueOf()
+const liveTimeConvert = function (time, item) {
+    let ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.matchTime).valueOf()
+    if(item.status === 1){
+        if(item.halfStartTime){
+            ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.halfStartTime).valueOf()
+        }
+        let seconds = (ms / 1000).toFixed(1);
+        let minutes = (ms / (1000 * 60)).toFixed(1);
+        if (seconds < 60 && seconds > 0) return seconds + " s";
+        else if (minutes < 45 && minutes > 1) return parseInt(minutes) + " '";
+        else if (minutes > 45) return '45+' + (parseInt(minutes) - 45)
+        else return '--';
     }
-    let seconds = (ms / 1000).toFixed(1);
-    let minutes = (ms / (1000 * 60)).toFixed(1);
-    if (seconds < 60 && seconds > 0) return seconds + " s";
-    else if (minutes <= 45) return parseInt(minutes) + " '";
-    else if (minutes > 45) return '90 +(' + (parseInt(minutes) - 45) + ')';
-}
-
-const liveHaftTime = function (item) {
-    let ms = 0;
-    if(item.halfStartTime){
-        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.halfStartTime).valueOf()
-    } else {
-        ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.matchTime).valueOf() - (1000 * 60)
+    if(item.status === 3){
+        if(item.halfStartTime){
+            ms = moment.unix(item.updateTime).valueOf() - moment.unix(item.halfStartTime).valueOf()
+        } else {
+            ms = ms + (1000 * 60)
+        }
+        let minutes = (ms / (1000 * 60)).toFixed(1);
+        if (minutes <= 45  && minutes > 1) return (45 + parseInt(minutes)) + " '";
+        else if (minutes > 45) return '90+' + (parseInt(minutes) - 45) + '';
+        else if (minutes > 60) return '(Extra)';
+        else return '--';
     }
-
-    let seconds = (ms / 1000).toFixed(1);
-    let minutes = (ms / (1000 * 60)).toFixed(1);
-    if (seconds < 60 && seconds > 0) return seconds + " s";
-    else if (minutes <= 45) return parseInt(minutes) + " '";
-    else if (minutes > 45) return '90 +(' + (parseInt(minutes) - 45) + ')';
 }
 
 const statusParse = function (status){
     switch (status) {
         case 0: return '<span class="text-black"> Not started </span>';
-        case 1: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> First half </span>';
-        case 2: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Half time </span>';
-        case 3: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Second half </span>';
-        case 4: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Extra time </span>';
-        case 5: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Penalty </span>';
+        case 1: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> First half </span>';
+        case 2: return '<span class="text-red-500"> HT </span>';
+        case 3: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> Second half </span>';
+        case 4: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> Extra time </span>';
+        case 5: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> Penalty </span>';
         case -1: return '<span class="text-black"> Finished </span>';
         case -10: return '<span class="text-black"> Cancelled </span>';
         case -11: return '<span class="text-black"> TBD </span>';

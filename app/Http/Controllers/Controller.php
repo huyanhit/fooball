@@ -20,8 +20,8 @@ use function Laravel\Prompts\select;
 class Controller extends BaseController {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    const API_KEY_2 = '?api_key=mVOt8RqlCmJiaHo7';
-    const API_KEY = '?api_key=ZS7RR6ijpzY3iiM3';
+    const API_KEY = '?api_key=mVOt8RqlCmJiaHo7';
+    const API_KEY_2 = '?api_key=ZS7RR6ijpzY3iiM3';
 
     const API_CHANEL = 'sport/football/';
     const API_DOMAIN = 'http://api.isportsapi.com/';

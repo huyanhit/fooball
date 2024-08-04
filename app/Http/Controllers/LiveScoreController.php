@@ -23,10 +23,7 @@ class LiveScoreController extends Controller
             $liveScore = $this->getJsonAPI('livescores');
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
-                    $data['extraExplain']['matchId'] = $data['matchId'];
-                    $explain = $data['extraExplain'];
                     unset($data['extraExplain']);
-                    Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
                 Cache::put('live-score', Livescore::whereBetween('matchTime', [$from, $to])->get());
@@ -57,10 +54,7 @@ class LiveScoreController extends Controller
             $liveScore = $this->getJsonAPI('livescores/changes');
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
-                    $data['extraExplain']['matchId'] = $data['matchId'];
-                    $explain = $data['extraExplain'];
                     unset($data['extraExplain']);
-                    Explain::updateOrCreate(['matchId' => $explain['matchId']], $explain);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
                 Cache::put('live-score', Livescore::whereBetween('matchTime', [$from, $to])->get());

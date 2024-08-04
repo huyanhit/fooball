@@ -37,13 +37,17 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' => Cache::get('live-score-'.$request['matchId'] ?? Livescore::where('matchId', $request['matchId'])->get())
+                'data' => !empty(Cache::get('live-score-'.$request['matchId']) ?
+                    Cache::get('live-score-'.$request['matchId']):
+                    Livescore::where('matchId', $request['matchId'])->get())
             ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score') ?? Livescore::whereBetween('matchTime', [$from, $to])->get()
+            'data'=> !empty(Cache::get('live-score'))?
+                Cache::get('live-score'):
+                Livescore::whereBetween('matchTime', [$from, $to])->get()
         ]);
     }
 

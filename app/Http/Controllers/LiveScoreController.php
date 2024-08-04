@@ -34,19 +34,19 @@ class LiveScoreController extends Controller
                 Cache::put('live-score-' . $request['matchId'], Livescore::where('matchId', $request['matchId'])->get());
             }
         }
-        
+
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
                 'data' =>  Cache::has('live-score-'.$request['matchId'])?
-                    Cache::get('live-score-'.$request['matchId']): []
+                    Cache::get('live-score-'.$request['matchId']): Livescore::where('matchId', $request['matchId'])->get()
                 ]
             );
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::has('live-score')? Cache::get('live-score') : []
+            'data'=> Cache::has('live-score')? Cache::get('live-score') : Livescore::whereBetween('matchTime', [$from, $to])->get()
         ]);
     }
 

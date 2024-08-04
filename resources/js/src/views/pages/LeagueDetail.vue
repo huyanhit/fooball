@@ -44,12 +44,12 @@ const data = reactive({
 
 onMounted(async () => {
     await store.getLeagueProfile({save: 12 * 3600});
-    data.league = Object.values(store.league_profile).find(item => {
+    data.league = Object.values(store.league_profiles).find(item => {
         return lodash.kebabCase(item.name) === route.params.league_name
     })
 
     let subItem = [];
-    let league = Object.values(store.league_profile).sort((a, b) => {
+    let league = Object.values(store.league_profiles).sort((a, b) => {
         return a.countryId - b.countryId
     })
 

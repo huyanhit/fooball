@@ -303,11 +303,11 @@ const liveScoreFilter = computed(() =>{
     let filters = store.live_scores.filter((item) => {
         if (store.is_status){
             return store.statuses.includes(item.status) && (
-                item.homeName.toLowerCase().includes(store.keyword.toLowerCase())
-                || item.awayName.toLowerCase().includes(store.keyword.toLowerCase()))
+                   (item.homeName && item.homeName.toLowerCase().includes(store.keyword.toLowerCase()))
+                || (item.awayName && item.awayName.toLowerCase().includes(store.keyword.toLowerCase())))
         }else{
-            return (item.homeName.toLowerCase().includes(store.keyword.toLowerCase())
-                || item.awayName.toLowerCase().includes(store.keyword.toLowerCase()))
+            return ((item.homeName && item.homeName.toLowerCase().includes(store.keyword.toLowerCase()))
+                || (item.awayName && item.awayName.toLowerCase().includes(store.keyword.toLowerCase())))
         }
     })
 

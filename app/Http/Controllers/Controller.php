@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\AuthException;
 use App\Exceptions\ProcessException;
+use App\Models\Livescore;
 use App\Services\PermissionService;
 use Carbon\Carbon;
 use http\Env\Response;

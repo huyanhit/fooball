@@ -606,7 +606,7 @@ onUnmounted(()=>{
 })
 const reload = function () {
     data.interval = setInterval(() => {
-        store.getLiveScoreChange({matchId: route.params.match_id});
+        store.getLiveScore({matchId: route.params.match_id});
         store.getOddChange({matchId: route.params.match_id});
     }, 60*1000); //2 s lấy 1 lần
 }
@@ -629,23 +629,30 @@ const statusParse = function (status){
 }
 
 data.handicap = computed(()=>{
-    return Object.values(store.odds_match)
-        .filter(item => item.type === 'handicap' && item.companyId === store.bookmaker.companyIdMain)
+    return Object.values(store.odds)
+        .filter(item => item.type === 'handicap'
+            && item.companyId === store.bookmaker.companyIdMain
+            && item.matchId === route.params.match_id)
 })
 
 data.europeOdds = computed(()=>{
-    return Object.values(store.odds_match)
-        .filter(item => item.type === 'europeOdds' && item.companyId === store.bookmaker.companyIdMain)
+    return Object.values(store.odds)
+        .filter(item => item.type === 'europeOdds'
+            && item.companyId === store.bookmaker.companyIdMain
+            && item.matchId === route.params.match_id)
 })
 
 data.overUnder = computed(()=>{
-    return Object.values(store.odds_match)
-        .filter(item => item.type === 'overUnder' && item.companyId === store.bookmaker.companyIdMain)
+    return Object.values(store.odds)
+        .filter(item => item.type === 'overUnder'
+            && item.companyId === store.bookmaker.companyIdMain
+            && item.matchId === route.params.match_id)
 })
 
 data.changeTime = computed(()=>{
-    let all = Object.values(store.odds_match)
-        .filter(item => item.companyId === store.bookmaker.companyIdMain && item.OddsType === '3')
+    let all = Object.values(store.odds)
+        .filter(item => (item.companyId === store.bookmaker.companyIdMain
+            && item.OddsType === '3' && item.matchId === route.params.match_id))
     let groups = {};
     all.forEach(item => {
         if(Object.keys(groups).includes(item.changeTime)){

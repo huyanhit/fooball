@@ -19,22 +19,40 @@ class OddDetailController extends Controller
     public function index(Request $request)
     {
         ini_set('memory_limit', -1);
+
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[1] = $this->getJsonAPI('odds/main');
+            $odds[3] = $this->getJsonAPI('odds/main/future');
+            $odds[4] = $this->getJsonAPI('odds/main/history', ['date' => Carbon::now()->format('Y/m/d')]);
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){
                     $this->processOdd($key, $odd['data']);
+                }else{
+                    return response($odd);
                 }
             }
-            Cache::put('odds-detail', OddDetail::whereIn('key', [1,2])->get());
+
+            Cache::put('odds-detail', OddDetail::whereIn('key', [1, 2, 3, 4])->get()
+                ->keyBy(function ($item){
+                    return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                })
+            );
+
+            if($request['matchId']) {
+                Cache::put('odds-detail-' . $request['matchId'], OddDetail::whereIn('key', [1, 2, 3, 4])
+                    ->where('matchId', $request['matchId'])->get()
+                    ->keyBy(function ($item){
+                        return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                    })
+                );
+            }
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1,2])
-                   ->where('matchId', $request['matchId'])->get()]);
+            return response(['code'=> 0, 'data' => Cache::get('odds-detail-' . $request['matchId'])]);
         }
 
-        return response(['code'=> 0, 'data' => Cache::get('odds-detail')?? OddDetail::whereIn('key', [1,2])->get()]);
+        return response(['code'=> 0, 'data' => Cache::get('odds-detail')]);
     }
 
     public function change(Request $request)
@@ -45,16 +63,32 @@ class OddDetailController extends Controller
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){
                     $this->processOdd($key, $odd['data']);
+                }else{
+                    return response($odd);
                 }
             }
-            Cache::put('odds-detail-change', OddDetail::whereDate('updated_at', Carbon::today())->whereIn('key', [1,2])->get());
+            Cache::put('odds-detail-change', OddDetail::whereDate('updated_at', Carbon::today())
+                ->where('key', 2)->first()
+                ->keyBy(function ($item){
+                    return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                })
+            );
+
+            if($request['matchId']) {
+                Cache::put('odds-detail-change-' . $request['matchId'], OddDetail::where('key', 2)
+                    ->where('matchId', $request['matchId'])->get()
+                    ->keyBy(function ($item){
+                        return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                    })
+                );
+            }
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1,2])->where('matchId', $request['matchId'])->get()]);
+            return ['code'=> 0, 'data' => Cache::get('odds-detail-change' . $request['matchId'])];
         }
 
-        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')?? OddDetail::whereDate('updated_at', Carbon::today())->whereIn('key', [1,2])->get()]);
+        return response(['code'=> 0, 'data' => Cache::get('odds-detail-change')]);
     }
 
     private function processOdd($key, $odds){
@@ -127,7 +161,7 @@ class OddDetailController extends Controller
                         break;
                 }
             }
-            if($key === 1){
+            if($key === 1 || $key === 3 || $key === 4){
                 foreach (array_chunk($results, 1000) as $chunk) {
                     OddDetail::upsert($chunk, ['matchId', 'companyId', 'type', 'key', 'changeTime'], [
                         'initialHandicap', 'initialHome', 'initialOver', 'initialDraw', 'initialUnder',

@@ -23,6 +23,7 @@ class OddController extends Controller
             $odds[2] = $this->getJsonAPI('odds/main/changes');
             $odds[3] = $this->getJsonAPI('odds/main/future');
             $odds[4] = $this->getJsonAPI('odds/main/history', ['date'=>Carbon::now()->format('Y/m/d')]);
+
 //            $odds[5] = $this->getJsonAPI('/odds/all');
 //            $odds[6] = $this->getJsonAPI('odds/all/changes');
 //            $odds[7] = $this->getJsonAPI('odds/all/history', ['date' => Carbon::now()->format('Y/m/d')]);

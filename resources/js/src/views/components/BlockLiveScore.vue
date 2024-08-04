@@ -161,10 +161,10 @@
                                 <td v-if="store.odds" class="relative">
                                     <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true"
                                          @mouseleave.prevent.stop="data.showOdd[item.id] = false">
-                                        <live-odds :odds="odds" :match="item" :bookmaker="store.bookmaker"/>
+                                        <live-odds :match="item" :bookmaker="store.bookmaker"/>
                                         <div @mouseleave.prevent.stop="data.showOdd[item.id] = false">
                                             <BDropdown :offset="{mainAxis: -100, crossAxis: -50 }" class="odd-match" v-model="data.showOdd[item.id]" lass="m-1" v-if="data.showOdd[item.id]">
-                                                <match-info :odds="odds" :match="item" :bookmaker="store.bookmaker"/>
+                                                <match-info :match="item" :bookmaker="store.bookmaker"/>
                                             </BDropdown>
                                         </div>
                                     </div>
@@ -206,15 +206,6 @@ onMounted( async () => {
 const pageMinItem = function(index){
     return index >= ((store.page_show - 1) * 50)
 }
-
-const odds = computed(()=>{
-    let results = {};
-    for (const item of store.odds) {
-        results[item.type+'-'+item.companyId+'-'+item.matchId+'-'+item.OddsType] = item
-    }
-
-    return results
-})
 
 const pageMaxItem = function(index){
     if (Math.floor(liveScoreFilter.value.length) === (store.page_show * 50)){
@@ -309,7 +300,7 @@ const checkScroll = function (e){
 
 const reload = function () {
     data.interval = setInterval( () => {
-        store.getLiveScoreChange();
+        store.getLiveScore();
         store.getOddChange();
     }, 60*1000);
 }

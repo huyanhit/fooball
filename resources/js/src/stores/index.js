@@ -12,7 +12,7 @@ export const useAppStore = defineStore('app', {
         live_scores: [],
         odds: [],
         odds_change: [],
-        odds_match: [],
+        odds_match: {},
         files: {},
         systems: {
             time: new Date().getTime()/1000,
@@ -63,23 +63,23 @@ export const useAppStore = defineStore('app', {
             const response = await apiService.callApi({method: 'get', url: 'live-score', param:params});
             if(response.code === 0) {
                 this.live_scores = response.data
-                this.systems      = response.system
+                this.systems     = response.system
             }
         },
         async getLiveScoreChange(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'live-score-change', param:params});
             if(response.code === 0) {
                 this.live_scores = response.data
-                this.systems      = response.system
+                this.systems     = response.system
             }
         },
         async getOdds(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'odds-detail', param:params});
             if(response.code === 0) {
                 if(params && params.matchId){
-                    this.odds_match = response.data
+                    this.odds = {...this.odds, ...response.data}
                 }else{
-                    this.odds = response.data
+                    this.odds = {...this.odds, ...response.data}
                 }
             }
         },
@@ -87,9 +87,9 @@ export const useAppStore = defineStore('app', {
             const response = await apiService.callApi({method: 'get', url: 'odds-change', param:params});
             if(response.code === 0) {
                 if(params && params.matchId){
-                    this.odds_match = response.data
+                    this.odds = {...this.odds, ...response.data}
                 }else{
-                    this.odds = response.data
+                    this.odds = {...this.odds, ...response.data}
                 }
             }
         }

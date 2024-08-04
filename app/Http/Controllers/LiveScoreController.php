@@ -37,12 +37,14 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data'=> Cache::get('live-score-'.$request['matchId'])??
-                    Livescore::where('matchId', $request['matchId'])->get()]);
+                'data' => Cache::get('live-score-'.$request['matchId'])
+            ]);
         }
 
-        return response(['code'=> 0, 'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score')?? Livescore::whereBetween('matchTime', [$from, $to])->get()]);
+        return response(['code'=> 0,
+            'system' => $this->getServerInfo(),
+            'data'=> Cache::get('live-score')
+        ]);
     }
 
     public function change(Request $request)
@@ -51,31 +53,31 @@ class LiveScoreController extends Controller
         $from = Carbon::parse(Carbon::now()->toDateString())->timestamp;
         $to   = Carbon::parse(Carbon::now()->addDay(1)->toDateString())->timestamp;
         if($this->checkSaveRequest($request['save'], new Livescore())){
-            $liveScore = $this->getJsonAPI('livescores');
+            $liveScore = $this->getJsonAPI('livescores/changes');
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::whereBetween('matchTime', [$from, $to])->get());
+                Cache::put('live-score-change', Livescore::whereBetween('matchTime', [$from, $to])->get());
             }else{
                 return response($liveScore, 401);
             }
             if($request['matchId']) {
-                Cache::put('live-score-' . $request['matchId'], Livescore::where('matchId', $request['matchId'])->get());
+                Cache::put('live-score-change-' . $request['matchId'], Livescore::where('matchId', $request['matchId'])->get());
             }
         }
 
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data'=> Cache::get('live-score-'.$request['matchId'])??
-                    Livescore::where('matchId', $request['matchId'])->get()]);
+                'data'=> Cache::get('live-score-change-'.$request['matchId'])
+            ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score')?? Livescore::whereBetween('matchTime', [$from, $to])->get()
+            'data'=> Cache::get('live-score-change')
         ]);
     }
 }

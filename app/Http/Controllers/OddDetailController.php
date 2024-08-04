@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Livescore;
 use App\Models\Odd;
 use App\Http\Requests\StoreOddRequest;
 use App\Http\Requests\UpdateOddRequest;
@@ -19,7 +20,9 @@ class OddDetailController extends Controller
     public function index(Request $request)
     {
         ini_set('memory_limit', -1);
-
+        $from = Carbon::parse(Carbon::now()->toDateString())->timestamp;
+        $to   = Carbon::parse(Carbon::now()->addDay(1)->toDateString())->timestamp;
+        $matchIds = Livescore::whereBetween('matchTime', [$from, $to])->get()->pluck('id');
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[1] = $this->getJsonAPI('odds/main');
             $odds[3] = $this->getJsonAPI('odds/main/future');
@@ -32,16 +35,17 @@ class OddDetailController extends Controller
                 }
             }
 
-            Cache::put('odds-detail', OddDetail::whereIn('key', [1, 2, 3, 4])->get()
-                ->keyBy(function ($item){
+            Cache::put('odds-detail',
+                OddDetail::whereIn('key', [1, 2, 3, 4])->
+                whereIn('matchId',$matchIds)->get()->keyBy(function ($item){
                     return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
                 })
             );
 
             if($request['matchId']) {
-                Cache::put('odds-detail-' . $request['matchId'], OddDetail::whereIn('key', [1, 2, 3, 4])
-                    ->where('matchId', $request['matchId'])->get()
-                    ->keyBy(function ($item){
+                Cache::put('odds-detail-' . $request['matchId'],
+                    OddDetail::whereIn('key', [1, 2, 3, 4])->
+                    where('matchId', $request['matchId'])->get()->keyBy(function ($item){
                         return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
                     })
                 );
@@ -51,27 +55,30 @@ class OddDetailController extends Controller
         if($request['matchId']){
             return response(['code'=> 0, 'data' =>
                 Cache::has('odds-detail-' . $request['matchId'])?
-                    Cache::get('odds-detail-' . $request['matchId']):
-                        OddDetail::whereIn('key', [1, 2, 3, 4])
-                        ->where('matchId', $request['matchId'])->get()
-                        ->keyBy(function ($item){
-                            return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
-                        })
+                Cache::get('odds-detail-' . $request['matchId']):
+                OddDetail::whereIn('key', [1, 2, 3, 4])->
+                where('matchId', $request['matchId'])->get()->
+                keyBy(function ($item){
+                    return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                })
             ]);
         }
 
         return response(['code'=> 0, 'data' =>
             Cache::has('odds-detail')?
-                Cache::get('odds-detail'):
-                    OddDetail::whereIn('key', [1, 2, 3, 4])->get()
-                    ->keyBy(function ($item){
-                        return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
-                    })
+            Cache::get('odds-detail'):
+            OddDetail::whereIn('key', [1, 2, 3, 4])->
+            whereIn('matchId', $matchIds)->get()->keyBy(function ($item){
+                return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+            })
         ]);
     }
 
     public function change(Request $request)
     {
+        $from = Carbon::parse(Carbon::now()->toDateString())->timestamp;
+        $to   = Carbon::parse(Carbon::now()->addDay(1)->toDateString())->timestamp;
+        $matchIds = Livescore::whereBetween('matchTime', [$from, $to])->get()->pluck('id');
         $this->setTimeRequest(60);
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[2] = $this->getJsonAPI('odds/main/changes');
@@ -82,19 +89,18 @@ class OddDetailController extends Controller
                     return response($odd);
                 }
             }
-            Cache::put('odds-detail-change', OddDetail::whereDate('updated_at', Carbon::today())
-                ->where('key', 2)->first()
-                    ->keyBy(function ($item){
-                        return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
-                    })
+            Cache::put('odds-detail-change',
+                OddDetail::whereDate('updated_at', Carbon::today())->
+                whereIn('matchId', $matchIds)->where('key', 2)->get()->keyBy(function ($item){
+                    return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                })
             );
 
             if($request['matchId']) {
-                Cache::put('odds-detail-change-' . $request['matchId'], OddDetail::where('key', 2)
-                    ->where('matchId', $request['matchId'])->get()
-                        ->keyBy(function ($item){
-                            return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
-                        })
+                Cache::put('odds-detail-change-' . $request['matchId'], OddDetail::where('key', 2)->
+                    where('matchId', $request['matchId'])->get()->keyBy(function ($item){
+                        return $item->type.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
+                    })
                 );
             }
         }
@@ -102,22 +108,21 @@ class OddDetailController extends Controller
         if($request['matchId']){
             return response(['code'=> 0, 'data' =>
                 Cache::has('odds-detail-' . $request['matchId'])?
-                    Cache::get('odds-detail-' . $request['matchId']):
-                        OddDetail::where('key', 2)
-                        ->where('matchId', $request['matchId'])
-                        ->get()->keyBy(function ($item){
-                            return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
-                        })
+                Cache::get('odds-detail-' . $request['matchId']):
+                OddDetail::where('key', 2)->
+                where('matchId', $request['matchId'])->get()->keyBy(function ($item){
+                    return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                })
             ]);
         }
 
         return response(['code'=> 0, 'data' =>
             Cache::has('odds-detail')?
-                Cache::get('odds-detail'):
-                    OddDetail::where('key', 2)
-                        ->get()->keyBy(function ($item){
-                            return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
-                        })
+            Cache::get('odds-detail'):
+            OddDetail::where('key', 2)->
+            whereDate('updated_at', Carbon::today())->get()->keyBy(function ($item){
+                return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+            })
         ]);
     }
 

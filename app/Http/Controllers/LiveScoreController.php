@@ -37,13 +37,13 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' => Cache::get('live-score-'.$request['matchId'])
+                'data' => Cache::get('live-score-'.$request['matchId'] ?? [])
             ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score')
+            'data'=> Cache::get('live-score') ?? []
         ]);
     }
 
@@ -71,13 +71,13 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data'=> Cache::get('live-score-change-'.$request['matchId'])
+                'data'=> Cache::get('live-score-change-'.$request['matchId']) ?? []
             ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score-change')
+            'data'=> Cache::get('live-score-change') ?? []
         ]);
     }
 }

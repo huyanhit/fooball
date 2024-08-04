@@ -34,16 +34,19 @@ class LiveScoreController extends Controller
                 Cache::put('live-score-' . $request['matchId'], Livescore::where('matchId', $request['matchId'])->get());
             }
         }
+        
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' => Cache::get('live-score-'.$request['matchId'] ?? [])
-            ]);
+                'data' =>  Cache::has('live-score-'.$request['matchId'])?
+                    Cache::get('live-score-'.$request['matchId']): []
+                ]
+            );
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::get('live-score') ?? []
+            'data'=> Cache::has('live-score')? Cache::get('live-score') : []
         ]);
     }
 
@@ -78,7 +81,7 @@ class LiveScoreController extends Controller
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::has('live-score-change')? 
+            'data'=> Cache::has('live-score-change')?
                 Cache::has('live-score-change'): []
         ]);
     }

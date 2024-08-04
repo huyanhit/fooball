@@ -63,14 +63,14 @@ export const useAppStore = defineStore('app', {
             const response = await apiService.callApi({method: 'get', url: 'live-score', param:params});
             if(response.code === 0) {
                 this.live_scores = response.data
-                this.system      = response.system
+                this.systems      = response.system
             }
         },
         async getLiveScoreChange(params = null) {
             const response = await apiService.callApi({method: 'get', url: 'live-score-change', param:params});
             if(response.code === 0) {
                 this.live_scores = response.data
-                this.system      = response.system
+                this.systems      = response.system
             }
         },
         async getOdds(params = null) {

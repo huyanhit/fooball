@@ -12,8 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('app:odd-change-update')->everyFiveMinutes()->runInBackground();;
+        $schedule->command('inspire')->everyMinute();
+        $schedule->command('app:odd-change-update')->everyFiveMinutes();
     }
 
     /**

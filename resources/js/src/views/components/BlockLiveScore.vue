@@ -229,7 +229,7 @@ const timeLineMatch = function (time, item) {
     if (minutes <= 45) return parseInt(minutes) + " '";
     else if (minutes > 45 && minutes < 60) return "HT";
     else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
-    else if (minutes > 105) return '90 +(' + (parseInt(minutes) - 105) + ')';
+    else if (minutes > 105 && minutes < 120) return '90 <span class="text-red-500 fs-10 mb-3"> + (' + (parseInt(minutes) - 105) + ')</span>';
 }
 const statusParse = function (status){
     switch (status) {

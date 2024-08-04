@@ -5,7 +5,7 @@
                 <span class="fs-18">{{data.match['leagueName']}}</span>
             </span>
             <span class="fs-14 text-black">
-                 {{moment(data.match['matchTime']).format('LLLL')}}
+                 {{moment.unix(data.match['matchTime']).format('LLLL')}}
             </span>
         </div>
 
@@ -21,8 +21,7 @@
                 <div class="fs-48 mr-[20px] fw-bold">{{ data.match['homeScore'] }}</div>
                 <div class="d-flex flex-column align-items-center">
                     <div class="fs-16" v-if="store.systems">
-                         <span v-if="[1, 2, 3].includes(data.match.status)">
-                             {{timeLineMatch(store.systems.time, data.match)}}
+                         <span v-if="[1, 2, 3].includes(data.match.status)" v-html="timeLineMatch(store.systems.time, data.match)">
                          </span>
                     </div>
                     <div class="uppercase fw-bold" v-html="statusParse(data.match.status)"></div>
@@ -587,7 +586,7 @@ const timeLineMatch = function (time, item) {
     if (minutes <= 45) return parseInt(minutes) + " '";
     else if (minutes > 45 && minutes < 60) return "HT";
     else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
-    else if (minutes > 105) return '90 +(' + (parseInt(minutes) - 105) + ')';
+    else if (minutes > 105 && minutes < 120) return '90 <span class="text-red-500 fs-10 mb-3"> + (' + (parseInt(minutes) - 105) + ')</span>';
 }
 
 onMounted(async () => {

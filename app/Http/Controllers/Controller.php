@@ -50,7 +50,7 @@ class Controller extends BaseController {
     }
     public function checkSaveRequest($save, $model): bool
     {
-        if(is_numeric($save) && $save > $this->timeRequest){
+        if($save){
             return true;
         }else if($this->timeRequest > 0){
             $getTime = $model::orderBy('updated_at','desc')->first();

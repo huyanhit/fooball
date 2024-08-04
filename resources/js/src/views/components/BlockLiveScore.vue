@@ -235,7 +235,7 @@ const liveFirstTime = function (item) {
     }
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
-    if (seconds < 60) return seconds + " s";
+    if (seconds < 60 && seconds > 0) return seconds + " s";
     else if (minutes <= 45) return parseInt(minutes) + " '";
     else if (minutes > 45) return '90 +(' + (parseInt(minutes) - 45) + ')';
 }
@@ -250,7 +250,7 @@ const liveHaftTime = function (item) {
 
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
-    if (seconds < 60) return seconds + " s";
+    if (seconds < 60 && seconds > 0) return seconds + " s";
     else if (minutes <= 45) return parseInt(minutes) + " '";
     else if (minutes > 45) return '90 +(' + (parseInt(minutes) - 45) + ')';
 }

@@ -99,13 +99,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column w-50px fs-11">
-                                        <span v-if="[1, 3].includes(item.status)">
-                                            {{liveTimeConvert(store.systems.time, item)}}
+                                        <span v-if="[1, 2, 3].includes(item.status)">
+                                             <TimeLiveConvert :match="item"/>
                                         </span>
                                         <span v-else>
                                             {{moment.unix(item.updateTime).format('LT')}}
                                         </span>
-                                        <span class="uppercase fs-10 position-relative" v-html="statusParse(item.status)"></span>
+                                        <span class="fs-10 position-relative" v-html="statusParse(item.status)"></span>
                                     </div>
                                 </td>
                                 <td>
@@ -186,6 +186,7 @@ import moment from 'moment';
 import LiveOdds from "@/views/components/patials/LiveOdds.vue";
 import MatchInfo from "@/views/components/modal/MatchInfo.vue";
 import {onUnmounted} from "@vue/runtime-core";
+import TimeLiveConvert from "@/views/components/patials/TimeLiveConvert.vue";
 const store = useAppStore();
 const data = reactive({
     overlay: false,
@@ -252,11 +253,11 @@ const liveTimeConvert = function (time, item) {
 const statusParse = function (status){
     switch (status) {
         case 0: return '<span class="text-black"> Not started </span>';
-        case 1: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> First half </span>';
-        case 2: return '<span class="text-red-500"> HT </span>';
-        case 3: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> Second half </span>';
-        case 4: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> Extra time </span>';
-        case 5: return '<span class="text-red-500"><span class=" position-absolute -top-[20px] spinner-grow spinner-grow-sm"></span> Penalty </span>';
+        case 1: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> First half </span>';
+        case 2: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Haft time </span>';
+        case 3: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Second half </span>';
+        case 4: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Extra time </span>';
+        case 5: return '<span class="text-red-500"><span class="spinner-grow spinner-grow-sm"></span> Penalty </span>';
         case -1: return '<span class="text-black"> Finished </span>';
         case -10: return '<span class="text-black"> Cancelled </span>';
         case -11: return '<span class="text-black"> TBD </span>';

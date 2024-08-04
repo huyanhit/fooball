@@ -20,9 +20,8 @@
             <div class="d-flex align-items-center justify-content-center text-center w-[25%]">
                 <div class="fs-48 mr-[20px] fw-bold">{{ data.match['homeScore'] }}</div>
                 <div class="d-flex flex-column align-items-center">
-                    <div class="fs-16" v-if="store.systems">
-                         <span v-if="[1, 2, 3].includes(data.match.status)" v-html="timeLineMatch(store.systems.time, data.match)">
-                         </span>
+                    <div class="fs-24" v-if="store.systems">
+                        <TimeLiveConvert :match="data.match"/>
                     </div>
                     <div class="uppercase fw-bold" v-html="statusParse(data.match.status)"></div>
                     <span class="text-truncate"> (<span title="Score 1st Half">
@@ -563,6 +562,7 @@ import {useRoute, useRouter} from "vue-router";
 import moment from "moment";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
 import {onUnmounted} from "@vue/runtime-core";
+import TimeLiveConvert from "@/views/components/patials/TimeLiveConvert.vue";
 
 const props = defineProps(['match']);
 const store = useAppStore();

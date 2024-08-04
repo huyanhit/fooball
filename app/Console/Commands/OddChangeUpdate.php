@@ -28,7 +28,7 @@ class OddChangeUpdate extends Command
      */
     public function handle()
     {
-        $odds[2] = json_decode(file_get_contents('http://api.isportsapi.com/sport/football/odds/main/changes?api_key=mVOt8RqlCmJiaHo7'), true);
+        $odds[2] = json_decode(file_get_contents('http://api.isportsapi.com/sport/football/odds/main/changes?api_key=ZS7RR6ijpzY3iiM3'), true);
         foreach ($odds as $key => $odd){
             if($odd['code'] === 0){
                 echo(' running... ');

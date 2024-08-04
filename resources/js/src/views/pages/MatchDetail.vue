@@ -20,6 +20,11 @@
             <div class="d-flex align-items-center justify-content-center text-center w-[25%]">
                 <div class="fs-48 mr-[20px] fw-bold">{{ data.match['homeScore'] }}</div>
                 <div class="d-flex flex-column align-items-center">
+                    <div class="fs-16">
+                         <span v-if="[1, 2, 3].includes(data.match.status)">
+                             {{timeLineMatch(data.match.updateTime, data.match)}}
+                         </span>
+                    </div>
                     <div class="uppercase fw-bold" v-html="statusParse(data.match.status)"></div>
                     <span class="text-truncate"> (<span title="Score 1st Half">
                         {{data.match['homeHalfScore']}} - {{data.match['awayHalfScore']}}
@@ -203,8 +208,8 @@
                 <template v-for="(odd, index) in data.changeTime" :key="index">
                 <tr>
                     <td>
-                         <span >
-                           {{liveFirstTime(index, data.match)}}
+                         <span v-if="[1, 2, 3].includes(data.match.status)">
+                           {{timeLineMatch(index, data.match)}}
                          </span>
                     </td>
                     <td></td>
@@ -576,7 +581,7 @@ const data = reactive({
 })
 
 
-const liveFirstTime = function (time, item) {
+const timeLineMatch = function (time, item) {
     let ms = moment.unix(time).valueOf() - moment.unix(item.matchTime).valueOf()
     let minutes = (ms / (1000 * 60)).toFixed(1);
     if (minutes <= 45) return parseInt(minutes) + " '";

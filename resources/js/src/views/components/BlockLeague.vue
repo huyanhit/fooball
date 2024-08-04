@@ -1,11 +1,11 @@
 <template>
     <b-overlay :show="data.overlay">
         <div class="mb-0 bg-white p-3">
-            <div class="flex-fill fs-16 uppercase p-2">Lịch đấu hôm nay</div>
+            <div class="flex-fill fs-16 uppercase p-2">Thông tin giải đấu</div>
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
                     <input type="text" class="form-control" v-model="data.keyword"
-                           placeholder="Lọc theo tên đội bóng"
+                           placeholder="Lọc theo tên giải đấu"
                            autocomplete="off" id="search-options" value="">
                 </div>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{data.page_show}}</span>

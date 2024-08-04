@@ -51,7 +51,7 @@ class LiveScoreController extends Controller
         $from = Carbon::parse(Carbon::now()->toDateString())->timestamp;
         $to   = Carbon::parse(Carbon::now()->addDay(1)->toDateString())->timestamp;
         if($this->checkSaveRequest($request['save'], new Livescore())){
-            $liveScore = $this->getJsonAPI('livescores/changes');
+            $liveScore = $this->getJsonAPI('livescores');
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);

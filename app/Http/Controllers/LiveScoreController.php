@@ -18,8 +18,6 @@ class LiveScoreController extends Controller
     public function index(Request $request)
     {
         $this->setTimeRequest(60);
-        $from = Carbon::parse(Carbon::now()->toDateString())->timestamp;
-        $to   = Carbon::parse(Carbon::now()->addDay(1)->toDateString())->timestamp;
         if($this->checkSaveRequest($request['save'], new Livescore())){
             $liveScore = $this->getJsonAPI('livescores');
             if(isset($liveScore['data'])){
@@ -27,7 +25,8 @@ class LiveScoreController extends Controller
                     unset($data['extraExplain']);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                Cache::put('live-score', Livescore::whereBetween('matchTime', [$from, $to])->get());
+                $ids = collect($liveScore['data'])->pluck('matchId');
+                Cache::put('live-score', Livescore::whereIn('matchId', $ids)->get());
             }else{
                 return response($liveScore, 401);
             }
@@ -39,15 +38,15 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' =>  Cache::has('live-score-'.$request['matchId'])?
-                    Cache::get('live-score-'.$request['matchId']): Livescore::where('matchId', $request['matchId'])->get()
-                ]
-            );
+                'data' => Cache::has('live-score-'.$request['matchId'])?
+                Cache::get('live-score-'.$request['matchId']):
+                Livescore::where('matchId', $request['matchId'])->get()
+            ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data'=> Cache::has('live-score')? Cache::get('live-score') : Livescore::whereBetween('matchTime', [$from, $to])->get()
+            'data' => Cache::get('live-score')
         ]);
     }
 
@@ -75,8 +74,9 @@ class LiveScoreController extends Controller
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' => Cache::has('live-score-change-'.$request['matchId'])?
-                    Cache::get('live-score-change-'.$request['matchId']): []
+                'data' => Cache::has('live-score-'.$request['matchId'])?
+                    Cache::get('live-score-'.$request['matchId']):
+                    Livescore::where('matchId', $request['matchId'])->get()
             ]);
         }
 

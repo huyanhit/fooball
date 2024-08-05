@@ -579,14 +579,34 @@ const data = reactive({
     interval: null
 })
 
-
 const timeLineMatch = function (time, item) {
     let ms = moment.unix(time).valueOf() - moment.unix(item.matchTime).valueOf()
-    let minutes = (ms / (1000 * 60)).toFixed(1);
-    if (minutes <= 45) return parseInt(minutes) + " '";
-    else if (minutes > 45 && minutes < 60) return "HT";
-    else if (minutes > 60 && minutes < 105) return (parseInt(minutes) - 15) + " '";
-    else if (minutes > 105 && minutes < 120) return '90 + (' + (parseInt(minutes) - 105) + ')';
+    if(item.status === 1){
+        if(item.halfStartTime){
+            ms = moment.unix(time).valueOf() - moment.unix(item.halfStartTime).valueOf()
+        }
+        let seconds = (ms / 1000).toFixed(1);
+        let minutes = (ms / (1000 * 60)).toFixed(1);
+        if (seconds < 60 && seconds > 0) return seconds + " s";
+        else if (minutes < 45 && minutes > 1) return parseInt(minutes) + " '";
+        else if (minutes > 45) return '45+' + (parseInt(minutes) - 45)
+        else return '--';
+    }
+    if(item.status === 2){
+        return 'HT';
+    }
+    if(item.status === 3){
+        if(item.halfStartTime){
+            ms = moment.unix(time).valueOf() - moment.unix(item.halfStartTime).valueOf()
+        } else {
+            ms = ms + (1000 * 60)
+        }
+        let minutes = (ms / (1000 * 60)).toFixed(1);
+        if (minutes <= 45  && minutes > 1) return (45 + parseInt(minutes)) + " '";
+        else if (minutes > 45) return '90+' + (parseInt(minutes) - 45) + '';
+        else if (minutes > 60) return '(Extra)';
+        else return '--';
+    }
 }
 
 onMounted(async () => {

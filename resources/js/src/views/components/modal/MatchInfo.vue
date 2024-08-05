@@ -21,42 +21,33 @@
                 <td colspan="3" class="w-[150px]">ODDS</td>
                 <td colspan="3" class="w-[150px]">FIRST ODDS</td>
             </tr>
-            <template v-if="store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]">
-                <tr>
-                    <th scope="row">AH</th>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantHandicap?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantAway?? '-'}} </div></td>
-
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['handicap_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialAway?? '-'}} </div></td>
-                </tr>
-            </template>
-            <template v-if="store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]">
-                <tr>
-                    <th scope="row">1X2</th>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantAway?? '-'}} </div></td>
-
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['europeOdds_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialAway?? '-'}} </div></td>
-                </tr>
-            </template>
-            <template v-if="store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]">
-                <tr>
-                    <th scope="row">O/U</th>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantOver?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantHandicap?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.instantUnder?? '-'}} </div></td>
-
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialHome?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialDraw?? '-'}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{store.odds['overUnder_'+bookmaker.companyIdMain+'_'+match.matchId+'_'+oddsType]?.initialAway?? '-'}} </div></td>
-                </tr>
-            </template>
+            <tr>
+                <th scope="row">AH</th>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'instantHome')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'instantHandicap')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'instantAway')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'initialHome')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'initialHandicap')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'initialAway')}} </div></td>
+            </tr>
+            <tr>
+                <th scope="row">1X2</th>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'instantHome')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'instantDraw')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'instantAway')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'initialHome')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'initialDraw')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'initialAway')}} </div></td>
+            </tr>
+            <tr>
+                <th scope="row">O/U</th>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'instantOver')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'instantDraw')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'instantUnder')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'initialOver')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'initialDraw')}} </div></td>
+                <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'initialUnder')}} </div></td>
+            </tr>
             <tr>
                 <td colspan="7" class="text-center py-1"><b-button variant="outline-info" size="sm"> view more </b-button></td>
             </tr>
@@ -66,7 +57,50 @@
 <script setup>
 import {BButton} from "bootstrap-vue-next";
 import {useAppStore} from "@/stores";
-const props = defineProps(['match', 'bookmaker']);
+const props = defineProps(['match']);
 const store = useAppStore();
-const oddsType = 3
+
+function getLiveOdds(type, field){
+    let inPlay  = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsInPlay]
+    if (inPlay){
+        for (let i in inPlay){
+            if(inPlay[i] && inPlay[i][field]) {
+                return inPlay[i][field];
+            }
+        }
+    }
+
+    return '-'
+}
+function getFirstOdd(type, field){
+    let early = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsEarly]
+    if(early){
+        for (let i in early){
+            if(early[i] && early[i][field]) {
+                return early[i][field];
+            }
+        }
+    }
+    let instant = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsInstant]
+    if(instant) {
+        for (let i in instant) {
+            if (instant[i] && instant[i][field]) {
+                return instant[i][field];
+            }
+        }
+    }
+    let inPlay = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsInPlay]
+    if(inPlay){
+        for (let i in inPlay){
+            if(inPlay[i] && inPlay[i][field]) {
+                return inPlay[i][field];
+            }
+        }
+    }
+
+    return '-'
+}
+const oddsInPlay   = 3
+const oddsInstant  = 2
+const oddsEarly    = 1
 </script>

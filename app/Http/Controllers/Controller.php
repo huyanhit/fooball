@@ -4,25 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\AuthException;
 use App\Exceptions\ProcessException;
-use App\Models\Livescore;
 use App\Services\PermissionService;
 use Carbon\Carbon;
-use http\Env\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use function Laravel\Prompts\select;
-
 class Controller extends BaseController {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     const API_KEY_3 = '?api_key=mVOt8RqlCmJiaHo7';
-    const API_KEY_2 = '?api_key=ZS7RR6ijpzY3iiM3';
-    const API_KEY   = '?api_key=JHPZ4oMu9KJhGJ5w';
+    const API_KEY = '?api_key=ZS7RR6ijpzY3iiM3';
+    const API_KEY_2   = '?api_key=JHPZ4oMu9KJhGJ5w';
 
     const API_CHANEL = 'sport/football/';
     const API_DOMAIN = 'http://api.isportsapi.com/';

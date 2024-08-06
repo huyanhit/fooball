@@ -508,10 +508,11 @@ onUnmounted(()=>{
 const reload = function () {
     data.intervalL = setInterval(() => {
         store.getLiveScore({matchId: route.params.match_id});
-    }, 30*1000);
+    }, 600*1000);
     data.intervalO = setInterval(() => {
         store.getOddChange({matchId: route.params.match_id});
-    }, 20*1000);
+        store.getLiveScoreChange();
+    }, 30*1000);
 }
 
 const statusParse = function (status){

@@ -15,6 +15,7 @@ class OddDetailController extends Controller
     public function index(Request $request)
     {
         $matchIds = Cache::get('live-score-ids');
+        $this->setTimeRequest(60);
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[1] = $this->getJsonAPI('odds/main');
             foreach ($odds as $key => $odd){
@@ -29,21 +30,21 @@ class OddDetailController extends Controller
         if($request['matchId']){
             return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1, 2])
                 ->where('matchId', $request['matchId'])->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
-                    return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                    return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
             ]);
         }
 
         return response(['code'=> 0, 'data' =>OddDetail::whereIn('key', [1, 2])
             ->whereIn('matchId', $matchIds)->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
-                return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
             })
         ]);
     }
 
     public function change(Request $request)
     {
-        $this->setTimeRequest(60);
+        $this->setTimeRequest(20);
         $matchIds = Cache::get('live-score-ids');
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[2] = $this->getJsonAPI('odds/main/changes');
@@ -58,15 +59,15 @@ class OddDetailController extends Controller
 
         if($request['matchId']){
             return response(['code'=> 0, 'data' => OddDetail::where('key', 2)->where('matchId', $request['matchId'])
-                    ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item , $key){
-                    return $item->type.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
+                    ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
+                    return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
             ]);
         }
 
         return response(['code'=> 0, 'data' => OddDetail::where('key', 2)->whereIn('matchId', $matchIds)->
             orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
-                return $item->type.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
+                return $item->type.'_'.$item->key.'_'.$item->companyId .'_'.$item->matchId.'_'.$item->OddsType;
             })
         ]);
     }

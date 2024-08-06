@@ -24,8 +24,8 @@ export const useAppStore = defineStore('app', {
         keyword: '',
         likes: [],
         bookmaker: {
-            companyIdMain: '31',
-            companyName: 'Sbobet'
+            companyIdMain: '23',
+            companyName: '118bet'
         },
     }),
     actions: {

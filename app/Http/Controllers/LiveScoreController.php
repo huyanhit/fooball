@@ -17,16 +17,16 @@ class LiveScoreController extends Controller
      */
     public function index(Request $request)
     {
-        $this->setTimeRequest(600);
+        $this->setTimeRequest(60);
         if($this->checkSaveRequest($request['save'], new Livescore())){
             $liveScore = $this->getJsonAPI('livescores');
+            $ids = collect($liveScore['data'])->pluck('matchId');
+            Cache::put('live-score-ids', $ids);
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
-                $ids = collect($liveScore['data'])->pluck('matchId');
-                Cache::put('live-score-ids', $ids);
                 Cache::put('live-score', Livescore::whereIn('matchId', $ids)->get());
             }else{
                 return response($liveScore, 401);
@@ -53,7 +53,7 @@ class LiveScoreController extends Controller
 
     public function change(Request $request)
     {
-        $this->setTimeRequest(60);
+        $this->setTimeRequest(20);
         if($this->checkSaveRequest($request['save'], new Livescore())){
             $liveScore = $this->getJsonAPI('livescores/changes');
             if(isset($liveScore['data'])){

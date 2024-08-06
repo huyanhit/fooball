@@ -479,6 +479,9 @@ const oddsInPlay   = 3
 const oddsInstant  = 2
 const oddsEarly    = 1
 
+const typeMain     = 1
+const typeChange   = 2
+
 const data = reactive({
     match: {},
     homeTeam: {},
@@ -499,13 +502,16 @@ onMounted(async () => {
 })
 
 onUnmounted(()=>{
-    clearInterval(data.interval);
+    clearInterval(data.intervalL);
+    clearInterval(data.intervalO);
 })
 const reload = function () {
-    data.interval = setInterval(() => {
+    data.intervalL = setInterval(() => {
         store.getLiveScore({matchId: route.params.match_id});
+    }, 30*1000);
+    data.intervalO = setInterval(() => {
         store.getOddChange({matchId: route.params.match_id});
-    }, 60*1000); //2 s lấy 1 lần
+    }, 20*1000);
 }
 
 const statusParse = function (status){
@@ -526,11 +532,20 @@ const statusParse = function (status){
 }
 
 function getFirstOdd(type, field){
-    let early = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsEarly]
+    let early = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsEarly]
     if(early){
-        for (let i in early){
+        for (let i in early.reverse()){
             if(early[i] && early[i][field]) {
                 return early[i][field];
+            }
+        }
+    }
+
+    let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInstant]
+    if(instant) {
+        for (let i in instant.reverse()) {
+            if (instant[i] && instant[i][field]) {
+                return instant[i][field];
             }
         }
     }
@@ -538,7 +553,7 @@ function getFirstOdd(type, field){
     return '-'
 }
 function getLiveOdds(type, field){
-    let instant = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInstant]
+    let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInstant]
     if(instant) {
         for (let i in instant) {
             if (instant[i] && instant[i][field]) {
@@ -550,7 +565,7 @@ function getLiveOdds(type, field){
     return '-'
 }
 function getInPlayOdd(type, field){
-    let inPlay = store.odds[type+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInPlay]
+    let inPlay = store.odds[type+'_'+typeChange+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInPlay]
     if(inPlay){
         for (let i in inPlay){
             if(inPlay[i] && inPlay[i][field]) {

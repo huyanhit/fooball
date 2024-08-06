@@ -299,14 +299,17 @@ const checkScroll = function (e){
 }
 
 const reload = function () {
-    data.interval = setInterval( () => {
+    data.intervalL = setInterval( () => {
         store.getLiveScore();
-        store.getOddChange();
     }, 60*1000);
+    data.intervalO = setInterval( () => {
+        store.getOddChange();
+    }, 20*1000);
 }
 
 onUnmounted(()=>{
-    clearInterval(data.interval);
+    clearInterval(data.intervalL);
+    clearInterval(data.intervalO);
 })
 
 const liveScoreFilter = computed(() =>{

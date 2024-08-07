@@ -275,11 +275,11 @@ const checkScroll = function (e){
 const reload = function () {
     data.intervalL = setInterval( () => {
         store.getLiveScore();
-    }, 600*1000);
+    }, 60*1000);
     data.intervalO = setInterval( () => {
         store.getOddChange();
         store.getLiveScoreChange();
-    }, 30*1000);
+    }, 10*1000);
 }
 
 onUnmounted(()=>{

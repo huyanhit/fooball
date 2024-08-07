@@ -15,7 +15,7 @@ class OddDetailController extends Controller
     public function index(Request $request)
     {
         $matchIds = Cache::get('live-score-ids');
-        $this->setTimeRequest(600);
+        $this->setTimeRequest(60);
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[1] = $this->getJsonAPI('odds/main');
             foreach ($odds as $key => $odd){
@@ -56,7 +56,7 @@ class OddDetailController extends Controller
 
     public function change(Request $request)
     {
-        $this->setTimeRequest(30);
+        $this->setTimeRequest(20);
         $matchIds = Cache::get('live-score-ids');
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[2] = $this->getJsonAPI('odds/main/changes');

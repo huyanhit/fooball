@@ -2,14 +2,15 @@
 <template>
     <span>
         <span v-if="data.last && data.old" class="w-100 inline-block"
-             :class="(data.last.value > data.old.value)? 'text-green-500': (data.last.value < data.old.value)? 'text-red-500': 'text-gray-500'">
-             <span class="p-1 w-100 inline-block":class="{'bg-green-100': (store.systems.time - data.last.time) < 5000}">
+             :class="(data.last.value > data.old.value)? 'text-green-500': (data.last.value < data.old.value)? 'text-red-500': 'text-gray-500'"
+             :title="'Old: '+ data.old.value">
+             <span class="p-1 w-100 inline-block" :class="(store.systems.time - data.last.time) > 5000? 'bg-blue-100': 'bg-green-100'">
                 <span> {{data.last.value}} </span>
                 <i :class="(data.last.value > data.old.value)? 'ri-arrow-up-line': (data.last.value < data.old.value)? 'ri-arrow-down-line': ''"></i>
              </span>
         </span>
         <span v-else-if="data.last" class="p-1 w-100 inline-block text-gray-500"
-            :class="{'bg-green-100': (store.systems.time - data.last.time) > 5000}">
+            :class="(store.systems.time - data.last.time) > 5000? 'bg-blue-100': 'bg-green-100' ">
                 {{data.last.value}}
             </span>
         <span v-else> - </span>

@@ -70,162 +70,160 @@
         <div class="text-center">
             <div class="fs-24 fw-bold my-2">Live Odds Analysis</div>
             <table class="table table-bordered fs-13">
-                <tbody id="oddsTbody">
-                <tr>
-                    <th rowspan="2" class="">Time</th>
-                    <th rowspan="2">Score</th>
-                    <th height="20" colspan="6"><b>Asian Handicap</b></th>
-                    <th colspan="6"><b>1x2</b></th>
-                    <th colspan="6" class=""><b>Over/Under</b></th>
-                </tr>
-                <tr>
-                    <th height="20" colspan="3">First Odds</th>
-                    <th colspan="3" class="ll th-bg2 rl">Live Odds</th>
-                    <th colspan="3">First Odds</th>
-                    <th colspan="3" class="ll th-bg2 rl">Live Odds</th>
-                    <th colspan="3">First Odds</th>
-                    <th colspan="3">Live Odds</th>
-                </tr>
-                <tr>
-                    <td>Early</td>
-                    <td>&nbsp;</td>
+                <tbody>
+                    <tr>
+                        <th rowspan="2">Time</th>
+                        <th rowspan="2">Score</th>
+                        <th height="20" colspan="6"><b>Asian Handicap</b></th>
+                        <th colspan="6"><b>1x2</b></th>
+                        <th colspan="6"><b>Over/Under</b></th>
+                    </tr>
+                    <tr>
+                        <th height="20" colspan="3">First Odds</th>
+                        <th colspan="3" class="ll th-bg2 rl">Live Odds</th>
+                        <th colspan="3">First Odds</th>
+                        <th colspan="3" class="ll th-bg2 rl">Live Odds</th>
+                        <th colspan="3">First Odds</th>
+                        <th colspan="3">Live Odds</th>
+                    </tr>
+                    <tr>
+                        <td>Early</td>
+                        <td>&nbsp;</td>
 
-                    <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="initialHandicap" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="initialAway" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialHandicap" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialAway" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="handicap" field="instantHome" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="instantHandicap" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="instantAway" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantHome" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantHandicap" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantAway" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="europeOdds" field="initialHome" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="initialDraw" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="initialAway" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialHome" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialDraw" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialAway" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="europeOdds" field="instantHome" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="instantDraw" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="instantAway" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantHome" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantDraw" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantAway" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="overUnder" field="initialOver" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="initialDraw" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="initialUnder" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialOver" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialDraw" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialUnder" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="overUnder" field="instantOver" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="instantDraw" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="instantUnder" type_change="1" odds_type="1"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                </tr>
+                        <td><FieldOdd type="overUnder" field="instantOver" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantDraw" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantUnder" type_change="1" odds_type="1"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    </tr>
+                    <tr>
+                        <td>Live</td>
+                        <td>&nbsp;</td>
 
-                <tr>
-                    <td>Live</td>
-                    <td>&nbsp;</td>
+                        <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialHandicap" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialAway" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="initialHandicap" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="initialAway" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantHome" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantHandicap" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantAway" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="handicap" field="instantHome" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="instantHandicap" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="instantAway" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialHome" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialDraw" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialAway" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="europeOdds" field="initialHome" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="initialDraw" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="initialAway" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantHome" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantDraw" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantAway" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="europeOdds" field="instantHome" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="instantDraw" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="instantAway" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialOver" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialDraw" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialUnder" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="overUnder" field="initialOver" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="initialDraw" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="initialUnder" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantOver" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantDraw" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantUnder" type_change="1" odds_type="2"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    </tr>
+                    <tr>
+                        <td>InPlay</td>
+                        <td>&nbsp;</td>
 
-                    <td><FieldOdd type="overUnder" field="instantOver" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="instantDraw" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="instantUnder" type_change="1" odds_type="2"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                </tr>
+                        <td><FieldOdd type="handicap" field="initialHome" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialHandicap" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="initialAway" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                <tr>
-                    <td>InPlay</td>
-                    <td>&nbsp;</td>
+                        <td><FieldOdd type="handicap" field="instantHome" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantHandicap" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="handicap" field="instantAway" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="handicap" field="initialHome" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="initialHandicap" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="initialAway" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialHome" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialDraw" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="initialAway" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="handicap" field="instantHome" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="instantHandicap" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="handicap" field="instantAway" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantHome" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantDraw" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="europeOdds" field="instantAway" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="europeOdds" field="initialHome" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="initialDraw" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="initialAway" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialOver" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialDraw" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="initialUnder" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><FieldOdd type="europeOdds" field="instantHome" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="instantDraw" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="europeOdds" field="instantAway" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-
-                    <td><FieldOdd type="overUnder" field="initialOver" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="initialDraw" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="initialUnder" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-
-                    <td><FieldOdd type="overUnder" field="instantOver" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="instantDraw" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                    <td><FieldOdd type="overUnder" field="instantUnder" type_change="2" odds_type="3"
-                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
-                </tr>
+                        <td><FieldOdd type="overUnder" field="instantOver" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantDraw" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                        <td><FieldOdd type="overUnder" field="instantUnder" type_change="2" odds_type="3"
+                                      :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    </tr>
                 </tbody>
             </table>
             <div>

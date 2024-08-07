@@ -25,7 +25,7 @@ class LiveScoreController extends Controller
                 Cache::put('live-score-ids', $ids);
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
-                    Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
+                    Livescore::upsert($data, ['matchId'],  []);
                 }
                 Cache::put('live-score', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));
             }else{
@@ -59,7 +59,7 @@ class LiveScoreController extends Controller
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
-                    Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
+                    Livescore::upsert($data, ['matchId'], []);
                 }
                 $ids = collect($liveScore['data'])->pluck('matchId');
                 Cache::put('live-score-change', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));

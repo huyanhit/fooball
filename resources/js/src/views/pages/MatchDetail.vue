@@ -68,26 +68,28 @@
     <div class="bg-white border-top-dashed my-3 p-3">
         <!-- Bordered Tables -->
         <div class="text-center">
-            <div class="fs-24 fw-bold my-2">Live Odds Analysis</div>
+            <div class="fs-24 fw-bold"><span class="mb-3 inline-block">Live Odds Analysis</span></div>
             <table class="table table-bordered fs-13">
                 <tbody>
                     <tr>
-                        <th rowspan="2">Time</th>
-                        <th rowspan="2">Score</th>
-                        <th height="20" colspan="6"><b>Asian Handicap</b></th>
-                        <th colspan="6"><b>1x2</b></th>
-                        <th colspan="6"><b>Over/Under</b></th>
+                        <th><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">Time</span></th>
+                        <th><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">Score</span></th>
+                        <th colspan="6"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600"><b>Asian Handicap</b></span></th>
+                        <th colspan="6"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600"><b>1x2</b></span></th>
+                        <th colspan="6"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600"><b>Over/Under</b></span></th>
                     </tr>
                     <tr>
-                        <th height="20" colspan="3">First Odds</th>
-                        <th colspan="3" class="ll th-bg2 rl">Live Odds</th>
-                        <th colspan="3">First Odds</th>
-                        <th colspan="3" class="ll th-bg2 rl">Live Odds</th>
-                        <th colspan="3">First Odds</th>
-                        <th colspan="3">Live Odds</th>
+                        <th><span class="p-2 inline-block h-100 w-100 bg-gray-200 text-gray-600"> - </span></th>
+                        <th><span class="p-2 inline-block h-100 w-100 bg-gray-200 text-gray-600"> - </span></th>
+                        <th colspan="3"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">First Odds</span></th>
+                        <th colspan="3"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">Live Odds</span></th>
+                        <th colspan="3"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">First Odds</span></th>
+                        <th colspan="3"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">Live Odds</span></th>
+                        <th colspan="3"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">First Odds</span></th>
+                        <th colspan="3"><span class="p-2 inline-block w-100 bg-gray-200 text-gray-600">Live Odds</span></th>
                     </tr>
                     <tr>
-                        <td>Early</td>
+                        <td><span class="p-1 w-100 inline-block bg-green-500 text-white">Early</span></td>
                         <td>&nbsp;</td>
 
                         <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="1"
@@ -133,7 +135,7 @@
                                       :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
                     </tr>
                     <tr>
-                        <td>Live</td>
+                        <td><span class="p-1 w-100 inline-block bg-red-500 text-white">Live</span></td>
                         <td>&nbsp;</td>
 
                         <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="2"
@@ -179,7 +181,7 @@
                                       :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
                     </tr>
                     <tr>
-                        <td>InPlay</td>
+                        <td><span class="p-1 w-100 inline-block bg-blue-500 text-white">InPlay</span></td>
                         <td>&nbsp;</td>
 
                         <td><FieldOdd type="handicap" field="initialHome" type_change="2" odds_type="3"
@@ -578,6 +580,10 @@ const statusParse = function (status){
 }
 </script>
 <style>
+.table>:not(caption)>*>* {
+    border-bottom: none;
+    padding: 0 !important;
+}
 .collapse{
     visibility: unset;
 }

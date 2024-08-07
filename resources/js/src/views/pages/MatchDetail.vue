@@ -515,24 +515,19 @@
     </div>
 </template>
 <script setup>
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, onUnmounted} from "vue";
 import {useAppStore} from "@/stores";
 import {useRoute, useRouter} from "vue-router";
+
 import moment from "moment";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
-import {onUnmounted} from "@vue/runtime-core";
 import TimeLiveConvert from "@/views/components/patials/TimeLiveConvert.vue";
+import FieldOdd from "@/views/components/patials/FieldOdd.vue";
 
 const props = defineProps(['match']);
 const store = useAppStore();
 const router = useRouter();
 const route  = useRoute()
-const oddsInPlay   = 3
-const oddsInstant  = 2
-const oddsEarly    = 1
-
-const typeMain     = 1
-const typeChange   = 2
 
 const data = reactive({
     match: {},
@@ -582,41 +577,6 @@ const statusParse = function (status){
         case -13: return '<span class="text-black"> Interrupted </span>';
         case -14: return '<span class="text-black"> Postponed </span>';
     }
-}
-
-function getFirstOdd(type, field){
-    let early = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsEarly]
-    if(early){
-        for (let i in early){
-            if(early[i] && early[i][field]) {
-                return early[i][field];
-            }
-        }
-    }
-}
-function getLiveOdds(type, field){
-    let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInstant]
-    if(instant) {
-        for (let i in instant) {
-            if (instant[i] && instant[i][field]) {
-                return instant[i][field];
-            }
-        }
-    }
-
-    return '-'
-}
-function getInPlayOdd(type, field){
-    let inPlay = store.odds[type+'_'+typeChange+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInPlay]
-    if(inPlay){
-        for (let i in inPlay){
-            if(inPlay[i] && inPlay[i][field]) {
-                return inPlay[i][field];
-            }
-        }
-    }
-
-    return '-'
 }
 </script>
 <style>

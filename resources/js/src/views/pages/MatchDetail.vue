@@ -535,23 +535,12 @@ const statusParse = function (status){
 function getFirstOdd(type, field){
     let early = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsEarly]
     if(early){
-        for (let i in early.reverse()){
+        for (let i in early){
             if(early[i] && early[i][field]) {
                 return early[i][field];
             }
         }
     }
-
-    let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInstant]
-    if(instant) {
-        for (let i in instant.reverse()) {
-            if (instant[i] && instant[i][field]) {
-                return instant[i][field];
-            }
-        }
-    }
-
-    return '-'
 }
 function getLiveOdds(type, field){
     let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+route.params.match_id+'_'+oddsInstant]

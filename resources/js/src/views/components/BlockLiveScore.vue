@@ -161,10 +161,10 @@
                                 <td v-if="store.odds" class="relative">
                                     <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true"
                                          @mouseleave.prevent.stop="data.showOdd[item.id] = false">
-                                        <live-odds :match="item" :bookmaker="store.bookmaker"/>
+                                        <live-odds :match="item"/>
                                         <div @mouseleave.prevent.stop="data.showOdd[item.id] = false">
                                             <BDropdown :offset="{mainAxis: -100, crossAxis: -50 }" class="odd-match" v-model="data.showOdd[item.id]" lass="m-1" v-if="data.showOdd[item.id]">
-                                                <match-info :match="item" :bookmaker="store.bookmaker"/>
+                                                <match-info :match="item"/>
                                             </BDropdown>
                                         </div>
                                     </div>

@@ -75,6 +75,7 @@ function getLiveOdds(type, field){
             }
         }
     }
+
     let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsInstant]
     if(instant) {
         for (let i in instant) {
@@ -89,15 +90,16 @@ function getLiveOdds(type, field){
 function getFirstOdd(type, field){
     let early = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsEarly]
     if(early){
-        for (let i in early.reverse()){
+        for (let i in early){
             if(early[i] && early[i][field]) {
                 return early[i][field];
             }
         }
     }
+
     let instant = store.odds[type+'_'+typeMain+'_'+store.bookmaker.companyIdMain+'_'+props.match.matchId+'_'+oddsInstant]
     if(instant) {
-        for (let i in instant.reverse()) {
+        for (let i in instant) {
             if (instant[i] && instant[i][field]) {
                 return instant[i][field];
             }

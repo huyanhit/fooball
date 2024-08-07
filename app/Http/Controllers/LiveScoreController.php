@@ -20,9 +20,9 @@ class LiveScoreController extends Controller
         $this->setTimeRequest(600);
         if($this->checkSaveRequest($request['save'], new Livescore())){
             $liveScore = $this->getJsonAPI('livescores');
-            $ids = collect($liveScore['data'])->pluck('matchId');
-            Cache::put('live-score-ids', $ids);
             if(isset($liveScore['data'])){
+                $ids = collect($liveScore['data'])->pluck('matchId');
+                Cache::put('live-score-ids', $ids);
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
                     Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);

@@ -90,90 +90,142 @@
                     <td>Early</td>
                     <td>&nbsp;</td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'initialHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'initialHandicap')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'initialAway')}} </div></td>
+                    <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="initialHandicap" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="initialAway" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'instantHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'instantHandicap')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('handicap', 'instantAway')}} </div></td>
+                    <td><FieldOdd type="handicap" field="instantHome" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="instantHandicap" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="instantAway" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'initialHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'initialDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'initialAway')}} </div></td>
+                    <td><FieldOdd type="europeOdds" field="initialHome" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="initialDraw" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="initialAway" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'instantHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'instantDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('europeOdds', 'instantAway')}} </div></td>
+                    <td><FieldOdd type="europeOdds" field="instantHome" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="instantDraw" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="instantAway" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'initialOver')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'initialDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'initialUnder')}} </div></td>
+                    <td><FieldOdd type="overUnder" field="initialOver" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="initialDraw" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="initialUnder" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'instantOver')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'instantDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getFirstOdd('overUnder', 'instantUnder')}} </div></td>
+                    <td><FieldOdd type="overUnder" field="instantOver" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="instantDraw" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="instantUnder" type_change="1" odds_type="1"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
                 </tr>
 
                 <tr>
                     <td>Live</td>
                     <td>&nbsp;</td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'initialHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'initialHandicap')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'initialAway')}} </div></td>
+                    <td><FieldOdd type="handicap" field="initialHome" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="initialHandicap" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="initialAway" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'instantHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'instantHandicap')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('handicap', 'instantAway')}} </div></td>
+                    <td><FieldOdd type="handicap" field="instantHome" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="instantHandicap" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="instantAway" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'initialHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'initialDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'initialAway')}} </div></td>
+                    <td><FieldOdd type="europeOdds" field="initialHome" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="initialDraw" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="initialAway" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'instantHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'instantDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('europeOdds', 'instantAway')}} </div></td>
+                    <td><FieldOdd type="europeOdds" field="instantHome" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="instantDraw" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="instantAway" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'initialOver')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'initialDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'initialUnder')}} </div></td>
+                    <td><FieldOdd type="overUnder" field="initialOver" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="initialDraw" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="initialUnder" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'instantOver')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'instantDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getLiveOdds('overUnder', 'instantUnder')}} </div></td>
+                    <td><FieldOdd type="overUnder" field="instantOver" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="instantDraw" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="instantUnder" type_change="1" odds_type="2"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
                 </tr>
 
                 <tr>
                     <td>InPlay</td>
                     <td>&nbsp;</td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('handicap', 'initialHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('handicap', 'initialHandicap')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('handicap', 'initialAway')}} </div></td>
+                    <td><FieldOdd type="handicap" field="initialHome" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="initialHandicap" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="initialAway" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('handicap', 'instantHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('handicap', 'instantHandicap')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('handicap', 'instantAway')}} </div></td>
+                    <td><FieldOdd type="handicap" field="instantHome" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="instantHandicap" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="handicap" field="instantAway" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('europeOdds', 'initialHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('europeOdds', 'initialDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('europeOdds', 'initialAway')}} </div></td>
+                    <td><FieldOdd type="europeOdds" field="initialHome" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="initialDraw" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="initialAway" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('europeOdds', 'instantHome')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('europeOdds', 'instantDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('europeOdds', 'instantAway')}} </div></td>
+                    <td><FieldOdd type="europeOdds" field="instantHome" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="instantDraw" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="europeOdds" field="instantAway" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('overUnder', 'initialOver')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('overUnder', 'initialDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('overUnder', 'initialUnder')}} </div></td>
+                    <td><FieldOdd type="overUnder" field="initialOver" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="initialDraw" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="initialUnder" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
 
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('overUnder', 'instantOver')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('overUnder', 'instantDraw')}} </div></td>
-                    <td><div class="fs-11 hover:text-blue-600"> {{getInPlayOdd('overUnder', 'instantUnder')}} </div></td>
+                    <td><FieldOdd type="overUnder" field="instantOver" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="instantDraw" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
+                    <td><FieldOdd type="overUnder" field="instantUnder" type_change="2" odds_type="3"
+                                  :company_id="store.bookmaker.companyIdMain" :match_id="route.params.match_id"/></td>
                 </tr>
-
-
                 </tbody>
             </table>
             <div>

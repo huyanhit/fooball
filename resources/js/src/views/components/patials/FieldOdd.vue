@@ -8,7 +8,7 @@
                 <i :class="(data.last.value > data.old.value)? 'ri-arrow-up-line': (data.last.value < data.old.value)? 'ri-arrow-down-line': ''"></i>
              </span>
         </span>
-        <span v-else-if="data.last" class="p-1 w-100 inline-block text-gray-100"
+        <span v-else-if="data.last" class="p-1 w-100 inline-block text-gray-500"
             :class="{'bg-green-100': (store.systems.time - data.last.time) > 5000}">
                 {{data.last.value}}
             </span>

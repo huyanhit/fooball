@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    const API_KEY = '?api_key=mVOt8RqlCmJiaHo7';
+    const API_KEY = '?api_key=YLYolSxM4O1N78Ij';
     const API_KEY_3 = '?api_key=ZS7RR6ijpzY3iiM3';
     const API_KEY_2 = '?api_key=JHPZ4oMu9KJhGJ5w';
 

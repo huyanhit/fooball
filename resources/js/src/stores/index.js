@@ -14,6 +14,7 @@ export const useAppStore = defineStore('app', {
         odds_change: [],
         odds_match: {},
         files: {},
+        events: {},
         systems: {
             time: new Date().getTime()/1000,
         },
@@ -80,6 +81,16 @@ export const useAppStore = defineStore('app', {
                     this.odds = {...this.odds, ...response.data}
                 }else{
                     this.odds = {...this.odds, ...response.data}
+                }
+            }
+        },
+        async getEvents(params = null) {
+            const response = await apiService.callApi({method: 'get', url: 'events', param:params});
+            if(response.code === 0) {
+                if(params && params.matchId){
+                    this.events = {...this.events, ...response.data}
+                }else{
+                    this.events = {...this.events, ...response.data}
                 }
             }
         },

@@ -200,7 +200,7 @@ onMounted( async () => {
     store.getLiveScore();
     store.getOdds();
     store.getBookmaker();
-    reload();
+    // reload();
 })
 
 const pageMinItem = function(index){

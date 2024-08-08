@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookmakerController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\LeagueProfileController;
@@ -40,8 +41,8 @@ Route::resource('/live-score', LiveScoreController::class);
 Route::resource('/odds', OddController::class);
 Route::resource('/odds-detail', OddDetailController::class);
 Route::resource('/teams', TeamController::class);
+Route::resource('/events', EventController::class);
 Route::resource('/players', PlayerController::class);
-
 
 Route::get('/odds-change', [OddDetailController::class, 'change']);
 Route::get('/live-score-change', [LiveScoreController::class, 'change']);

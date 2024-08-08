@@ -236,207 +236,21 @@
     <div class="bg-white border-top-dashed my-3 p-3">
         <div class="text-center mt-3">
             <div class="d-flex justify-content-around fs-18 fw-bold my-2">
-                <span>Shandong Taishan</span>
-                <span>Shandong Taishan</span>
+                <span class="text-green-500">{{data.match['homeName']}}</span>
+                <span class="text-red-500">{{data.match['awayName']}}</span>
             </div>
             <table class="table table-striped table-bordered mt-3" >
                 <tbody>
-                <tr class="ky_tit">
-                    <th></th>
-                    <th><span class="t15">2</span></th>
-                    <th>Minutes</th>
-                    <th><span class="t15 blue">1</span></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td style="text-align: right;"></td>
-                    <td></td>
-                    <td>
-                        <b>90+3'</b>
-                    </td>
-                    <td>
-                        <img alt="Yellow Card" src="/images/bf_img/3.png" />
-                    </td>
-                    <td style="text-align: left;">
-                        <a href="//football.bola012.com/team/player/226475" target="_blank">Abdusalam A.</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;"></td>
-                    <td></td>
-                    <td>
-                        <b>90+2'</b>
-                    </td>
-                    <td>
-                        <img alt="Sub" src="/images/bf_img/11.png" />
-                    </td>
-                    <td style="text-align: left;">
-                        <img alt="Sub in" src="/images/bf_img/4.png" />
-                        <a href="//football.bola012.com/team/player/63395" target="_blank">Gao Di</a>
-
-                        <img alt="Sub out" src="/images/bf_img/5.png" />
-                        <a href="//football.bola012.com/team/player/76271" target="_blank">Gu Bin</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;"></td>
-                    <td></td>
-                    <td>
-                        <b>90+1'</b>
-                    </td>
-                    <td>
-                        <img alt="Sub" src="/images/bf_img/11.png" />
-                    </td>
-                    <td style="text-align: left;">
-                        <img alt="Sub in" src="/images/bf_img/4.png" />
-                        <a href="//football.bola012.com/team/player/226475" target="_blank">Abdusalam A.</a>
-
-                        <img alt="Sub out" src="/images/bf_img/5.png" />
-                        <a href="//football.bola012.com/team/player/84217" target="_blank">Zhang Jiaqi</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <a href="//football.bola012.com/team/player/84217" target="_blank">Zhang Jiaqi</a>
-                    </td>
-                    <td>
-                        <img alt="Own goal" src="/images/bf_img/8.png" />
-                    </td>
-                    <td>
-                        <b>90'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <img alt="Sub in" src="/images/bf_img/4.png" />
-                        <a href="//football.bola012.com/team/player/144928" target="_blank">Li Hailong</a>
-
-                        <img alt="Sub out" src="/images/bf_img/5.png" />
-                        <a href="//football.bola012.com/team/player/151302" target="_blank">Liu Yang</a>
-                    </td>
-                    <td>
-                        <img alt="Sub" src="/images/bf_img/11.png" />
-                    </td>
-                    <td>
-                        <b>73'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <img alt="Sub in" src="/images/bf_img/4.png" />
-                        <a href="//football.bola012.com/team/player/100275" target="_blank">Jin Jingdao</a>
-
-                        <img alt="Sub out" src="/images/bf_img/5.png" />
-                        <a href="//football.bola012.com/team/player/80513" target="_blank">Ji Xiang</a>
-                    </td>
-                    <td>
-                        <img alt="Sub" src="/images/bf_img/11.png" />
-                    </td>
-                    <td>
-                        <b>62'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <a href="//football.bola012.com/team/player/151302" target="_blank">Liu Yang</a>
-                    </td>
-                    <td>
-                        <img alt="Yellow Card" src="/images/bf_img/3.png" />
-                    </td>
-                    <td>
-                        <b>61'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <a href="//football.bola012.com/team/player/63405" target="_blank">Zhang Chi</a>
-                    </td>
-                    <td>
-                        <img alt="Yellow Card" src="/images/bf_img/3.png" />
-                    </td>
-                    <td>
-                        <b>57'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;"></td>
-                    <td></td>
-                    <td>
-                        <b>55'</b>
-                    </td>
-                    <td>
-                        <img alt="Yellow Card" src="/images/bf_img/3.png" />
-                    </td>
-                    <td style="text-align: left;">
-                        <a href="//football.bola012.com/team/player/84217" target="_blank">Zhang Jiaqi</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <a href="//football.bola012.com/team/player/178336" target="_blank">Chen Pu</a>
-                    </td>
-                    <td>
-                        <img alt="Goal" src="/images/bf_img/1.png" />
-                    </td>
-                    <td>
-                        <b>53'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;">
-                        <img alt="Sub in" src="/images/bf_img/4.png" />
-                        <a href="//football.bola012.com/team/player/100569" target="_blank">Wu Xinghan</a>
-
-                        <img alt="Sub out" src="/images/bf_img/5.png" />
-                        <a href="//football.bola012.com/team/player/80352" target="_blank">Wang Tong</a>
-                    </td>
-                    <td>
-                        <img alt="Sub" src="/images/bf_img/11.png" />
-                    </td>
-                    <td>
-                        <b>46'</b>
-                    </td>
-                    <td></td>
-                    <td style="text-align: left;"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;"></td>
-                    <td></td>
-                    <td>
-                        <b>38'</b>
-                    </td>
-                    <td>
-                        <img alt="Yellow Card" src="/images/bf_img/3.png" />
-                    </td>
-                    <td style="text-align: left;">
-                        <a href="//football.bola012.com/team/player/82535" target="_blank">Dong Yu</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right;"></td>
-                    <td></td>
-                    <td>
-                        <b>36'</b>
-                    </td>
-                    <td>
-                        <img alt="Goal" src="/images/bf_img/1.png" />
-                    </td>
-                    <td style="text-align: left;">
-                        <a href="//football.bola012.com/team/player/76271" target="_blank">Gu Bin</a>
-                    </td>
-                </tr>
+                    <tr class="ky_tit">
+                        <th></th>
+                        <th><span class="fs-24 text-gray-600 p-3 inline-block">{{ data.match['homeScore'] }}</span></th>
+                        <th><span class="text-gray-600 p-3 inline-block"> Phút </span></th>
+                        <th><span class="fs-24 text-gray-600 p-3 inline-block">{{ data.match['awayScore'] }}</span></th>
+                        <th></th>
+                    </tr>
+                    <template v-for="(item, index) in store.events[route.params.match_id]" :key="index">
+                        <EventField :event="item"/>
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -523,6 +337,7 @@ import moment from "moment";
 import ImageFile from "@/views/components/patials/ImageFile.vue";
 import TimeLiveConvert from "@/views/components/patials/TimeLiveConvert.vue";
 import FieldOdd from "@/views/components/patials/FieldOdd.vue";
+import EventField from "@/views/components/patials/EventField.vue";
 
 const props = defineProps(['match']);
 const store = useAppStore();
@@ -539,13 +354,15 @@ const data = reactive({
 onMounted(async () => {
     await store.getLiveScore({matchId: route.params.match_id});
     await store.getOdds({matchId: route.params.match_id});
+    await store.getEvents({matchId: route.params.match_id});
     await store.getBookmaker();
+
 
     data.match = store.live_scores[route.params.match_id];
     data.homeTeam = await store.getTeam(data.match.homeId)
     data.awayTeam = await store.getTeam(data.match.awayId)
 
-    await reload();
+    //reload();
 })
 
 onUnmounted(()=>{

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('matchId');
             $table->string('eventId');
             $table->string('minute')->nullable();
             $table->integer('type')->nullable();

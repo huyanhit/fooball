@@ -362,7 +362,7 @@ onMounted(async () => {
     data.homeTeam = await store.getTeam(data.match.homeId)
     data.awayTeam = await store.getTeam(data.match.awayId)
 
-    //reload();
+    reload();
 })
 
 onUnmounted(()=>{
@@ -372,7 +372,7 @@ onUnmounted(()=>{
 const reload = function () {
     data.intervalL = setInterval(() => {
         store.getLiveScore({matchId: route.params.match_id});
-    }, 60*1000);
+    }, 600*1000);
     data.intervalO = setInterval(() => {
         store.getOddChange({matchId: route.params.match_id});
         store.getLiveScoreChange();

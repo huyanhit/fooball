@@ -200,7 +200,7 @@ onMounted( async () => {
     store.getLiveScore();
     store.getOdds();
     store.getBookmaker();
-    // reload();
+    reload();
 })
 
 const pageMinItem = function(index){
@@ -275,7 +275,7 @@ const checkScroll = function (e){
 const reload = function () {
     data.intervalL = setInterval( () => {
         store.getLiveScore();
-    }, 60*1000);
+    }, 600*1000);
     data.intervalO = setInterval( () => {
         store.getOddChange();
         store.getLiveScoreChange();

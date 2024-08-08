@@ -23,14 +23,9 @@ class LiveScoreController extends Controller
             if(isset($liveScore['data'])){
                 $ids = collect($liveScore['data'])->pluck('matchId');
                 Cache::put('live-score-ids', $ids);
-                foreach ($liveScore['data'] as $data){
-                    unset($data['extraExplain']);
-                    Livescore::upsert($data, ['matchId'], ["matchId","leagueType","leagueId","leagueName",
-                        "leagueShortName","leagueColor","subLeagueId","subLeagueName","matchTime","startTime","halfStartTime",
-                        "status","homeId","homeName","awayId","awayName","homeScore","awayScore","homeHalfScore","awayHalfScore",
-                        "homeRed","awayRed","homeYellow","awayYellow","homeCorner","awayCorner","homeRank","awayRank","season","stageId",
-                        "round","group","location","weather","temperature","explain","hasLineup","neutral","injuryTime","updateTime","var",
-                    ]);
+                foreach ($liveScore['data'] as $key => $data){
+                    unset($data['extraExplain'][$key]);
+                    Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
             }else{
                 return response($liveScore, 401);
@@ -58,12 +53,7 @@ class LiveScoreController extends Controller
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
-                    Livescore::upsert($data, ['matchId'], ["matchId","leagueType","leagueId","leagueName",
-                        "leagueShortName","leagueColor","subLeagueId","subLeagueName","matchTime","startTime","halfStartTime",
-                        "status","homeId","homeName","awayId","awayName","homeScore","awayScore","homeHalfScore","awayHalfScore",
-                        "homeRed","awayRed","homeYellow","awayYellow","homeCorner","awayCorner","homeRank","awayRank","season","stageId",
-                        "round","group","location","weather","temperature","explain","hasLineup","neutral","injuryTime","updateTime","var",
-                    ]);
+                    Livescore::updateOrCreate(['matchId' => $data['matchId']], $data);
                 }
                 $ids = collect($liveScore['data'])->pluck('matchId');
                 Cache::put('live-score-change', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));

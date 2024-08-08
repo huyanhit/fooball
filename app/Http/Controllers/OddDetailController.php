@@ -44,15 +44,14 @@ class OddDetailController extends Controller
             return response(['code'=> 0, 'data' =>
                 Cache::has('odd-main-'.$request['matchId'])?
                 Cache::get('odd-main-'.$request['matchId']):
-                OddDetail::whereIn('key', [1, 2])->where('matchId', $request['matchId'])->orderBy('changeTime', 'desc')
-                    ->get()->groupBy(function ($item){
+                OddDetail::whereIn('key', [1, 2])->where('matchId', $request['matchId'])->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
             ]);
         }
 
         return response(['code'=> 0, 'data' => Cache::has('odd-main')?Cache::get('odd-main'):OddDetail::whereIn('key', [1, 2])
-            ->where('matchId', $request['matchId'])->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
+            ->whereIn('matchId', $matchIds)->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                 return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
             })
         ]);

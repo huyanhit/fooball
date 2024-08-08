@@ -53,8 +53,8 @@ class LiveScoreController extends Controller
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data' => Cache::has('live-score')?Cache::get('live-score'):
-                Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
+            'data' => Cache::has('live-score')? Cache::get('live-score'):
+                Livescore::whereIn('matchId', Cache::get('live-score-ids'))->get()->keyBy('matchId')
         ]);
     }
 

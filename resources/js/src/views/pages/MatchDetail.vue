@@ -242,11 +242,11 @@
             <table class="table table-striped table-bordered mt-3" >
                 <tbody>
                     <tr class="ky_tit">
-                        <th></th>
-                        <th><span class="fs-24 text-gray-600 p-3 inline-block">{{ data.match['homeScore'] }}</span></th>
-                        <th><span class="text-gray-600 p-3 inline-block"> Phút </span></th>
-                        <th><span class="fs-24 text-gray-600 p-3 inline-block">{{ data.match['awayScore'] }}</span></th>
-                        <th></th>
+                        <th style="width: 35%"></th>
+                        <th style="width: 10%"><span class="fs-24 text-gray-600 p-3 inline-block">{{ data.match['homeScore'] }}</span></th>
+                        <th style="width: 10%"><span class="text-gray-600 p-3 inline-block"> Phút </span></th>
+                        <th style="width: 10%"><span class="fs-24 text-gray-600 p-3 inline-block">{{ data.match['awayScore'] }}</span></th>
+                        <th style="width: 35%"></th>
                     </tr>
                     <template v-for="(item, index) in store.events[route.params.match_id]" :key="index">
                         <EventField :event="item"/>

@@ -25,14 +25,20 @@ class LiveScoreController extends Controller
                 Cache::put('live-score-ids', $ids);
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
-                    Livescore::upsert($data, ['matchId'],  []);
+                    Livescore::upsert($data, ['matchId'], ["matchId","leagueType","leagueId","leagueName",
+                        "leagueShortName","leagueColor","subLeagueId","subLeagueName","matchTime","startTime","halfStartTime",
+                        "status","homeId","homeName","awayId","awayName","homeScore","awayScore","homeHalfScore","awayHalfScore",
+                        "homeRed","awayRed","homeYellow","awayYellow","homeCorner","awayCorner","homeRank","awayRank","season","stageId",
+                        "round","group","location","weather","temperature","explain","hasLineup","neutral","injuryTime","updateTime","var",
+                    ]);
                 }
                 Cache::put('live-score', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));
             }else{
                 return response($liveScore, 401);
             }
             if($request['matchId']) {
-                Cache::put('live-score-' . $request['matchId'], Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId'));
+                Cache::put('live-score-' . $request['matchId'],
+                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId'));
             }
         }
 
@@ -40,14 +46,15 @@ class LiveScoreController extends Controller
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
                 'data' => Cache::has('live-score-'.$request['matchId'])?
-                Cache::get('live-score-'.$request['matchId']):
-                Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
+                    Cache::get('live-score-'.$request['matchId']):
+                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
             ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data' => Cache::get('live-score')
+            'data' => Cache::has('live-score')?Cache::get('live-score'):
+                Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
         ]);
     }
 
@@ -59,15 +66,22 @@ class LiveScoreController extends Controller
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){
                     unset($data['extraExplain']);
-                    Livescore::upsert($data, ['matchId'], []);
+                    Livescore::upsert($data, ['matchId'], ["matchId","leagueType","leagueId","leagueName",
+                        "leagueShortName","leagueColor","subLeagueId","subLeagueName","matchTime","startTime","halfStartTime",
+                        "status","homeId","homeName","awayId","awayName","homeScore","awayScore","homeHalfScore","awayHalfScore",
+                        "homeRed","awayRed","homeYellow","awayYellow","homeCorner","awayCorner","homeRank","awayRank","season","stageId",
+                        "round","group","location","weather","temperature","explain","hasLineup","neutral","injuryTime","updateTime","var",
+                    ]);
                 }
                 $ids = collect($liveScore['data'])->pluck('matchId');
+                Cache::forget('live-score');
                 Cache::put('live-score-change', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));
             }else{
                 return response($liveScore, 401);
             }
             if($request['matchId']) {
-                Cache::put('live-score-change-' . $request['matchId'], Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId'));
+                Cache::put('live-score-change-' . $request['matchId'],
+                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId'));
             }
         }
 

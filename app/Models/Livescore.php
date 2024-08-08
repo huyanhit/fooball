@@ -49,4 +49,5 @@ class Livescore extends Model
         "injuryTime",
         "updateTime"
     ];
+
 }

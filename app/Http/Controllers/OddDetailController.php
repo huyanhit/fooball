@@ -51,7 +51,11 @@ class OddDetailController extends Controller
             ]);
         }
 
-        return response(['code'=> 0, 'data' => Cache::get('odd-main')]);
+        return response(['code'=> 0, 'data' => Cache::has('odd-main')?Cache::get('odd-main'):OddDetail::whereIn('key', [1, 2])
+            ->where('matchId', $request['matchId'])->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
+                return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
+            })
+        ]);
     }
 
     public function change(Request $request)
@@ -67,7 +71,7 @@ class OddDetailController extends Controller
                     return response($odd);
                 }
             }
-
+            Cache::forget('odd-main');
             Cache::put('odd-change', OddDetail::where('key', 2)
                 ->whereIn('matchId', $matchIds)->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;

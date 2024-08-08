@@ -44,7 +44,7 @@ class OddDetailController extends Controller
 
     public function change(Request $request)
     {
-        $this->setTimeRequest(20);
+        $this->setTimeRequest(30);
         $matchIds = Cache::get('live-score-ids');
         if($this->checkSaveRequest($request['save'], new OddDetail())){
             $odds[2] = $this->getJsonAPI('odds/main/changes');

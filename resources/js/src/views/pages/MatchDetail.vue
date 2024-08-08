@@ -555,7 +555,7 @@ onUnmounted(()=>{
 const reload = function () {
     data.intervalL = setInterval(() => {
         store.getLiveScore({matchId: route.params.match_id});
-    }, 600*1000);
+    }, 60*1000);
     data.intervalO = setInterval(() => {
         store.getOddChange({matchId: route.params.match_id});
         store.getLiveScoreChange();

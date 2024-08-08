@@ -128,11 +128,7 @@
                                     </span>
                                     <span>
                                         <span class="badge text-body fs-14" >{{ item.homeScore }}</span>
-                                        <span
-                                            class="badge rounded-pill border-dark text-body hover:bg-gray-200 cursor-pointer relative top-[-2px]"
-                                            v-if="[0].includes(item.status)"> 1 tip
-                                        </span>
-                                        <span v-else> - </span>
+                                        <span > - </span>
                                         <span class="badge text-body fs-14">{{ item.awayScore }}</span>
                                     </span>
                                     <span class="relative">

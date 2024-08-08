@@ -32,29 +32,21 @@ class LiveScoreController extends Controller
                         "round","group","location","weather","temperature","explain","hasLineup","neutral","injuryTime","updateTime","var",
                     ]);
                 }
-                Cache::put('live-score', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));
             }else{
                 return response($liveScore, 401);
-            }
-            if($request['matchId']) {
-                Cache::put('live-score-' . $request['matchId'],
-                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId'));
             }
         }
 
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' => Cache::has('live-score-'.$request['matchId'])?
-                    Cache::get('live-score-'.$request['matchId']):
-                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
+                'data' => Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
             ]);
         }
 
         return response(['code'=> 0,
             'system' => $this->getServerInfo(),
-            'data' => Cache::has('live-score')? Cache::get('live-score'):
-                Livescore::whereIn('matchId', Cache::get('live-score-ids'))->get()->keyBy('matchId')
+            'data'   => Livescore::whereIn('matchId', Cache::get('live-score-ids'))->get()->keyBy('matchId')
         ]);
     }
 
@@ -74,23 +66,16 @@ class LiveScoreController extends Controller
                     ]);
                 }
                 $ids = collect($liveScore['data'])->pluck('matchId');
-                Cache::forget('live-score');
                 Cache::put('live-score-change', Livescore::whereIn('matchId', $ids)->get()->keyBy('matchId'));
             }else{
                 return response($liveScore, 401);
-            }
-            if($request['matchId']) {
-                Cache::put('live-score-change-' . $request['matchId'],
-                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId'));
             }
         }
 
         if($request['matchId']){
             return response(['code'=> 0,
                 'system' => $this->getServerInfo(),
-                'data' => Cache::has('live-score-change-'.$request['matchId'])?
-                    Cache::get('live-score-change-'.$request['matchId']):
-                    Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
+                'data'   => Livescore::where('matchId', $request['matchId'])->get()->keyBy('matchId')
             ]);
         }
 

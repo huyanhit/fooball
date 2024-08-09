@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Cache;
+
 class Controller extends BaseController {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -42,14 +44,14 @@ class Controller extends BaseController {
     public function setTimeRequest($second){
         $this->timeRequest = $second;
     }
-    public function checkSaveRequest($save, $model): bool
+    public function checkSaveRequest($save, $api): bool
     {
         if($save){
             return true;
         }else if($this->timeRequest > 0){
-            $getTime = $model::orderBy('updated_at','desc')->first();
-            if(empty($getTime)) return true;
-            if(Carbon::now()->diffInSeconds($getTime->updated_at) > $this->timeRequest){
+            $getTime = Cache::has('updated_'.$api)? Cache::get('updated_'.$api): 0;
+            if(!$getTime || (Carbon::now()->diffInSeconds($getTime) > $this->timeRequest)){
+                Cache::put('updated_'.$api, Carbon::now());
                 return true;
             }
         }

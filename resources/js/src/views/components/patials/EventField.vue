@@ -26,11 +26,11 @@
         2: '<i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-red-500 fs-[20px]"></i>',
         3: '<i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-yellow-500 fs-[20px]"></i>',
         7: '<i class="ri-git-commit-line text-gray-500"></i>',
-        8: '<i class="ri-football-fill text-red-500"></i> Phản lưới nhà',
+        8: '<i class="ri-football-fill text-red-500"></i>',
         9: '<i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-yellow-500 fs-[20px]"></i>' +
            '<i class="ri ri-rectangle-fill inline-block rotate-[100deg] text-yellow-500 fs-[20px]"></i>',
         11: '<i class="ri-group-line text-blue-500"></i>',
-        13: '<i class="ri-close-circle-line text-gray-500"></i> Hỏng phạt đền',
+        13: '<i class="ri-close-circle-line text-gray-500"></i>',
         14: '<i class="ri-vidicon-line text-gray-500"></i>'
     }
     const stylePlayer = function (name){

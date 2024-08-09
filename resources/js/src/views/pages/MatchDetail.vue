@@ -236,8 +236,8 @@
     <div class="bg-white border-top-dashed my-3 p-3">
         <div class="text-center mt-3">
             <div class="d-flex justify-content-around fs-18 fw-bold my-2">
-                <span class="text-green-500">{{data.match['homeName']}}</span>
-                <span class="text-red-500">{{data.match['awayName']}}</span>
+                <span class="text-orange-700">{{data.match['homeName']}}</span>
+                <span class="text-blue-700">{{data.match['awayName']}}</span>
             </div>
             <table class="table table-striped table-bordered mt-3" >
                 <tbody>

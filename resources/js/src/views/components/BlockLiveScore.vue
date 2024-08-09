@@ -16,31 +16,31 @@
                       @click="changeStatus('reset')">Xóa</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'live'}"
-                      @click="changeStatus('live')">Đang diển ra</span>
+                      @click="changeStatus('live')">Live</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'not_start'}"
-                      @click="changeStatus('not_start')">chưa đá</span>
+                      @click="changeStatus('not_start')">Chưa đá</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'first_half'}"
-                      @click="changeStatus('first_half')">hiệp 1</span>
+                      @click="changeStatus('first_half')">Hiệp 1</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'half_time'}"
-                      @click="changeStatus('half_time')">giữa hiệp</span>
+                      @click="changeStatus('half_time')">Giữa hiệp</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'second_half'}"
-                      @click="changeStatus('second_half')">hiệp 2</span>
+                      @click="changeStatus('second_half')">Hiệp 2</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'extra_time'}"
-                      @click="changeStatus('extra_time')">bù giờ</span>
+                      @click="changeStatus('extra_time')">Bù giờ</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'penalty'}"
-                      @click="changeStatus('penalty')">penalty</span>
+                      @click="changeStatus('penalty')">Penalty</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'finish'}"
-                      @click="changeStatus('order')">kết thúc</span>
+                      @click="changeStatus('order')">Kết thúc</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'order'}"
-                      @click="changeStatus('order')">khác</span>
+                      @click="changeStatus('order')">Khác</span>
             </div>
             <table>
                 <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">

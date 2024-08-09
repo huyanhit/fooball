@@ -20,7 +20,7 @@ export const useAppStore = defineStore('app', {
         },
 
         page_show: 1,
-        is_status: '',
+        is_status: 'live',
         statuses: [1,2,3,4,5],
         keyword: '',
         likes: [],

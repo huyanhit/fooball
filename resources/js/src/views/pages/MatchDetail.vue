@@ -376,7 +376,7 @@ const reload = function () {
     data.intervalO = setInterval(() => {
         store.getOddChange({matchId: route.params.match_id});
         store.getLiveScoreChange();
-    }, 30*1000);
+    }, 300*1000);
 }
 
 const statusParse = function (status){

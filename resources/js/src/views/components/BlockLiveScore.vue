@@ -13,31 +13,34 @@
             </div>
             <div class="d-flex flex-row position-relative mb-2">
                 <span class="m-0 flex-shrink-1 fs-12 border rounded bg-gray-500 text-white px-1 cursor-pointer me-2"
-                      @click="changeStatus('reset')">Reset</span>
+                      @click="changeStatus('reset')">Xóa</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'live'}"
-                      @click="changeStatus('live')">live</span>
+                      @click="changeStatus('live')">Đang diển ra</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'not_start'}"
-                      @click="changeStatus('not_start')">not start</span>
+                      @click="changeStatus('not_start')">chưa đá</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'first_half'}"
-                      @click="changeStatus('first_half')">first half</span>
+                      @click="changeStatus('first_half')">hiệp 1</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'half_time'}"
-                      @click="changeStatus('half_time')">half time</span>
+                      @click="changeStatus('half_time')">giữa hiệp</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'second_half'}"
-                      @click="changeStatus('second_half')">second half</span>
+                      @click="changeStatus('second_half')">hiệp 2</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'extra_time'}"
-                      @click="changeStatus('extra_time')">extra time</span>
+                      @click="changeStatus('extra_time')">bù giờ</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'penalty'}"
                       @click="changeStatus('penalty')">penalty</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
+                      :class="{'bg-red-400 text-white': store.is_status === 'finish'}"
+                      @click="changeStatus('order')">kết thúc</span>
+                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'order'}"
-                      @click="changeStatus('order')">order</span>
+                      @click="changeStatus('order')">khác</span>
             </div>
             <table>
                 <tr class="text-center uppercase h-[30px] bg-success text-white fs-12">
@@ -128,7 +131,7 @@
                                     </span>
                                     <span>
                                         <span class="badge text-body fs-14" >{{ item.homeScore }}</span>
-                                        <span > - </span>
+                                        <span> - </span>
                                         <span class="badge text-body fs-14">{{ item.awayScore }}</span>
                                     </span>
                                     <span class="relative">
@@ -246,7 +249,8 @@ const changeStatus = function (status){
         case 'second_half': store.statuses = [3]; break;
         case 'extra_time': store.statuses = [4]; break;
         case 'penalty': store.statuses = [5]; break;
-        case 'order': store.statuses = [-1,-10,-11,-12,-14]; break;
+        case 'finish': store.statuses = [-1]; break;
+        case 'order': store.statuses = [-10,-11,-12,-14]; break;
         case 'reset': store.statuses = []; store.is_status = ''; break;
     }
 }
@@ -275,7 +279,7 @@ const reload = function () {
     data.intervalO = setInterval( () => {
         store.getOddChange();
         store.getLiveScoreChange();
-    }, 30*1000);
+    }, 300*1000);
 }
 
 onUnmounted(()=>{

@@ -5,11 +5,11 @@
             <div class="d-flex flex-row position-relative mb-2">
                 <div class="flex-fill me-2">
                     <input type="text" class="form-control" v-model="store.keyword" @input="store.page_show = 1"
-                           placeholder="Lọc theo tên đội bóng"
+                           placeholder="Lọc theo tên đội bóng hoặc giải đấu"
                            autocomplete="off" id="search-options" value="">
                 </div>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Tìm thấy {{liveScoreFilter.length}} trận</span>
-                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">Trang {{store.page_show}}</span>
+                <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary p-2 me-1">{{store.page_show}}</span>
             </div>
             <div class="d-flex flex-row position-relative mb-2">
                 <span class="m-0 flex-shrink-1 fs-12 border rounded bg-gray-500 text-white px-1 cursor-pointer me-2"
@@ -58,8 +58,7 @@
                     <th style="width: 20%;">score</th>
                     <th style="width: 18%;">away</th>
                     <th style="width: 3%;"><i class="ri-flag-2-fill"></i></th>
-                    <th style="width: 3%;">FT</th>
-                    <th style="width: 5%;">Data</th>
+                    <th style="width: 7%; text-align: left;"><span class="pl-1">FT</span></th>
                     <td style="width: 18%; text-align: right">
                         <BDropdown variant="success" size="sm" dropend class="bookmaker min-w-[100px]">
                             <template #button-content>
@@ -81,7 +80,6 @@
                         <th style="width: 18%;"></th>
                         <th style="width: 20%;"></th>
                         <th style="width: 18%;"></th>
-                        <th style="width: 3%;"></th>
                         <th style="width: 3%;"></th>
                         <th style="width: 3%;"></th>
                         <td style="width: 18%;"></td>
@@ -152,10 +150,6 @@
                                 </td>
                                 <td>
                                     <div class="fs-11 hover:text-red-500" v-if="item.status === 1"> {{ item.homeHalfScore }}-{{ item.awayHalfScore }} </div>
-                                </td>
-                                <td>
-                                    <div class="fs-11 hover:text-red-500"><i class="ri-flag-2-fill"></i>
-                                    </div>
                                 </td>
                                 <td v-if="store.odds" class="relative">
                                     <div @mouseenter.prevent.stop="data.showOdd = []; data.showOdd[item.id] = true"
@@ -293,10 +287,12 @@ const liveScoreFilter = computed(() =>{
         if (store.is_status){
             return store.statuses.includes(item.status) && (
                    (item.homeName && item.homeName.toLowerCase().includes(store.keyword.toLowerCase()))
-                || (item.awayName && item.awayName.toLowerCase().includes(store.keyword.toLowerCase())))
+                || (item.awayName && item.awayName.toLowerCase().includes(store.keyword.toLowerCase()))
+                || (item.leagueName && item.leagueName.toLowerCase().includes(store.keyword.toLowerCase())))
         }else{
             return ((item.homeName && item.homeName.toLowerCase().includes(store.keyword.toLowerCase()))
-                || (item.awayName && item.awayName.toLowerCase().includes(store.keyword.toLowerCase())))
+                || (item.awayName && item.awayName.toLowerCase().includes(store.keyword.toLowerCase()))
+                || (item.leagueName && item.leagueName.toLowerCase().includes(store.keyword.toLowerCase())))
         }
     })
 

@@ -28,7 +28,7 @@ class OddDetailController extends Controller
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', 1)->where('matchId', $request['matchId'])
+            return response(['code'=> 0, 'data' => OddDetail::where(['key' => 1, 'matchId' => $request['matchId']])
                 ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
@@ -63,9 +63,8 @@ class OddDetailController extends Controller
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::where('key',  2)
-                    ->whereIn('matchId', $request['matchId'])->orderBy('changeTime', 'desc')
-                    ->get()->groupBy(function ($item){
+            return response(['code'=> 0, 'data' => OddDetail::where(['key' => 2, 'matchId' => $request['matchId']])
+                    ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
             ]);

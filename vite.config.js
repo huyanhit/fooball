@@ -21,12 +21,17 @@ export default defineConfig({
             include: path.resolve("resources/js/src/locales/**"),
         }),
     ],
+    server: {
+        hmr: {
+            host: "https://toyota-hanoi.net",
+            protocol: "ws",
+        },
+    },
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
             "@": path.resolve("./resources/js/src"),
         },
-
     },
     optimizeDeps: {
         include: ["quill"],

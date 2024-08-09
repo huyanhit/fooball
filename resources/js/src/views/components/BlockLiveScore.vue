@@ -37,7 +37,7 @@
                       @click="changeStatus('penalty')">Penalty</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'finish'}"
-                      @click="changeStatus('order')">Kết thúc</span>
+                      @click="changeStatus('finish')">Kết thúc</span>
                 <span class="m-0 flex-shrink-1 fs-12 border rounded border-gray-600 text-primary px-1 cursor-pointer me-2"
                       :class="{'bg-red-400 text-white': store.is_status === 'order'}"
                       @click="changeStatus('order')">Khác</span>

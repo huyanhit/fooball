@@ -18,7 +18,7 @@ class EventController extends Controller
     {
         $matchIds = Cache::get('live-score-ids');
         $this->setTimeRequest(30);
-        if($this->checkSaveRequest($request['save'], new Event())){
+        if($this->checkSaveRequest($request['save'], 'events')){
             $events = $this->getJsonAPI('events');
             if(isset($events['data'])){
                 foreach ($events['data'] as $value){
@@ -71,7 +71,6 @@ class EventController extends Controller
      */
     public function show($team)
     {
-        return response(Team::where('teamId', $team)->first());
     }
 
     /**

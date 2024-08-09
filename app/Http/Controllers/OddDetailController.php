@@ -16,7 +16,7 @@ class OddDetailController extends Controller
     {
         $matchIds = Cache::get('live-score-ids');
         $this->setTimeRequest(60);
-        if($this->checkSaveRequest($request['save'], new OddDetail())){
+        if($this->checkSaveRequest($request['save'], 'odds-main')){
             $odds[1] = $this->getJsonAPI('odds/main');
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){
@@ -28,14 +28,14 @@ class OddDetailController extends Controller
         }
 
         if($request['matchId']){
-            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', [1, 2])->where('matchId', $request['matchId'])
+            return response(['code'=> 0, 'data' => OddDetail::whereIn('key', 1)->where('matchId', $request['matchId'])
                 ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
             ]);
         }
 
-        return response(['code'=> 0, OddDetail::whereIn('key', [1, 2])->whereIn('matchId', $matchIds)
+        return response(['code'=> 0, OddDetail::where('key', 1)->whereIn('matchId', $matchIds)
             ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                 return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
             })
@@ -46,7 +46,7 @@ class OddDetailController extends Controller
     {
         $this->setTimeRequest(30);
         $matchIds = Cache::get('live-score-ids');
-        if($this->checkSaveRequest($request['save'], new OddDetail())){
+        if($this->checkSaveRequest($request['save'], 'odds-main-changes')){
             $odds[2] = $this->getJsonAPI('odds/main/changes');
             foreach ($odds as $key => $odd){
                 if(isset($odd['data'])){

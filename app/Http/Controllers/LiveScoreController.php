@@ -18,7 +18,7 @@ class LiveScoreController extends Controller
     public function index(Request $request)
     {
         $this->setTimeRequest(60);
-        if($this->checkSaveRequest($request['save'], new Livescore())){
+        if($this->checkSaveRequest($request['save'],'livescores')){
             $liveScore = $this->getJsonAPI('livescores');
             if(isset($liveScore['data'])){
                 $ids = collect($liveScore['data'])->pluck('matchId');
@@ -48,7 +48,7 @@ class LiveScoreController extends Controller
     public function change(Request $request)
     {
         $this->setTimeRequest(20);
-        if($this->checkSaveRequest($request['save'], new Livescore())){
+        if($this->checkSaveRequest($request['save'], 'livescores')){
             $liveScore = $this->getJsonAPI('livescores/changes');
             if(isset($liveScore['data'])){
                 foreach ($liveScore['data'] as $data){

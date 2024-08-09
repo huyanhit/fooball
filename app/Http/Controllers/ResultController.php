@@ -15,7 +15,7 @@ class ResultController extends Controller
      */
     public function index(Request $request)
     {
-        if($this->checkSaveRequest($request['save'], new Result()) || $request['live']){
+        if($this->checkSaveRequest($request['save'], 'schedule')){
             $results = $this->getJsonAPI('schedule/basic', ['leagueId' => $request['leagueId']]);
             if(isset($results['data'])){
                 if($request['save']){

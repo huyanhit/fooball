@@ -15,7 +15,7 @@ class PlayerController extends Controller
      */
     public function index(Request $request)
     {
-        if($this->checkSaveRequest($request['save'], new Player())){
+        if($this->checkSaveRequest($request['save'], 'player')){
             $players = $this->getJsonAPI('player');
             if(isset($players['data'])){
                 Player::upsert($players['data'], uniqueBy: ['playerId'],

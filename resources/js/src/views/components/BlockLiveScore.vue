@@ -198,6 +198,7 @@ const data = reactive({
 onMounted( async () => {
     store.getLiveScore();
     store.getOdds();
+    store.getOddChange();
     store.getBookmaker();
     reload();
 })
@@ -279,7 +280,7 @@ const reload = function () {
     data.intervalO = setInterval( () => {
         store.getOddChange();
         store.getLiveScoreChange();
-    }, 300*1000);
+    }, 60*1000);
 }
 
 onUnmounted(()=>{

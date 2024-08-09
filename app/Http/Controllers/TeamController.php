@@ -15,7 +15,7 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
-        if($this->checkSaveRequest($request['save'], new Team())){
+        if($this->checkSaveRequest($request['save'], 'team')){
             $teams = $this->getJsonAPI('team');
             if(isset($teams['data'])){
                 $chunk = array_chunk($teams['data'], 1000);
@@ -53,7 +53,13 @@ class TeamController extends Controller
      */
     public function show($team)
     {
-        return response(Team::where('teamId', $team)->first());
+        $team = Team::where('teamId', $team)->first();
+        /*$players = $this->getJsonAPI('player', ['teamId' => $team->teamId]);
+        if($players['data']){
+            $team->players = $players['data'];
+        }*/
+
+        return response($team);
     }
 
     /**

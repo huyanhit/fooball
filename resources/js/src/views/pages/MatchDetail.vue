@@ -249,17 +249,21 @@
                         <th style="width: 35%"></th>
                     </tr>
                     <template v-for="(item, index) in store.events[route.params.match_id]" :key="index">
-                        <EventField :event="item"/>
+                        <event-field :event="item"/>
                     </template>
                 </tbody>
             </table>
         </div>
     </div>
+    <div class="w-100 bg-white">
+        <h2 class="text-center pt-3">Tech Statistics</h2>
+        <field-statistic :match="data.match"/>
+    </div>
     <div class="bg-white border-top-dashed my-3 p-3">
         <!-- Bordered Tables -->
         <div class="text-center">
             <div class="fs-24 fw-bold my-2">Team Statistics</div>
-            <table class="table table-bordered mt-3">
+            <table class="table table-striped table-bordered mt-3">
                     <tbody><tr align="center">
                         <th>Home</th>
                         <th>Recent 3 Matches</th>
@@ -338,6 +342,8 @@ import ImageFile from "@/views/components/patials/ImageFile.vue";
 import TimeLiveConvert from "@/views/components/patials/TimeLiveConvert.vue";
 import FieldOdd from "@/views/components/patials/FieldOdd.vue";
 import EventField from "@/views/components/patials/EventField.vue";
+import {BProgress} from "bootstrap-vue-next";
+import FieldStatistic from "@/views/components/patials/FieldStatistic.vue";
 
 const props = defineProps(['match']);
 const store = useAppStore();
@@ -376,7 +382,7 @@ const reload = function () {
     data.intervalO = setInterval(() => {
         store.getOddChange({matchId: route.params.match_id});
         store.getLiveScoreChange();
-    }, 300*1000);
+    }, 60*1000);
 }
 
 const statusParse = function (status){

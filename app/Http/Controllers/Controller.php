@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Cache;
 class Controller extends BaseController {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    const API_KEY_2 = '?api_key=YLYolSxM4O1N78Ij';
-    const API_KEY = '?api_key=ZS7RR6ijpzY3iiM3';
+    const API_KEY = '?api_key=YLYolSxM4O1N78Ij';
+    const API_KEY_2 = '?api_key=ZS7RR6ijpzY3iiM3';
     const API_KEY_3 = '?api_key=JHPZ4oMu9KJhGJ5w';
 
     const API_CHANEL = 'sport/football/';

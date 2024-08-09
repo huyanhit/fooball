@@ -23,7 +23,7 @@ export default defineConfig({
     ],
     server: {
         hmr: {
-            host: "https://toyota-hanoi.net",
+            host: "toyota-hanoi.net",
             protocol: "ws",
         },
     },

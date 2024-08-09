@@ -21,6 +21,10 @@ export default defineConfig({
             include: path.resolve("resources/js/src/locales/**"),
         }),
     ],
+    server: {
+        https: true,
+        host: 'toyota-hanoi.net',
+    },
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',

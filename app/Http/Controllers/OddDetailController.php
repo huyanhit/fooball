@@ -55,8 +55,8 @@ class OddDetailController extends Controller
                     return response($odd);
                 }
             }
-            Cache::put('odd-change', OddDetail::where('key', 2)
-                ->whereIn('matchId', $matchIds)->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
+            Cache::put('odd-change', OddDetail::where('key', 2)->whereIn('matchId', $matchIds)
+                ->orderBy('changeTime', 'desc')->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
             );
@@ -64,7 +64,7 @@ class OddDetailController extends Controller
 
         if($request['matchId']){
             return response(['code'=> 0, 'data' => OddDetail::where('key',  2)
-                    ->where('matchId', $request['matchId'])->orderBy('changeTime', 'desc')
+                    ->whereIn('matchId', $request['matchId'])->orderBy('changeTime', 'desc')
                     ->get()->groupBy(function ($item){
                     return $item->type.'_'.$item->key.'_'.$item->companyId.'_'.$item->matchId.'_'.$item->OddsType;
                 })
